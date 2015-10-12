@@ -64,7 +64,7 @@
             </Border.Background>
             <TextBlock FontSize="18"
               Margin="10"
-              Text="Please Login To Access This Application" />
+              Text="Please Login To Access This Program" />
         </Border>
 
         <TextBlock Grid.Column="1"
@@ -94,9 +94,9 @@
           Height="75"
           Effect="{StaticResource shadowWindow}"
           ToolTipService.ToolTip="Cancel">
-                <Image Source="Images/1444684136_remove-80px.png" />
-            </Button>
-            <Button Name="btnLogin"
+          <Image Source="Images/1444684136_remove-80px.png" />
+          </Button>
+          <Button Name="btnLogin"
           Click="btnLogin_Click"
           IsDefault="True"
           Width="75"
