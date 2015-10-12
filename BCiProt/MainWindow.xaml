@@ -1,0 +1,253 @@
+﻿<Window x:Class="BCiProt.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BCiProt"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+        Title="BCi Transcoder" Height="400" Width="600" Icon="Images/1444317552_App_Services_copy_Amazon_Elastic_Transcoder.ico">
+    <Window.Resources>
+        <Style TargetType="{x:Type GridViewColumnHeader}">
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+        </Style>
+    </Window.Resources>
+    <!--<Window.CommandBindings>
+        <CommandBinding Command="New" CanExecute="CommonCommandBinding_CanExecute" />
+        <CommandBinding Command="Open" CanExecute="CommonCommandBinding_CanExecute" />
+        <CommandBinding Command="Save" CanExecute="CommonCommandBinding_CanExecute" />
+    </Window.CommandBindings>-->
+
+    <DockPanel>
+        <!-- Main tool bar at the top -->
+        <ToolBarTray DockPanel.Dock="Top">
+            <ToolBar>
+                <Button Command="New" 
+                        Content="New" 
+                        ToolBar.OverflowMode="AsNeeded"/>
+                <Button Command="Open" 
+                        Content="Open" 
+                        ToolBar.OverflowMode="AsNeeded"/>
+                <Button Command="Save" 
+                        Content="Save" 
+                        ToolBar.OverflowMode="AsNeeded"/>
+            </ToolBar>
+            <ToolBar>
+                <Button Command="Cut" 
+                        ToolTip="Cut selection to Windows Clipboard."
+                        ToolBar.OverflowMode="AsNeeded">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="/Images/1444411632_cut.png" Height="24" Width="24" />
+                        <TextBlock Margin="3,0,0,0">Cut</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button Command="Copy" 
+                        ToolTip="Copy selection to Windows Clipboard."
+                        ToolBar.OverflowMode="AsNeeded">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="/Images/1444411642_copy.png" Height="24" Width="24" />
+                        <TextBlock Margin="3,0,0,0">Copy</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button Command="Paste" ToolTip="Paste from Windows Clipboard.">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="/Images/1444411649_paste.png" Height="24" Width="24" />
+                        <TextBlock Margin="3,0,0,0">Paste</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Separator />
+                <Label VerticalAlignment="Center">Font size:</Label>
+                <ComboBox>
+                    <ComboBoxItem>10</ComboBoxItem>
+                    <ComboBoxItem IsSelected="True">12</ComboBoxItem>
+                    <ComboBoxItem>14</ComboBoxItem>
+                    <ComboBoxItem>16</ComboBoxItem>
+                </ComboBox>
+            </ToolBar>
+        </ToolBarTray>
+
+        <!-- This will be my sidebar with extra options -->
+        <ToolBarTray DockPanel.Dock="Left" Orientation="Vertical">
+            <ToolBar>
+                <Button ToolTip="Go to Youtube downloader">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="/Images/1444325688_icon-32-clipboard-edit.png" Height="24" Width="24" />
+                        <TextBlock FontSize="6" Margin="0,0,0,0">Youtube</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button ToolTip="Go to our page on Facebook">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="/Images/1444326007_icon-70-document-code.png"  Height="24" Width="24"/>
+                        <TextBlock FontSize="6" Margin="0,0,0,0">Facebook</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button ToolTip="Go to do something else on Tweeter.">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="/Images/1444328473_05-myhouse.png" Height="24" Width="24"/>
+                        <TextBlock FontSize="6" Margin="0,0,0,0">Tweeter</TextBlock>
+                    </StackPanel>
+                </Button>
+            </ToolBar>
+        </ToolBarTray>
+
+        <!-- Main Grid -->
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+        </Grid>
+
+        <!-- Status Bar - at the bottom -->
+        <StatusBar DockPanel.Dock="Bottom" Height="24">
+            <!-- the grid of the items on the status bar -->
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
+            <StatusBarItem>
+                <TextBlock Name="MyDate" Text="{Binding Source={x:Static sys:DateTime.Now}, Mode = OneWay, StringFormat='{}{0:dddd d MMM yyyy}'}"/>
+            </StatusBarItem>
+            <Separator Grid.Column="1" />
+            <StatusBarItem Grid.Column="2">
+                <TextBlock Text=" Number of current tasks: "/>
+            </StatusBarItem>
+            <StatusBarItem Grid.Column="3">
+                <TextBlock Text=" 6 "/>
+            </StatusBarItem>
+            <Separator Grid.Column="4" />
+            <StatusBarItem Grid.Column="5">
+                <TextBlock Text=" Number of active trancoders: "/>
+            </StatusBarItem>
+            <StatusBarItem Grid.Column="6">
+                <TextBlock Text=" 4 "/>
+            </StatusBarItem>
+
+        </StatusBar>
+
+        <!-- Transcoder choice and main tasks buttons panel it is located in 0,0 -->
+        <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Horizontal" Margin="0,6,0,0">
+                <StackPanel Orientation="Vertical" Margin="0,0,0,0">
+                    <TextBlock TextWrapping="Wrap" Margin="6,12,6,0">Choose a Transcoder.</TextBlock>
+                    <ComboBox Margin="6,12,6,0" 
+                          ToolTip="To assign a task to or to view more details">
+                        <ComboBoxItem>Transcoder 1</ComboBoxItem>
+                        <ComboBoxItem IsSelected="True">Transcoder 1</ComboBoxItem>
+                        <ComboBoxItem>Transcoder 2</ComboBoxItem>
+                        <ComboBoxItem>Transcoder 3</ComboBoxItem>
+                    </ComboBox>
+                    <TextBlock TextWrapping="Wrap" Margin="6,6,6,0">Or create a new one</TextBlock>
+                    <Button Margin="6,6,6,0">Create Transcoder</Button>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Margin="0,0,0,0">
+                    <TextBlock TextWrapping="Wrap" Margin="6,12,6,0">Transcoder Options</TextBlock>
+                    <Button Margin="6,12,6,0">Assign Task</Button>
+                    <Button Margin="6,6,6,0">View Tasks</Button>
+                    <Button Margin="6,6,6,0">View more details</Button>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,12,0,0">
+                <StackPanel Orientation="Vertical" Margin="0,0,0,0">
+                    <TextBlock TextWrapping="Wrap" Margin="6,12,6,0">Choose a Profile.</TextBlock>
+                    <ComboBox Margin="6,12,6,0" 
+                          ToolTip="To assign a task to or to view more details">
+                        <ComboBoxItem>Profile 1</ComboBoxItem>
+                        <ComboBoxItem IsSelected="True">Profile 1</ComboBoxItem>
+                        <ComboBoxItem>Profile 2</ComboBoxItem>
+                        <ComboBoxItem>Profile 3</ComboBoxItem>
+                    </ComboBox>
+                    <TextBlock TextWrapping="Wrap" Margin="6,6,6,0">Or create a new one</TextBlock>
+                    <Button Margin="6,6,6,0">Create Profile</Button>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Margin="6,0,0,0">
+                    <TextBlock TextWrapping="Wrap" Margin="6,12,6,0">Profile Options</TextBlock>
+                    <Button Margin="6,12,6,0">ModifyProfile</Button>
+                    <Button Margin="6,6,6,0">View Profiles</Button>
+                    <Button Margin="6,6,6,0">View more details</Button>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+        <!-- Active transcoding tasks panel, it is located in 0, 1 -->
+        <StackPanel Grid.Column="1">
+            <StackPanel Orientation="Vertical" Margin="6,12,6,0">
+                <TextBox DockPanel.Dock="Top" Margin="0,6,0,6" Name="txtFilter" TextChanged="txtFilter_TextChanged" />
+                <!-- list view with Colum sorting -->
+                <ListView Name="lvUsers">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Width="Auto" DisplayMemberBinding="{Binding Transcoder}">
+                                <GridViewColumn.Header>
+                                    <GridViewColumnHeader Tag="Transcoder" Click="lvUsersColumnHeader_Click">Transcoder</GridViewColumnHeader>
+                                </GridViewColumn.Header>
+                            </GridViewColumn>
+                            <GridViewColumn Width="80" DisplayMemberBinding="{Binding currentState}">
+                                <GridViewColumn.Header>
+                                    <GridViewColumnHeader Tag="OnOff" Click="lvUsersColumnHeader_Click">Current State</GridViewColumnHeader>
+                                </GridViewColumn.Header>
+                            </GridViewColumn>
+                            <GridViewColumn Width="Auto" DisplayMemberBinding="{Binding NumberOfTasks}">
+                                <GridViewColumn.Header>
+                                    <GridViewColumnHeader Tag="NumberOfTasks" Click="lvUsersColumnHeader_Click">Number Of Tasks</GridViewColumnHeader>
+                                </GridViewColumn.Header>
+                            </GridViewColumn>
+                            <GridViewColumn Width="Auto" DisplayMemberBinding="{Binding TaskType}">
+                                <GridViewColumn.Header>
+                                    <GridViewColumnHeader Tag="TaskType" Click="lvUsersColumnHeader_Click">Task Type</GridViewColumnHeader>
+                                </GridViewColumn.Header>
+                            </GridViewColumn>
+
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </StackPanel>
+            <!-- Old transcoding tasks panel, it is located in 1, 1 -->
+            <StackPanel Orientation="Vertical" Margin="6,12,0,0">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock TextWrapping="Wrap" Margin="6,12,6,0">Recently Completed Tasks.</TextBlock>
+                    <ListView Margin="0,6,0,6">
+                        <ListViewItem>A ListView</ListViewItem>
+                        <ListViewItem IsSelected="True">with several</ListViewItem>
+                        <ListViewItem>items</ListViewItem>
+                    </ListView>
+                </StackPanel>
+                <StackPanel Orientation="Vertical">
+                    <TextBlock TextWrapping="Wrap" Margin="6,12,6,0">Event Log.</TextBlock>
+                    <ListView Margin="0,6,0,6" Name="lvDataBinding">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <WrapPanel>
+                                    <TextBlock Text="EventName: " />
+                                    <TextBlock Text="{Binding EventName}" Foreground="BlueViolet" FontWeight="Bold" />
+                                    <TextBlock Text=", " />
+                                    <TextBlock Text=" Date Happened: " />
+                                    <TextBlock Text="{Binding Happened}" FontWeight="Bold" />
+                                    <TextBlock Text=" (" />
+                                    <TextBlock Text="{Binding EventNote}" FontWeight="Bold" />
+                                    <TextBlock Text=")" />
+                                </WrapPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+    </DockPanel>
+</Window>
