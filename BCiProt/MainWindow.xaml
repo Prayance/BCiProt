@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:BCiProt"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="BCi Transcoder" Height="400" Width="600" Icon="Images/1444317552_App_Services_copy_Amazon_Elastic_Transcoder.ico">
+        Title="BCi Transcoder" Height="500" Width="700" Icon="Images/1444317552_App_Services_copy_Amazon_Elastic_Transcoder.ico" Closing="Window_Closing">
     <Window.Resources>
         <Style TargetType="{x:Type GridViewColumnHeader}">
             <Setter Property="HorizontalContentAlignment" Value="Left" />

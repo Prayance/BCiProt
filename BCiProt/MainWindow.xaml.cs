@@ -94,6 +94,17 @@ namespace BCiProt
             AdornerLayer.GetAdornerLayer(listViewSortCol).Add(listViewSortAdorner);
             lvUsers.Items.SortDescriptions.Add(new SortDescription(sortBy, newDir));
         }
+
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            //messagebox appears
+            MessageBoxResult result = MessageBox.Show("Are you sure?", "Exit", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            //if user clicks cancel
+            if (result == MessageBoxResult.Yes)
+            {
+                Application.Current.Shutdown();
+            }
+        }
     }
 
     public enum OnOff { ON, OFF };
