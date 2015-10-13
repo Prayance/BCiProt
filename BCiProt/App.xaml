@@ -4,6 +4,17 @@
              xmlns:local="clr-namespace:BCiProt"
              StartupUri="LoginWindow.xaml">
     <Application.Resources>
-        
+        <DropShadowEffect x:Key="shadowWindow"
+                    Color="Black"
+                    Opacity=".55"
+                    ShadowDepth="12" />
+
+        <!--<ResourceDictionary x:Key="VisibilityConvert">
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <BooleanToVisibilityConverter x:Key="VisibilityConvertor"/>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>-->
     </Application.Resources>
 </Application>

@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Secure Login" 
         Width="500"
-        Height="300"
+        Height="340"
         WindowStartupLocation="CenterScreen"
         AllowsTransparency="True"
         WindowStyle="None"
@@ -15,97 +15,117 @@
         FocusManager.FocusedElement=
           "{Binding ElementName=txtUserName}">
 
-    <Window.Resources>
-        <DropShadowEffect x:Key="shadowWindow"
-                    Color="Black"
-                    Opacity=".75"
-                    ShadowDepth="12" />
-    </Window.Resources>
-
-
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition MinWidth="80" Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-
-        <Image Grid.Column="0"
-        Grid.Row="0"
-        Grid.RowSpan="3"
-        Effect="{StaticResource shadowWindow}"
-        VerticalAlignment="Top"
-        HorizontalAlignment="Left"
-        Name="imgKey"
-        Width="50"
-        Margin="8"
-        Source="Images/1444683994_Enter.png" />
-
-        <Border Grid.Column="1"
-        Grid.Row="0"
-        Grid.ColumnSpan="2"
-        Margin="4,10,4,20"
-        CornerRadius="10">
-            <Border.Background>
-                <LinearGradientBrush EndPoint="0.5,1"
-                          StartPoint="0.5,0">
-                    <GradientStop Color="#FFC7C2C2"
-                    Offset="0" />
-                    <GradientStop Color="#FF8D8787"
-                    Offset="1" />
-                </LinearGradientBrush>
-            </Border.Background>
-            <TextBlock FontSize="18"
-              Margin="10"
-              Text="Please Login To Access This Program" />
-        </Border>
-
-        <TextBlock Grid.Column="1"
-            Grid.Row="1"
-            Text="User Name" />
-        <TextBox Grid.Column="2"
-          Grid.Row="1"
-          ToolTipService.ToolTip="Enter Your User Name"
-          Name="txtUserName" />
-        <TextBlock Grid.Column="1"
-            Grid.Row="2"
-            Text="Password" />
-        <PasswordBox Grid.Column="2"
-              Grid.Row="2"
-              ToolTipService.ToolTip="Enter Your Password"
-              Name="txtPassword" />
-
-        <StackPanel Grid.Column="2"
-            Grid.Row="4"
-            Margin="4"
-            HorizontalAlignment="Right"
-            Orientation="Horizontal">
-            <Button Name="btnCancel"
-          Click="btnCancel_Click"
-          IsCancel="True"
-          Width="75"
-          Height="75"
-          Effect="{StaticResource shadowWindow}"
-          ToolTipService.ToolTip="Cancel">
-          <Image Source="Images/1444684136_remove-80px.png" />
-          </Button>
-          <Button Name="btnLogin"
-          Click="btnLogin_Click"
-          IsDefault="True"
-          Width="75"
-          Height="75"
-          Effect="{StaticResource shadowWindow}"
-          ToolTipService.ToolTip="Login">
-                <Image Source="Images/1444684143_tick.png" />
-            </Button>
+    <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Vertical">
+            <Image 
+                Margin="12,12,12,12"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Left"
+                Effect="{StaticResource shadowWindow}"
+                Name="imgKey"
+                Width="170"
+                Height="60"
+                Source="Images/transcoderLogoSample2.png"/>
+            <StackPanel Orientation="Vertical">
+                <TextBlock x:Name="DetailsText"
+                           HorizontalAlignment="Left"
+                           Width="180"
+                           Margin="12,6,6,6"
+                           FontSize="12"
+		                   TextWrapping="Wrap"
+		                   Text="Initial Text"
+		                   VerticalAlignment="Top"
+                           Loaded="DetailsText_Loaded"/>
+            </StackPanel>
+            <!-- TODO: This stackpanel should have it's height modified, depending on the above text -->
+            <StackPanel Orientation="Vertical">
+                <TextBlock Margin="12,110,12,0">           
+                    <Hyperlink NavigateUri="http://www.bcidigital.com/" 
+                               RequestNavigate="Hyperlink_RequestNavigate">
+                        BCi Digital
+                    </Hyperlink>
+                </TextBlock>
+                <TextBlock Margin="12,0,12,0" Text="Copyright © 2015"/>
+            </StackPanel>
         </StackPanel>
-    </Grid>
+        <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Horizontal" Margin="12,12,12,12">
+                <Border 
+                    BorderThickness="2"
+                    BorderBrush="Gray"
+                    Margin="4,10,4,20"
+                    Effect="{StaticResource shadowWindow}"
+                    CornerRadius="10">
+                    <TextBlock FontSize="18"
+                    Margin="10"
+                    Text="BCi Digital Transcoder" FontStyle="Italic" />
+                </Border>
+            </StackPanel>
+
+            <TextBlock 
+                FontSize="14" 
+                Text="Login Form" 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center"/>
+            <TextBlock 
+                FontSize="10" 
+                Text="Please enter your credentials." 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center" 
+                FontStyle="Italic"/>
+            <StackPanel Orientation="Vertical" Margin="12,6,12,12">
+                <StackPanel Orientation="Horizontal"  Margin="0,6,0,6">
+                    <TextBlock 
+                        Text="User Name: " 
+                        FontSize="14"/>
+                    <TextBox 
+                        ToolTipService.ToolTip="Enter Your User Name"
+                        Name="txtUserName"
+                        FontSize="14"
+                        Margin="13,0,0,0"
+                        Width="160"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,6,0,0">
+                    <TextBlock Text="Password: " 
+                                   FontSize="14" />
+                    <PasswordBox 
+                        ToolTipService.ToolTip="Enter Your Password"
+                        Name="txtPassword" 
+                        FontSize="14"
+                        Margin="23,0,0,0"
+                        Width="160" />
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" Margin="12,12,12,12">
+                <local:ImageButton x:Name="LoginButton"
+                                   Image="/Images/1444684143_tick.png" 
+                                   ImageHeight="40"
+                                   ImageWidth="70"
+                                   Margin="0,0,12,0"
+                                   Content ="Login     "
+                                   Click="btnLogin_Click"
+                                   ToolTip="Click to login"/>
+                <local:ImageButton x:Name="CancelButton"
+                                   Image="/Images/1444684136_remove-80px.png" 
+                                   ImageHeight="40"
+                                   ImageWidth="70"
+                                   Click="btnCancel_Click"
+                                   Content ="Cancel     "
+                                   ToolTip="Click to Cancel and Exit the program."/>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel>
+                <local:ImageButton x:Name="ClearButton"
+                                   Margin="75,0,75,12"
+                                   Image="/Images/1444754075_Bin.png" 
+                                   ImageHeight="40"
+                                   ImageWidth="70"
+                                   Click="ClearButton_Click"
+                                   Content ="Clear     "
+                                   ToolTip="Click to Clear all the login fields and re-enter your credentials."/>
+            </StackPanel>
+        </StackPanel>
+    </StackPanel>
 </Window>
     
