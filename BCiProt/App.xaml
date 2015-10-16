@@ -1,13 +1,49 @@
 ﻿<Application x:Class="BCiProt.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:BCiProt"
-             StartupUri="LoginWindow.xaml">
+             xmlns:local="clr-namespace:BCiProt">
+    <!-- Removed the StartupUri="LoginWindow.xaml"-->
     <Application.Resources>
         <DropShadowEffect x:Key="shadowWindow"
                     Color="Black"
                     Opacity=".55"
                     ShadowDepth="12" />
+
+        <Style x:Key="labelBorder" TargetType="Border">
+            <Setter Property="BorderBrush" Value="Gainsboro" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="CornerRadius" Value="3" />
+        </Style>
+        <ResourceDictionary x:Key="TabContr">
+            <Style TargetType="TabItem">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="TabItem">
+                            <Grid Name="Panel">
+                                <ContentPresenter x:Name="ContentSite"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        ContentSource="Header"
+                                        Margin="10,2"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsSelected" 
+                                             Value="True">
+                                    <Setter TargetName="Panel" 
+                                                Property="Background" 
+                                                Value="LightSkyBlue" />
+                                </Trigger>
+                                <Trigger Property="IsSelected" Value="False">
+                                    <Setter TargetName="Panel" 
+                                                Property="Background" 
+                                                Value="White" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
 
         <!--<ResourceDictionary x:Key="VisibilityConvert">
             <ResourceDictionary.MergedDictionaries>

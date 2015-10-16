@@ -1,0 +1,215 @@
+﻿<Window x:Class="BCiProt.ProfileTab"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BCiProt"
+        mc:Ignorable="d"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        Title="BCi Transcoder - Profile Selection" Height="500" Width="700" 
+        Icon="Images/1444317552_App_Services_copy_Amazon_Elastic_Transcoder.ico" Closing="Window_Closing">
+
+    <DockPanel>
+        <!-- Main tool bar at the top -->
+        <!-- All the options will slowly be modified -->
+        <ToolBarTray DockPanel.Dock="Top">
+            <ToolBar>
+                <Button Command="New" 
+                        Content="New" 
+                        ToolBar.OverflowMode="AsNeeded"/>
+                <Button Command="Open" 
+                        Content="Open" 
+                        ToolBar.OverflowMode="AsNeeded"/>
+                <Button Command="Save" 
+                        Content="Save" 
+                        ToolBar.OverflowMode="AsNeeded"/>
+            </ToolBar>
+            <ToolBar>
+                <Button Click="Button_Click"
+                        ToolTip="Go Back to Main Window"
+                        ToolBar.OverflowMode="AsNeeded">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="/Images/1445019496_back.png" Height="24" Width="24" />
+                        <TextBlock Margin="3,0,0,0">Go Back</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button Command="Copy" 
+                        ToolTip="Copy selection to Windows Clipboard."
+                        ToolBar.OverflowMode="AsNeeded">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="/Images/1444411642_copy.png" Height="24" Width="24" />
+                        <TextBlock Margin="3,0,0,0">Copy</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button Command="Paste" ToolTip="Paste from Windows Clipboard.">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="/Images/1444411649_paste.png" Height="24" Width="24" />
+                        <TextBlock Margin="3,0,0,0">Paste</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Separator />
+                <Label VerticalAlignment="Center">Font size:</Label>
+                <ComboBox>
+                    <ComboBoxItem>10</ComboBoxItem>
+                    <ComboBoxItem IsSelected="True">12</ComboBoxItem>
+                    <ComboBoxItem>14</ComboBoxItem>
+                    <ComboBoxItem>16</ComboBoxItem>
+                </ComboBox>
+            </ToolBar>
+            <ToolBar>
+                <Button x:Name="helpBut" 
+                        Click="helpBut_Click" 
+                        ToolTip="Click to view the help documents">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="/Images/1445026218_help-questionmark.png" Height="24" Width="24" />
+                        <TextBlock Margin="3,0,0,0">Help</TextBlock>
+                    </StackPanel>
+                </Button>
+            </ToolBar>
+        </ToolBarTray>
+
+        <!-- This will be my sidebar with extra options -->
+        <ToolBarTray DockPanel.Dock="Left" Orientation="Vertical">
+            <ToolBar>
+                <Button ToolTip="Go to Youtube downloader">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="/Images/1444325688_icon-32-clipboard-edit.png" Height="24" Width="24" />
+                        <TextBlock FontSize="6" Margin="0,0,0,0">Youtube</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button ToolTip="Go to our page on Facebook">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="/Images/1444326007_icon-70-document-code.png"  Height="24" Width="24"/>
+                        <TextBlock FontSize="6" Margin="0,0,0,0">Facebook</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button ToolTip="Go to do something else on Tweeter.">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="/Images/1444328473_05-myhouse.png" Height="24" Width="24"/>
+                        <TextBlock FontSize="6" Margin="0,0,0,0">Tweeter</TextBlock>
+                    </StackPanel>
+                </Button>
+            </ToolBar>
+        </ToolBarTray>
+
+        <!-- Status Bar - at the bottom -->
+        <StatusBar DockPanel.Dock="Bottom" Height="24">
+            <!-- the grid of the items on the status bar -->
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
+            <StatusBarItem>
+                <TextBlock Name="MyDate" Text="{Binding Source={x:Static sys:DateTime.Now}, Mode = OneWay, StringFormat='{}{0:dddd d MMM yyyy}'}"/>
+            </StatusBarItem>
+            <Separator Grid.Column="1" />
+            <StatusBarItem Grid.Column="2">
+                <TextBlock Text=" You have to fill in the options that are marked with a star."/>
+            </StatusBarItem>
+
+        </StatusBar>
+
+        <!-- Main Grid -->
+        <Grid>
+
+            <TabControl Margin="14,14,9.8,10.2" 
+                    BorderBrush="Gainsboro" Resources="{ StaticResource TabContr}">
+                <TabItem Header="General Profile Settings" x:Name="general" >
+                    <TextBlock Text="Note: the profile that I am designing is the data one at the moment"/>
+                </TabItem>
+                
+                <TabItem Header="Data Profile" x:Name="data">
+                    <!-- TODO: Create the data profile tab and then make it as a template. #
+                    Add the standar texts into a simple JSON and call it from there -->
+                    <StackPanel Orientation="Vertical" Margin="6,6,6,6">
+                        <Border Style="{StaticResource labelBorder}">
+                            <Label x:Name="Subtitle" 
+                                   HorizontalAlignment="Center"
+                                   Content="This is the subtitle. e.g. Data Profile edited Screen Text to be decided." 
+                                   FontSize="10"/>
+                        </Border>
+                        <StackPanel Orientation="Horizontal"  Margin="6,6,6,6">
+                            <Label 
+                                Content="Below are the main options for your new profile:" />
+                            <Label x:Name="ProfName" Content="Profile name for the General Profile Page" FontStyle="Oblique"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="6,6,6,6">
+                            <Label Content="Codec Choice:" Margin="6,6,6,6"/>
+                            <ComboBox Margin="6,6,6,6" ToolTip="Select the codec of your data profile.">
+                                <ComboBoxItem>codec 0</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True">codec 1</ComboBoxItem>
+                                <ComboBoxItem>codec 2</ComboBoxItem>
+                                <ComboBoxItem>codec 3</ComboBoxItem>
+                            </ComboBox>
+                            <Label Content="Data Bit Rate:" Margin="12,6,6,6"/>
+                            <TextBox x:Name="bitRate"
+                                     ToolTipService.ToolTip="Enter the data bit rate"
+                                     FontSize="12"
+                                     Margin="6,6,6,6"
+                                     Width="80"/>
+                            <Button Content="Data location" 
+                                    Click="Button_Click_1"
+                                    Margin="12,6,6,6" 
+                                    ToolTip="Click to choose your data location."/>
+                            <Label x:Name="dataLocation"
+                                     FontSize="12"
+                                     Margin="6,6,6,6"/>
+                        </StackPanel>
+                        <Label Content="Subtitle Settings" Margin="6,0,0,0"/>
+                        <StackPanel Orientation="Horizontal"  Margin="6,6,6,6">
+                            <StackPanel Orientation="Vertical"  Margin="0,6,6,6">
+                                <Label Content="Subtitle Codec" Margin="6,0,6,0"/>
+                                <ComboBox Margin="6,0,6,0" ToolTip="Select the codec of your data profile.">
+                                    <ComboBoxItem>sub codec 0</ComboBoxItem>
+                                    <ComboBoxItem IsSelected="True">sub codec 1</ComboBoxItem>
+                                    <ComboBoxItem>sub codec 2</ComboBoxItem>
+                                    <ComboBoxItem>sub codec 3</ComboBoxItem>
+                                </ComboBox>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical"  Margin="6,6,6,6">
+                                <Label Content="Subtitle Character Encoding" Margin="6,0,6,0"/>
+                                <ComboBox Margin="6,0,6,0" ToolTip="Select the codec of your data profile.">
+                                    <ComboBoxItem>sub Char codec 0</ComboBoxItem>
+                                    <ComboBoxItem IsSelected="True">sub Char codec 1</ComboBoxItem>
+                                    <ComboBoxItem>sub Char codec 2</ComboBoxItem>
+                                    <ComboBoxItem>sub Char codec 3</ComboBoxItem>
+                                </ComboBox>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical"  Margin="6,6,6,6">
+                                <Label Content="Subtitle Language" Margin="6,0,6,0"/>
+                                <ComboBox Margin="6,0,6,0" ToolTip="Select the codec of your data profile.">
+                                    <ComboBoxItem>Language 0</ComboBoxItem>
+                                    <ComboBoxItem IsSelected="True">Language 1</ComboBoxItem>
+                                    <ComboBoxItem>Language 2</ComboBoxItem>
+                                    <ComboBoxItem>Language 3</ComboBoxItem>
+                                </ComboBox>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"  Margin="6,6,6,6">
+                            <Button Content="Subtitle File Location" 
+                                    Click="Button_Click_2"
+                                    Margin="12,6,6,6" 
+                                    ToolTip="Click to choose your subtitle's file location."/>
+                            <Label x:Name="subtitleLocation"
+                                     FontSize="12"
+                                     Margin="6,6,6,6"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"  Margin="6,6,6,6">
+                           <!-- this section will be the same to every page. and will contain the save/clear and cancel buttons -->
+                        </StackPanel>
+                    </StackPanel>
+                </TabItem>
+                <TabItem Header="Audio Profile" x:Name="audio" />
+                <TabItem Header="Video Encoding Profile" x:Name="video" Margin="4.6,0,-4.6,0" />
+                <TabItem Header="Transport Profile" x:Name="transport" />
+            </TabControl>
+        </Grid>
+    </DockPanel>
+</Window>

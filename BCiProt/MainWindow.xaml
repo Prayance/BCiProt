@@ -175,7 +175,7 @@
                         <ComboBoxItem>Profile 3</ComboBoxItem>
                     </ComboBox>
                     <TextBlock TextWrapping="Wrap" Margin="6,6,6,0">Or create a new one</TextBlock>
-                    <Button Margin="6,6,6,0">Create Profile</Button>
+                    <Button Margin="6,6,6,0" Click="Button_Click" ToolTip="Click to view the Profiles tab and create your new profile">Create Profile</Button>
                 </StackPanel>
                 <StackPanel Orientation="Vertical" Margin="6,0,0,0">
                     <TextBlock TextWrapping="Wrap" Margin="6,12,6,0">Profile Options</TextBlock>

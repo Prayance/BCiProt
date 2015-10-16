@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BCiProt.SettingsManagement;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -46,6 +47,16 @@ namespace BCiProt
             eventLog.Add(new Event() { EventName = "Success", Happened = "Tuesday 09:00", EventNote = "my notes" });
             eventLog.Add(new Event() { EventName = "Failed", Happened = "Tuesday 15:00", EventNote = "notes 2" });
             lvDataBinding.ItemsSource = eventLog;
+
+            #region // User settings for resize
+            var userPrefs = new UserPreferences();
+
+            this.Height = userPrefs.WindowHeight;
+            this.Width = userPrefs.WindowWidth;
+            this.Top = userPrefs.WindowTop;
+            this.Left = userPrefs.WindowLeft;
+            this.WindowState = userPrefs.WindowState;
+            #endregion
         }
 
         private bool UserFilter(object item)
@@ -95,6 +106,13 @@ namespace BCiProt
             lvUsers.Items.SortDescriptions.Add(new SortDescription(sortBy, newDir));
         }
 
+        /// <summary>
+        /// Verifies that the user wants to close the window/ program
+        /// AND
+        /// Save the settings when the window is closing 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_Closing(object sender, CancelEventArgs e)
         {
             //messagebox appears
@@ -104,6 +122,32 @@ namespace BCiProt
             {
                 Application.Current.Shutdown();
             }
+            #region // Save the user settings for resize
+            var userPrefs = new UserPreferences();
+
+            userPrefs.WindowHeight = this.Height;
+            userPrefs.WindowWidth = this.Width;
+            userPrefs.WindowTop = this.Top;
+            userPrefs.WindowLeft = this.Left;
+            userPrefs.WindowState = this.WindowState;
+
+            userPrefs.Save();
+            #endregion
+        }
+
+        /// <summary>
+        /// Create new profile.
+        /// Takes you directly to profiles tab at the moment. 
+        /// To be verified
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            ProfileTab pt = new ProfileTab(); //we can send more than 1 parameters here.
+                                              // show Profile tab form object, and hide the mainwindow
+            pt.Show();
+            this.Hide();
         }
     }
 
