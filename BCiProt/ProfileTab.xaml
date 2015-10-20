@@ -4,11 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BCiProt"
+        xmlns:ViewModel="clr-namespace:BCiProt.Model"
         mc:Ignorable="d"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         Title="BCi Transcoder - Profile Selection" Height="500" Width="700" 
         Icon="Images/1444317552_App_Services_copy_Amazon_Elastic_Transcoder.ico" Closing="Window_Closing">
-
+        <Window.Resources>
+            <ViewModel:ViewModel x:Key="ViewModel"/>
+        </Window.Resources>
     <DockPanel>
         <!-- Main tool bar at the top -->
         <!-- All the options will slowly be modified -->
@@ -119,18 +122,42 @@
         <!-- Main Grid -->
         <Grid>
 
-            <TabControl Margin="14,14,9.8,10.2" 
+            <TabControl Margin="14,14,9.8,10.2" x:Name="myTab"
                     BorderBrush="Gainsboro" Resources="{ StaticResource TabContr}">
+                <!-- General Profile Settings -->
                 <TabItem Header="General Profile Settings" x:Name="general" >
-                    <TextBlock Text="Note: the profile that I am designing is the data one at the moment"/>
-                </TabItem>
-                
-                <TabItem Header="Data Profile" x:Name="data">
-                    <!-- TODO: Create the data profile tab and then make it as a template. #
-                    Add the standar texts into a simple JSON and call it from there -->
                     <StackPanel Orientation="Vertical" Margin="6,6,6,6">
                         <Border Style="{StaticResource labelBorder}">
-                            <Label x:Name="Subtitle" 
+                            <Label x:Name="GeneralSubtitle" 
+                                   HorizontalAlignment="Center"
+                                   Content="This is the subtitle. e.g. General Profile edited Screen Text to be decided." 
+                                   FontSize="10"/>
+                        </Border>
+                        <StackPanel Orientation="Horizontal"  Margin="6,6,6,6">
+                            <Label Content="Profile Name:" Margin="12,6,6,6"/>
+                            <TextBox x:Name="prName"
+                                     ToolTipService.ToolTip="Enter the data bit rate"
+                                     FontSize="12"
+                                     Margin="6,6,6,6"
+                                     Width="80"/>
+                            <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
+                            <Label Content="Profile Version:" Margin="12,6,6,6"/>
+                            <TextBox x:Name="prVersion"
+                                     ToolTipService.ToolTip="Enter the data bit rate"
+                                     FontSize="12"
+                                     Margin="6,6,6,6"
+                                     Width="80"/>
+                            <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                </TabItem>
+
+                <!-- Data Profile -->
+                <TabItem Header="Data Profile" x:Name="data">
+                    <StackPanel Orientation="Vertical" Margin="6,6,6,6">
+                        <Border Style="{StaticResource labelBorder}">
+                            <Label x:Name="DataSubtitle" 
                                    HorizontalAlignment="Center"
                                    Content="This is the subtitle. e.g. Data Profile edited Screen Text to be decided." 
                                    FontSize="10"/>
@@ -142,7 +169,7 @@
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="6,6,6,6">
                             <Label Content="Codec Choice:" Margin="6,6,6,6"/>
-                            <ComboBox Margin="6,6,6,6" ToolTip="Select the codec of your data profile.">
+                            <ComboBox x:Name="CodecCB" Margin="6,6,6,6" ToolTip="Select the codec of your data profile.">
                                 <ComboBoxItem>codec 0</ComboBoxItem>
                                 <ComboBoxItem IsSelected="True">codec 1</ComboBoxItem>
                                 <ComboBoxItem>codec 2</ComboBoxItem>
@@ -166,7 +193,7 @@
                         <StackPanel Orientation="Horizontal"  Margin="6,6,6,6">
                             <StackPanel Orientation="Vertical"  Margin="0,6,6,6">
                                 <Label Content="Subtitle Codec" Margin="6,0,6,0"/>
-                                <ComboBox Margin="6,0,6,0" ToolTip="Select the codec of your data profile.">
+                                <ComboBox x:Name="subCodecCB" Margin="6,0,6,0" ToolTip="Select the codec of your data profile.">
                                     <ComboBoxItem>sub codec 0</ComboBoxItem>
                                     <ComboBoxItem IsSelected="True">sub codec 1</ComboBoxItem>
                                     <ComboBoxItem>sub codec 2</ComboBoxItem>
@@ -202,13 +229,131 @@
                                      Margin="6,6,6,6"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal"  Margin="6,6,6,6">
-                           <!-- this section will be the same to every page. and will contain the save/clear and cancel buttons -->
+                            <!-- this section will be the same to every page. and will contain the save/clear and cancel buttons -->
                         </StackPanel>
                     </StackPanel>
                 </TabItem>
-                <TabItem Header="Audio Profile" x:Name="audio" />
+                <TabItem Header="Audio Profile" x:Name="audio">
+                    <StackPanel Orientation="Vertical">
+                        <Border Style="{StaticResource labelBorder}">
+                            <Label x:Name="AudioSubtitle" 
+                                   HorizontalAlignment="Center"
+                                   Content="This is the subtitle. e.g. Data Profile edited Screen Text to be decided." 
+                                   FontSize="10"/>
+                        </Border>
+                        <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                <Label Content="Audio Profile Name:"
+                                       HorizontalAlignment="Left"
+                                       Margin="6,6,6,6"/>
+                                <TextBox x:Name="AudioName"
+                                         ToolTipService.ToolTip="Enter the audio profile name"
+                                         FontSize="12"
+                                         Margin="6,6,6,6"
+                                         Width="100"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                <Label Content="Sample Type:"
+                                       HorizontalAlignment="Left"
+                                       Margin="6,6,6,6"/>
+                                <TextBox x:Name="sampleType"
+                                         ToolTipService.ToolTip="Enter the audio profile name"
+                                         FontSize="12"
+                                         Margin="6,6,6,6"
+                                         Width="100"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                <Label Content="Sample Rate Target:"
+                                       HorizontalAlignment="Left"
+                                       Margin="6,6,6,6"/>
+                                <TextBox x:Name="sampleRate"
+                                         ToolTipService.ToolTip="Enter the audio profile name"
+                                         FontSize="12"
+                                         Margin="6,6,6,6"
+                                         Width="100"/>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Grid.Column="1">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                <Label Content="Codec Name:"
+                                       HorizontalAlignment="Left"
+                                       Margin="6,6,6,6"/>
+                                <TextBox x:Name="codec"
+                                         ToolTipService.ToolTip="Enter the audio profile name"
+                                         FontSize="12"
+                                         Margin="6,6,6,6"
+                                         Width="100"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                <Label Content="Channels:"
+                                       HorizontalAlignment="Left"
+                                       Margin="6,6,6,6"/>
+                                <Grid Margin="6,6,6,6" DataContext="{Binding Source={StaticResource ViewModel}}">
+                                    <local:MultiSelectComboBox 
+                                        Width="100" 
+                                        Height="30"
+                                        ItemsSource="{Binding Items}"
+                                        SelectedItems="{Binding SelectedItems}"
+                                        x:Name="MSC" 
+                                        ToolTip="{Binding Path=Text, RelativeSource={RelativeSource Self}}"/>
+
+                                </Grid>
+                                <!--<ComboBox x:Name="channels" 
+                                          Margin="6,6,6,6" 
+                                          ToolTip="Select the codec of your data profile.">
+                                    <ComboBoxItem>FL - Front Left</ComboBoxItem>
+                                    <ComboBoxItem IsSelected="True">FR - Front Right</ComboBoxItem>
+                                    <ComboBoxItem>FC - Front Centre</ComboBoxItem>
+                                    <ComboBoxItem>LFE - Low Frequency Effects</ComboBoxItem>
+                                    <ComboBoxItem>BL - Back Left</ComboBoxItem>
+                                    <ComboBoxItem>BR - Back Right</ComboBoxItem>
+                                    <ComboBoxItem>FLC - Front Left Centre</ComboBoxItem>
+                                    <ComboBoxItem>FRC - Front Right Centre</ComboBoxItem>
+                                    <ComboBoxItem>BC - Back Centre</ComboBoxItem>
+                                    <ComboBoxItem>SL - Side Left</ComboBoxItem>
+                                    <ComboBoxItem>SR - Side Right</ComboBoxItem>
+                                </ComboBox>-->
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                <Label Content="Layout Type:"
+                                       HorizontalAlignment="Left"
+                                       Margin="6,6,6,6"/>
+                                <TextBox x:Name="layout"
+                                         ToolTipService.ToolTip="Enter the audio profile name"
+                                         FontSize="12"
+                                         Margin="6,6,6,6"
+                                         Width="100"/>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Grid.Column="2">
+
+                        </StackPanel>
+
+                        </Grid>
+                    </StackPanel>
+                </TabItem>
                 <TabItem Header="Video Encoding Profile" x:Name="video" Margin="4.6,0,-4.6,0" />
                 <TabItem Header="Transport Profile" x:Name="transport" />
+                <ListView x:Name="listView" Height="100" Width="100">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
             </TabControl>
         </Grid>
     </DockPanel>

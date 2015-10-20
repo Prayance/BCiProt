@@ -1,0 +1,65 @@
+﻿        #region Properties
+
+        public ObservableCollection<ProfileLVModel> ControlsList
+        {
+            get { return (ObservableCollection<ProfileLVModel>)GetValue(ControlListProperty); }
+            set { SetValue(ControlListProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ControlListProperty =
+            DependencyProperty.Register("ControlsList", typeof(ObservableCollection<ProfileLVModel>), typeof(ProfileTab), new PropertyMetadata(new ObservableCollection<ProfileLVModel>()));
+
+        public string ControlValue
+        {
+            get { return (string)GetValue(ControlValueProperty); }
+            set { SetValue(ControlValueProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ControlValueProperty =
+            DependencyProperty.Register("ControlValue", typeof(string), typeof(ProfileTab), new PropertyMetadata(string.Empty));
+
+        #endregion
+
+        private void PopulateControls()
+        {
+            ControlsList = new ObservableCollection<ProfileLVModel>();
+            ControlsList.Add(new ProfileLVModel { NameProperty = "Codec Choice", ProfilePropertyContext = CodecCB.Text, ObligatoryProperty = false });
+            ControlsList.Add(new ProfileLVModel { NameProperty = "Subtitle Content", ProfilePropertyContext = subCodecCB.Text, ObligatoryProperty = false });
+            ControlsList.Add(new ProfileLVModel { NameProperty = "Data Location", ProfilePropertyContext = dataLocation.Content.ToString(), ObligatoryProperty = false });
+            ControlsList.Add(new ProfileLVModel { NameProperty = "Profile Name", ProfilePropertyContext = prName.Text, ObligatoryProperty = true });
+            // and many more to go this is a test list
+            
+        }
+
+        public static IEnumerable<T> FindVisualChildren<T>(DependencyObject rootObject) where T : DependencyObject // and IEnumerable is a collection of objects
+        {
+            if (rootObject != null) // if the tabcontrol is not null
+            {
+                for (int i = 0; i < VisualTreeHelper.GetChildrenCount(rootObject); i++) // for every child of tab control aka for every tab item
+                {
+                    DependencyObject child = VisualTreeHelper.GetChild(rootObject, i);
+
+                    if (child != null && child is T)
+                        yield return (T)child;
+
+                    foreach (T childOfChild in FindVisualChildren<T>(child))
+                        yield return childOfChild;
+                }
+            }
+        }
+
+        private DependencyObject FindChildControl<T>(DependencyObject control)
+        {
+            int childNumber = VisualTreeHelper.GetChildrenCount(control);
+            for (int i = 0; i < childNumber; i++)
+            {
+                DependencyObject child = VisualTreeHelper.GetChild(control, i);
+                if (child != null && child is T)
+                    return child;
+                else
+                    FindChildControl<T>(child);
+            }
+            return null;
+        }

@@ -4,19 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A0160636-7E08-4E90-BB51-DF57ABCC6EFF}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <ProjectGuid>{AAF80897-A67A-4830-B656-C3A4482859A6}</ProjectGuid>
+    <OutputType>library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BCiProt</RootNamespace>
-    <AssemblyName>BCiProt</AssemblyName>
+    <RootNamespace>MultiSelectComboBox</RootNamespace>
+    <AssemblyName>MultiSelectComboBox</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -26,7 +24,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -51,59 +48,14 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
+    <Page Include="MultiSelectComboBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </ApplicationDefinition>
-    <Compile Include="Convertors\VisibilityConvertor.cs" />
-    <Compile Include="HelpPage.xaml.cs">
-      <DependentUpon>HelpPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Model\ViewModel.cs" />
-    <Compile Include="Model\ViewModelBase.cs" />
+    </Page>
     <Compile Include="MultiSelectComboBox.xaml.cs">
       <DependentUpon>MultiSelectComboBox.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ProfileTab.xaml.cs">
-      <DependentUpon>ProfileTab.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="SettingsManagement\UserPreferences.cs" />
-    <Page Include="HelpPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="LoginWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CustomControls\ImageButton.cs" />
-    <Compile Include="LoginWindow.xaml.cs">
-      <DependentUpon>LoginWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Page Include="MultiSelectComboBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ProfileTab.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\Generic.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -129,55 +81,6 @@
     </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\1444411632_cut.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\1444411642_copy.png" />
-    <Resource Include="Images\1444411649_paste.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\1444325688_icon-32-clipboard-edit.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\1444325824_icon-70-document-code.png" />
-    <Resource Include="Images\1444328473_05-myhouse.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\1444326007_icon-70-document-code.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\1444317552_App_Services_copy_Amazon_Elastic_Transcoder.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\transcoderLogo.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\1444683994_Enter.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\1444684136_remove-80px.png" />
-    <Resource Include="Images\1444684143_tick.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\transcoderLogoSample2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\1444754075_Bin.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\1445019496_back.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\1445026218_help-questionmark.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="DepricatedCode.txt" />
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

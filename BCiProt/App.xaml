@@ -2,18 +2,24 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:BCiProt">
+    
     <!-- Removed the StartupUri="LoginWindow.xaml"-->
+    
     <Application.Resources>
+        <!-- the shadow is visible effect -->
         <DropShadowEffect x:Key="shadowWindow"
                     Color="Black"
                     Opacity=".55"
                     ShadowDepth="12" />
 
+        <!-- The label styling -->
         <Style x:Key="labelBorder" TargetType="Border">
             <Setter Property="BorderBrush" Value="Gainsboro" />
             <Setter Property="BorderThickness" Value="2" />
             <Setter Property="CornerRadius" Value="3" />
         </Style>
+        
+        <!-- The tab page styling -->
         <ResourceDictionary x:Key="TabContr">
             <Style TargetType="TabItem">
                 <Setter Property="Template">
