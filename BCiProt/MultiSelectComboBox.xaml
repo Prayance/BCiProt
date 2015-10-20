@@ -41,10 +41,10 @@
                   x:Name="Border" 
                   Grid.ColumnSpan="2"
                   CornerRadius="2"
-                  Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}"
+                  Background="{DynamicResource {x:Static SystemColors.ScrollBarBrushKey}}"
                   BorderBrush="Black"
-                  BorderThickness="1,1,1,1" />
-                                    <Border 
+                  BorderThickness="0" />
+                  <Border 
                     x:Name="BorderComp" 
                   Grid.Column="0"
                   CornerRadius="2" 

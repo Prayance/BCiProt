@@ -63,12 +63,29 @@ namespace BCiProt.Model
 
         }
 
+        /// <summary>
+        ///  This method needs to be modified. it can return the keys of the selected items for the database.
+        /// </summary>
         private void Submit()
         {
             foreach (KeyValuePair<string, object> s in SelectedItems)
                 MessageBox.Show(s.Key);
         }
 
+
+        /// <summary>
+        /// modified version of the above. 
+        /// </summary>
+        /// <returns></returns>
+        public List<string> getKey()
+        {
+            List<string> myKeys = new List<string>();
+            foreach (KeyValuePair<string, object> s in SelectedItems)
+            {
+                myKeys.Add(s.Value.ToString());
+            }
+            return myKeys;
+        }
 
     }
 }

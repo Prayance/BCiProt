@@ -7,7 +7,7 @@
         xmlns:ViewModel="clr-namespace:BCiProt.Model"
         mc:Ignorable="d"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
-        Title="BCi Transcoder - Profile Selection" Height="500" Width="700" 
+        Title="BCi Transcoder - Profile Selection"  Height="500" Width="700" 
         Icon="Images/1444317552_App_Services_copy_Amazon_Elastic_Transcoder.ico" Closing="Window_Closing">
         <Window.Resources>
             <ViewModel:ViewModel x:Key="ViewModel"/>
@@ -105,6 +105,8 @@
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                     </Grid>
                 </ItemsPanelTemplate>
@@ -114,7 +116,11 @@
             </StatusBarItem>
             <Separator Grid.Column="1" />
             <StatusBarItem Grid.Column="2">
-                <TextBlock Text=" You have to fill in the options that are marked with a star."/>
+                <TextBlock x:Name="locationTextBlock" Text="Setup Profiles Tab"/>
+            </StatusBarItem>
+            <Separator Grid.Column="3" />
+            <StatusBarItem Grid.Column="4">
+                <TextBlock Text=" You have to fill in all the options that are marked with a star."/>
             </StatusBarItem>
 
         </StatusBar>
@@ -264,27 +270,30 @@
                                          FontSize="12"
                                          Margin="6,6,6,6"
                                          Width="100"/>
+                                <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                 <Label Content="Sample Type:"
                                        HorizontalAlignment="Left"
                                        Margin="6,6,6,6"/>
                                 <TextBox x:Name="sampleType"
-                                         ToolTipService.ToolTip="Enter the audio profile name"
+                                         ToolTipService.ToolTip="Enter the audio sample type"
                                          FontSize="12"
                                          Margin="6,6,6,6"
                                          Width="100"/>
-                            </StackPanel>
+                                    <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
+                             </StackPanel>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                 <Label Content="Sample Rate Target:"
                                        HorizontalAlignment="Left"
                                        Margin="6,6,6,6"/>
                                 <TextBox x:Name="sampleRate"
-                                         ToolTipService.ToolTip="Enter the audio profile name"
+                                         ToolTipService.ToolTip="Enter the number of sample rate target"
                                          FontSize="12"
                                          Margin="6,6,6,6"
                                          Width="100"/>
-                            </StackPanel>
+                                 <Label Content="*" FontSize="14" Margin="0,6,6,0" Visibility="Hidden"/>
+                              </StackPanel>
                         </StackPanel>
                         <StackPanel Orientation="Vertical" Grid.Column="1">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
@@ -292,10 +301,11 @@
                                        HorizontalAlignment="Left"
                                        Margin="6,6,6,6"/>
                                 <TextBox x:Name="codec"
-                                         ToolTipService.ToolTip="Enter the audio profile name"
+                                         ToolTipService.ToolTip="Enter the audio codec name"
                                          FontSize="12"
                                          Margin="6,6,6,6"
                                          Width="100"/>
+                                 <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                 <Label Content="Channels:"
@@ -308,10 +318,11 @@
                                         ItemsSource="{Binding Items}"
                                         SelectedItems="{Binding SelectedItems}"
                                         x:Name="MSC" 
-                                        ToolTip="{Binding Path=Text, RelativeSource={RelativeSource Self}}"/>
+                                        ToolTipService.ToolTip="Choose as many channels as you require."/>
 
                                 </Grid>
-                                <!--<ComboBox x:Name="channels" 
+                                    <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
+                                    <!--<ComboBox x:Name="channels" 
                                           Margin="6,6,6,6" 
                                           ToolTip="Select the codec of your data profile.">
                                     <ComboBoxItem>FL - Front Left</ComboBoxItem>
@@ -332,16 +343,297 @@
                                        HorizontalAlignment="Left"
                                        Margin="6,6,6,6"/>
                                 <TextBox x:Name="layout"
-                                         ToolTipService.ToolTip="Enter the audio profile name"
+                                         ToolTipService.ToolTip="Enter the layout type name"
                                          FontSize="12"
                                          Margin="6,6,6,6"
                                          Width="100"/>
+                                    <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
+                             </StackPanel>
+                        </StackPanel>
+                            <StackPanel Orientation="Vertical" Grid.Column="2">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Label Content="Language:"
+                                       HorizontalAlignment="Left"
+                                       Margin="6,6,6,6"/>
+                                    <ComboBox x:Name="language"
+                                              Margin="6,6,6,6" 
+                                              ToolTip="Select the audio language.">
+                                    </ComboBox>
+                                    <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Label Content="Bit Rate:"
+                                       HorizontalAlignment="Left"
+                                       Margin="6,6,6,6"/>
+                                    <TextBox x:Name="audioBitRate"
+                                         ToolTipService.ToolTip="Bitrate is in kbps."
+                                         FontSize="12"
+                                         Margin="6,6,6,6"
+                                         Width="100"/>
+                                    <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Label Content="Gain Target:"
+                                       HorizontalAlignment="Left"
+                                       Margin="6,6,6,6"/>
+                                    <TextBox x:Name="GainTarget"
+                                         ToolTipService.ToolTip="Enter the number of Gain Target."
+                                         FontSize="12"
+                                         Margin="6,6,6,6"
+                                         Width="100"/>
+                                    <Label Content="*" FontSize="14" Margin="0,6,6,0" Visibility="Hidden"/>
+                                </StackPanel>
                             </StackPanel>
-                        </StackPanel>
-                        <StackPanel Orientation="Vertical" Grid.Column="2">
-
-                        </StackPanel>
-
+                            <StackPanel Orientation="Vertical" Grid.Row="1">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Label Content="Maximum Frequency:"
+                                       HorizontalAlignment="Left"
+                                       Margin="6,6,6,6"/>
+                                    <TextBox x:Name="maxFrequency"
+                                         ToolTipService.ToolTip="Enter the max Frequence in Hz"
+                                         FontSize="12"
+                                         Margin="6,6,6,6"
+                                         Width="100"/>
+                                    <Label Content="*" FontSize="14" Margin="0,6,6,0" Visibility="Hidden"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Label Content="Minimum Frequency:"
+                                       HorizontalAlignment="Left"
+                                       Margin="6,6,6,6"/>
+                                    <TextBox x:Name="minFrequency"
+                                         ToolTipService.ToolTip="Enter the min Frequence in Hz."
+                                         FontSize="12"
+                                         Margin="6,6,6,6"
+                                         Width="100"/>
+                                    <Label Content="*" FontSize="14" Margin="0,6,6,0" Visibility="Hidden"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1">
+                                <CheckBox Margin="6,18,6,6">Gain Enabled</CheckBox>
+                                <CheckBox Margin="6,12,6,6">
+                                    <TextBlock 
+                                        ToolTipService.ToolTip="It defaults to NO. Check the box to allow pass through.">
+                                        Pass Through 
+                                        <Run Foreground="Red"> * </Run>
+                                    </TextBlock></CheckBox>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical" 
+                                        x:Name="WhatProfile"
+                                        Grid.Row="1" 
+                                        Grid.Column="2">
+                                <TextBlock x:Name="AC3Profile"
+                                           HorizontalAlignment="Left"
+                                           Width="260"
+                                           Margin="6,6,6,6"
+                                           FontSize="12"
+		                                   TextWrapping="Wrap"
+		                                   Text="AC3 Profile"
+		                                   VerticalAlignment="Top"
+                                           Loaded="AC3Profile_Loaded"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Margin="6,6,6,6"
+                                            HorizontalAlignment="Left"
+                                            Content="Proceed to AC3 Profile"
+                                            Click="Button_Click_3"
+                                            ToolTipService.ToolTip="Click to proceed with an AC3 Audio Profile."
+                                            Width="120"/>
+                                    <Button Margin="6,6,6,6"
+                                            HorizontalAlignment="Right"
+                                            Content="Save as Other Profile"
+                                            Click="Button_Click_4"
+                                            ToolTipService.ToolTip="Click to proceed with an other Audio Profile."
+                                            Width="120"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <!--Visibility hidden -->
+                            <StackPanel x:Name="AC3UpperLeft" 
+                                        Orientation="Vertical" 
+                                        Grid.Row="2" 
+                                        Visibility="Hidden">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Label Content="AC3 Coding Mode:"
+                                       HorizontalAlignment="Left"
+                                       Margin="6,6,6,6"/>
+                                    <ComboBox x:Name="codingMode" 
+                                          Margin="6,6,6,6" 
+                                          ToolTip="Select the coding mode for your AC3 Audio Profile.">
+                                        <ComboBoxItem>_1_0</ComboBoxItem>
+                                        <ComboBoxItem IsSelected="True">_1_1</ComboBoxItem>
+                                        <ComboBoxItem>_2_0</ComboBoxItem>
+                                        <ComboBoxItem>_2_1</ComboBoxItem>
+                                        <ComboBoxItem>_3_0</ComboBoxItem>
+                                        <ComboBoxItem>_3_1</ComboBoxItem>
+                                        <ComboBoxItem>_2_2</ComboBoxItem>
+                                        <ComboBoxItem>_3_2</ComboBoxItem>
+                                    </ComboBox>
+                                    <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Label Content="Bit-Rate Target:"
+                                       HorizontalAlignment="Left"
+                                       Margin="6,6,6,6"/>
+                                    <TextBox x:Name="bitRateTarget"
+                                         ToolTipService.ToolTip="Enter the number of bit-rate target."
+                                         FontSize="12"
+                                         Margin="6,6,6,6"
+                                         Width="100"/>
+                                    <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Label Content="AC3 Coding Mode:"
+                                       HorizontalAlignment="Left"
+                                       Margin="6,6,6,6"/>
+                                    <ComboBox x:Name="adConverter" 
+                                          Margin="6,6,6,6" 
+                                          ToolTip="Select the type of AD_Converter.">
+                                        <ComboBoxItem>Standard</ComboBoxItem>
+                                        <ComboBoxItem IsSelected="True">HDCD</ComboBoxItem>
+                                    </ComboBox>
+                                    <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <!--Visibility hidden -->
+                            <StackPanel x:Name="AC3UpperMiddle" 
+                                        Orientation="Vertical" 
+                                        Grid.Row="2" 
+                                        Grid.Column="1"
+                                        Visibility="Hidden">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Label Content="Room Type:"
+                                       HorizontalAlignment="Left"
+                                       Margin="6,6,6,6"/>
+                                    <ComboBox x:Name="roomType" 
+                                          Margin="6,6,6,6" 
+                                          ToolTip="Select the type of Room Type.">
+                                        <ComboBoxItem>small</ComboBoxItem>
+                                        <ComboBoxItem IsSelected="True">none</ComboBoxItem>
+                                        <ComboBoxItem>large</ComboBoxItem>
+                                    </ComboBox>
+                                    <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Label Content="Mix Mode:"
+                                       HorizontalAlignment="Left"
+                                       Margin="6,6,6,6"/>
+                                    <ComboBox x:Name="mixMode" 
+                                          Margin="6,6,6,6" 
+                                          ToolTip="Select the type of Mix Mode.">
+                                        <ComboBoxItem IsSelected="True">Not_indicated</ComboBoxItem>
+                                        <ComboBoxItem>Lt_Rt_Preferred</ComboBoxItem>
+                                        <ComboBoxItem>Lo_Ro_Preferred</ComboBoxItem>
+                                    </ComboBox>
+                                    <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Label Content="Dialog Level:"
+                                       HorizontalAlignment="Left"
+                                       Margin="6,6,6,6"/>
+                                    <TextBox x:Name="dialogLevel"
+                                         ToolTipService.ToolTip="Enter the number of dialog level. (integer)"
+                                         FontSize="12"
+                                         Margin="6,6,6,6"
+                                         Width="100"/>
+                                    <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <!--Visibility hidden -->
+                            <StackPanel x:Name="AC3UpperRight" 
+                                        Orientation="Vertical" 
+                                        Grid.Row="2" 
+                                        Grid.Column="2"
+                                        Visibility="Hidden">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Label Content="LT_RT Center Mix"
+                                       HorizontalAlignment="Left"
+                                       Margin="6,6,6,6"/>
+                                    <ComboBox x:Name="ltRTmix" 
+                                          Margin="6,6,6,6" 
+                                          ToolTip="Select the type of Mix Mode.">
+                                        <ComboBoxItem>up_1_5</ComboBoxItem>
+                                        <ComboBoxItem IsSelected="True">up_3_0</ComboBoxItem>
+                                        <ComboBoxItem>unity</ComboBoxItem>
+                                        <ComboBoxItem>dn_1_5</ComboBoxItem>
+                                        <ComboBoxItem>dn_3_0</ComboBoxItem>
+                                        <ComboBoxItem>dn_4_5</ComboBoxItem>
+                                        <ComboBoxItem>dn_6_0</ComboBoxItem>
+                                        <ComboBoxItem>cut</ComboBoxItem>
+                                    </ComboBox>
+                                    <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Label Content="LT_RT Surround Mix"
+                                       HorizontalAlignment="Left"
+                                       Margin="6,6,6,6"/>
+                                    <ComboBox x:Name="ltRtsurmix" 
+                                          Margin="6,6,6,6" 
+                                          ToolTip="Select the type of Mix Mode.">
+                                        <ComboBoxItem>up_1_5</ComboBoxItem>
+                                        <ComboBoxItem IsSelected="True">up_3_0</ComboBoxItem>
+                                        <ComboBoxItem>unity</ComboBoxItem>
+                                        <ComboBoxItem>dn_1_5</ComboBoxItem>
+                                        <ComboBoxItem>dn_3_0</ComboBoxItem>
+                                        <ComboBoxItem>dn_4_5</ComboBoxItem>
+                                        <ComboBoxItem>dn_6_0</ComboBoxItem>
+                                        <ComboBoxItem>cut</ComboBoxItem>
+                                    </ComboBox>
+                                    <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Label Content="LO_RO Surround Mix"
+                                       HorizontalAlignment="Left"
+                                       Margin="6,6,6,6"/>
+                                    <ComboBox x:Name="loRosurmix" 
+                                          Margin="6,6,6,6" 
+                                          ToolTip="Select the type of Mix Mode.">
+                                        <ComboBoxItem>up_1_5</ComboBoxItem>
+                                        <ComboBoxItem IsSelected="True">up_3_0</ComboBoxItem>
+                                        <ComboBoxItem>unity</ComboBoxItem>
+                                        <ComboBoxItem>dn_1_5</ComboBoxItem>
+                                        <ComboBoxItem>dn_3_0</ComboBoxItem>
+                                        <ComboBoxItem>dn_4_5</ComboBoxItem>
+                                        <ComboBoxItem>dn_6_0</ComboBoxItem>
+                                        <ComboBoxItem>cut</ComboBoxItem>
+                                    </ComboBox>
+                                    <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <!--Visibility hidden -->
+                            <StackPanel x:Name="AC3BottomLeft" 
+                                        Orientation="Vertical" 
+                                        Grid.Row="3"
+                                        Visibility="Visible">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Label Content="LO_RO Center Mix"
+                                       HorizontalAlignment="Left"
+                                       Margin="6,6,6,6"/>
+                                    <ComboBox x:Name="loRomix" 
+                                          Margin="6,6,6,6" 
+                                          ToolTip="Select the type of Mix Mode.">
+                                        <ComboBoxItem>up_1_5</ComboBoxItem>
+                                        <ComboBoxItem IsSelected="True">up_3_0</ComboBoxItem>
+                                        <ComboBoxItem>unity</ComboBoxItem>
+                                        <ComboBoxItem>dn_1_5</ComboBoxItem>
+                                        <ComboBoxItem>dn_3_0</ComboBoxItem>
+                                        <ComboBoxItem>dn_4_5</ComboBoxItem>
+                                        <ComboBoxItem>dn_6_0</ComboBoxItem>
+                                        <ComboBoxItem>cut</ComboBoxItem>
+                                    </ComboBox>
+                                    <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Label Content="Surround Mode:"
+                                       HorizontalAlignment="Left"
+                                       Margin="6,6,6,6"/>
+                                    <ComboBox x:Name="SurroundMode" 
+                                          Margin="6,6,6,6" 
+                                          ToolTip="Select the type of Mix Mode.">
+                                        <ComboBoxItem>None</ComboBoxItem>
+                                        <ComboBoxItem IsSelected="True">Surround_EX</ComboBoxItem>
+                                        <ComboBoxItem>Dolby_Surround_EX</ComboBoxItem>
+                                    </ComboBox>
+                                    <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
+                                </StackPanel>
+                            </StackPanel>
                         </Grid>
                     </StackPanel>
                 </TabItem>
