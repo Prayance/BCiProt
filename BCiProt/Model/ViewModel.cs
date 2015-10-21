@@ -58,8 +58,8 @@ namespace BCiProt.Model
             Items.Add("Side Right", "SR");
 
             SelectedItems = new Dictionary<string, object>();
-            SelectedItems.Add("Back Left", "BL");
-            SelectedItems.Add("Back Right", "BR");
+            //SelectedItems.Add("Back Left", "BL");
+            //SelectedItems.Add("Back Right", "BR");
 
         }
 

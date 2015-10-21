@@ -11,21 +11,58 @@
         Icon="Images/1444317552_App_Services_copy_Amazon_Elastic_Transcoder.ico" Closing="Window_Closing">
         <Window.Resources>
             <ViewModel:ViewModel x:Key="ViewModel"/>
-        </Window.Resources>
+    </Window.Resources>
     <DockPanel>
         <!-- Main tool bar at the top -->
         <!-- All the options will slowly be modified -->
         <ToolBarTray DockPanel.Dock="Top">
             <ToolBar>
-                <Button Command="New" 
+                <!--<Button Command="New" 
                         Content="New" 
-                        ToolBar.OverflowMode="AsNeeded"/>
+                        ToolBar.OverflowMode="AsNeeded"></Button>
                 <Button Command="Open" 
                         Content="Open" 
-                        ToolBar.OverflowMode="AsNeeded"/>
-                <Button Command="Save" 
-                        Content="Save" 
-                        ToolBar.OverflowMode="AsNeeded"/>
+                        ToolBar.OverflowMode="AsNeeded"></Button>
+                <Button ToolTip="Click to Save the Changes you have made."
+                        ToolBar.OverflowMode="AsNeeded">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="/Images/1445440879_document-save.png" Height="24" Width="24" />
+                        <TextBlock Margin="3,0,0,0">Save</TextBlock>
+                    </StackPanel>
+                </Button>-->
+                <Menu VerticalAlignment="Center">
+                    <MenuItem  x:Name="FileButton" 
+                               Background="Transparent"
+                               Click="FileButton_Click">
+                        <MenuItem.Icon>
+                            <Image Source="/Images/1444326032_icon-95-folder.png"  
+                                   Height="24"
+                                   Width="24"/>
+                        </MenuItem.Icon>
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Vertical" Margin="3,0,0,0">
+                                <TextBlock Text="File" FontSize="15"/>
+                                <Image Source="/Images/1445441274_icon-arrow-down-b.png" 
+                                       VerticalAlignment="Bottom" 
+                                       Height="10" 
+                                       Margin="3,0,0,0"/>
+                            </StackPanel>
+                        </MenuItem.Header>
+                        <MenuItem.ContextMenu>
+                            <ContextMenu >
+                                <MenuItem Header="New Profile"></MenuItem>
+                                <MenuItem Header="Open Profile"></MenuItem>
+                                <MenuItem Header="Save Profile"
+                                          x:Name="SaveProfile">
+                                    <MenuItem.Icon>
+                                        <Image Source="/Images/1445440879_document-save.png"  Height="24"/>
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem Header="Save Profile As"></MenuItem>
+                            </ContextMenu>
+                        </MenuItem.ContextMenu>
+                    </MenuItem>
+                </Menu>
             </ToolBar>
             <ToolBar>
                 <Button Click="Button_Click"
@@ -36,18 +73,20 @@
                         <TextBlock Margin="3,0,0,0">Go Back</TextBlock>
                     </StackPanel>
                 </Button>
-                <Button Command="Copy" 
-                        ToolTip="Copy selection to Windows Clipboard."
+                <Button 
+                        ToolTip="Clear the current tab screen."
                         ToolBar.OverflowMode="AsNeeded">
                     <StackPanel Orientation="Vertical">
-                        <Image Source="/Images/1444411642_copy.png" Height="24" Width="24" />
-                        <TextBlock Margin="3,0,0,0">Copy</TextBlock>
+                        <Image Source="/Images/1445440702_edit-clear.png" Height="24" Width="24" />
+                        <TextBlock Margin="3,0,0,0">Clear</TextBlock>
                     </StackPanel>
                 </Button>
-                <Button Command="Paste" ToolTip="Paste from Windows Clipboard.">
+                <Button 
+                    ToolBar.OverflowMode="AsNeeded" 
+                    ToolTip="Click to reset all the profile settings.">
                     <StackPanel Orientation="Vertical">
-                        <Image Source="/Images/1444411649_paste.png" Height="24" Width="24" />
-                        <TextBlock Margin="3,0,0,0">Paste</TextBlock>
+                        <Image Source="/Images/1445440764_POWER - RESTART.png" Height="24" Width="24" />
+                        <TextBlock Margin="3,0,0,0">Reset</TextBlock>
                     </StackPanel>
                 </Button>
                 <Separator />
@@ -168,75 +207,111 @@
                                    Content="This is the subtitle. e.g. Data Profile edited Screen Text to be decided." 
                                    FontSize="10"/>
                         </Border>
-                        <StackPanel Orientation="Horizontal"  Margin="6,6,6,6">
-                            <Label 
-                                Content="Below are the main options for your new profile:" />
-                            <Label x:Name="ProfName" Content="Profile name for the General Profile Page" FontStyle="Oblique"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="6,6,6,6">
-                            <Label Content="Codec Choice:" Margin="6,6,6,6"/>
-                            <ComboBox x:Name="CodecCB" Margin="6,6,6,6" ToolTip="Select the codec of your data profile.">
-                                <ComboBoxItem>codec 0</ComboBoxItem>
-                                <ComboBoxItem IsSelected="True">codec 1</ComboBoxItem>
-                                <ComboBoxItem>codec 2</ComboBoxItem>
-                                <ComboBoxItem>codec 3</ComboBoxItem>
-                            </ComboBox>
-                            <Label Content="Data Bit Rate:" Margin="12,6,6,6"/>
-                            <TextBox x:Name="bitRate"
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel Orientation="Horizontal" Margin="6,6,6,6">
+                                <Label Content="Codec Choice:" Margin="6,6,6,6"/>
+                                <ComboBox x:Name="CodecCB" Margin="6,6,6,6" ToolTip="Select the codec of your data profile.">
+                                    <ComboBoxItem>codec 0</ComboBoxItem>
+                                    <ComboBoxItem IsSelected="True">codec 1</ComboBoxItem>
+                                    <ComboBoxItem>codec 2</ComboBoxItem>
+                                    <ComboBoxItem>codec 3</ComboBoxItem>
+                                </ComboBox>
+                                <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
+                                <Label Content="Data Bit Rate:" Margin="12,6,6,6"/>
+                                <TextBox x:Name="bitRate"
                                      ToolTipService.ToolTip="Enter the data bit rate"
                                      FontSize="12"
                                      Margin="6,6,6,6"
                                      Width="80"/>
-                            <Button Content="Data location" 
-                                    Click="Button_Click_1"
-                                    Margin="12,6,6,6" 
-                                    ToolTip="Click to choose your data location."/>
-                            <Label x:Name="dataLocation"
-                                     FontSize="12"
-                                     Margin="6,6,6,6"/>
-                        </StackPanel>
-                        <Label Content="Subtitle Settings" Margin="6,0,0,0"/>
-                        <StackPanel Orientation="Horizontal"  Margin="6,6,6,6">
-                            <StackPanel Orientation="Vertical"  Margin="0,6,6,6">
-                                <Label Content="Subtitle Codec" Margin="6,0,6,0"/>
-                                <ComboBox x:Name="subCodecCB" Margin="6,0,6,0" ToolTip="Select the codec of your data profile.">
-                                    <ComboBoxItem>sub codec 0</ComboBoxItem>
-                                    <ComboBoxItem IsSelected="True">sub codec 1</ComboBoxItem>
-                                    <ComboBoxItem>sub codec 2</ComboBoxItem>
-                                    <ComboBoxItem>sub codec 3</ComboBoxItem>
-                                </ComboBox>
                             </StackPanel>
-                            <StackPanel Orientation="Vertical"  Margin="6,6,6,6">
-                                <Label Content="Subtitle Character Encoding" Margin="6,0,6,0"/>
-                                <ComboBox Margin="6,0,6,0" ToolTip="Select the codec of your data profile.">
-                                    <ComboBoxItem>sub Char codec 0</ComboBoxItem>
-                                    <ComboBoxItem IsSelected="True">sub Char codec 1</ComboBoxItem>
-                                    <ComboBoxItem>sub Char codec 2</ComboBoxItem>
-                                    <ComboBoxItem>sub Char codec 3</ComboBoxItem>
-                                </ComboBox>
+                            <StackPanel Orientation="Horizontal" Grid.Row="2">
+                                <StackPanel Orientation="Vertical">
+                                    <Label x:Name="dataLocation"
+                                           MinHeight="16"
+                                           MinWidth="80"
+                                           FontSize="12"
+                                           Margin="6,6,6,6"/>
+                                    <local:ImageButton ImageHeight="40"
+                                                       ImageWidth="30"
+                                                       Image="/Images/1445439582_data_recovery.png" 
+                                                       Margin="6,6,6,6"
+                                                       Content ="Data location   "
+                                                       Click="Button_Click_1"
+                                                       ToolTip="Click to choose your data location."/>
+                                </StackPanel>
+                                <StackPanel Orientation="Vertical">
+                                    <Label x:Name="subtitleLocation"
+                                           MinWidth="80"
+                                           MinHeight="16"
+                                           FontSize="12"
+                                           Margin="6,6,6,6"/>
+                                    <local:ImageButton ImageHeight="40"
+                                                       ImageWidth="30"
+                                                       Image="/Images/1445439612_Movies_-_Subtitles.png" 
+                                                       Margin="6,6,6,6"
+                                                       Content ="Subtitle File Location   "
+                                                       Click="Button_Click_2"
+                                                       ToolTip="Click to choose your subtitle's file location."/>
+                                </StackPanel>
                             </StackPanel>
-                            <StackPanel Orientation="Vertical"  Margin="6,6,6,6">
-                                <Label Content="Subtitle Language" Margin="6,0,6,0"/>
-                                <ComboBox Margin="6,0,6,0" ToolTip="Select the codec of your data profile.">
-                                    <ComboBoxItem>Language 0</ComboBoxItem>
-                                    <ComboBoxItem IsSelected="True">Language 1</ComboBoxItem>
-                                    <ComboBoxItem>Language 2</ComboBoxItem>
-                                    <ComboBoxItem>Language 3</ComboBoxItem>
-                                </ComboBox>
+                            <!--<Label Grid.Row="1" Content="Subtitle Settings" Margin="6,0,0,0"/>-->
+                            <StackPanel Grid.Row="1" Orientation="Horizontal"  Margin="6,6,6,6">
+                                <StackPanel Orientation="Vertical"  Margin="0,6,6,6">
+                                    <Label Content="Subtitle Codec" />
+                                    <ComboBox x:Name="subCodecCB" 
+                                              Margin="0,6,0,0"
+                                              MinWidth="100"
+                                              ToolTip="Select the codec of your data profile.">
+                                        <ComboBoxItem>sub codec 0</ComboBoxItem>
+                                        <ComboBoxItem>sub codec 1</ComboBoxItem>
+                                        <ComboBoxItem>sub codec 2</ComboBoxItem>
+                                        <ComboBoxItem>sub codec 3</ComboBoxItem>
+                                    </ComboBox>
+                                </StackPanel>
+                                <StackPanel Orientation="Vertical"  Margin="6,6,6,6">
+                                    <Label Content="Subtitle Character Encoding"/>
+                                    <ComboBox Margin="0,6,0,0" 
+                                              x:Name="subtitleCharacterEncoding"
+                                              MinWidth="100"
+                                              ToolTip="Select the codec of your data profile.">
+                                        <ComboBoxItem>sub Char codec 0</ComboBoxItem>
+                                        <ComboBoxItem>sub Char codec 1</ComboBoxItem>
+                                        <ComboBoxItem>sub Char codec 2</ComboBoxItem>
+                                        <ComboBoxItem>sub Char codec 3</ComboBoxItem>
+                                    </ComboBox>
+                                </StackPanel>
+                                <StackPanel Orientation="Vertical"  Margin="6,6,6,6">
+                                    <Label Content="Subtitle Language"/>
+                                    <ComboBox Margin="0,6,0,0" 
+                                              MinWidth="100"
+                                              x:Name="SubtitleLanguage"
+                                              ToolTip="Select the codec of your data profile.">
+                                    </ComboBox>
+                                </StackPanel>
                             </StackPanel>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal"  Margin="6,6,6,6">
-                            <Button Content="Subtitle File Location" 
+                            <!--<StackPanel Grid.Row="2"  
+                                        Orientation="Horizontal"  
+                                        Margin="6,6,6,6">
+                                <Button Content="Subtitle File Location" 
                                     Click="Button_Click_2"
                                     Margin="12,6,6,6" 
                                     ToolTip="Click to choose your subtitle's file location."/>
-                            <Label x:Name="subtitleLocation"
+                                <Label x:Name="subtitleLocation"
                                      FontSize="12"
                                      Margin="6,6,6,6"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal"  Margin="6,6,6,6">
-                            <!-- this section will be the same to every page. and will contain the save/clear and cancel buttons -->
-                        </StackPanel>
+                            </StackPanel>-->
+                            <StackPanel Orientation="Horizontal"  Margin="6,6,6,6">
+                                <!-- this section will be the same to every page. and will contain the save/clear and cancel buttons -->
+                            </StackPanel>
+                        </Grid>
                     </StackPanel>
                 </TabItem>
                 <TabItem Header="Audio Profile" x:Name="audio">
@@ -244,7 +319,7 @@
                         <Border Style="{StaticResource labelBorder}">
                             <Label x:Name="AudioSubtitle" 
                                    HorizontalAlignment="Center"
-                                   Content="This is the subtitle. e.g. Data Profile edited Screen Text to be decided." 
+                                   Content="This is the subtitle. e.g. Audio Profile edited Screen Text to be decided." 
                                    FontSize="10"/>
                         </Border>
                         <Grid>
@@ -314,6 +389,7 @@
                                 <Grid Margin="6,6,6,6" DataContext="{Binding Source={StaticResource ViewModel}}">
                                     <local:MultiSelectComboBox 
                                         Width="100" 
+                                        MinWidth="100"
                                         Height="30"
                                         ItemsSource="{Binding Items}"
                                         SelectedItems="{Binding SelectedItems}"
@@ -357,6 +433,7 @@
                                        Margin="6,6,6,6"/>
                                     <ComboBox x:Name="language"
                                               Margin="6,6,6,6" 
+                                              MinWidth="100"
                                               ToolTip="Select the audio language.">
                                     </ComboBox>
                                     <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
@@ -409,14 +486,15 @@
                                 </StackPanel>
                             </StackPanel>
                             <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1">
-                                <CheckBox Margin="6,18,6,6">Gain Enabled</CheckBox>
-                                <CheckBox Margin="6,12,6,6">
+                                <CheckBox x:Name="Gain" ToolTipService.ToolTip="Click to enable Gain." Margin="6,18,6,6">Gain Enabled</CheckBox>
+                                <CheckBox x:Name="Passthrough" Margin="6,12,6,6">
                                     <TextBlock 
-                                        ToolTipService.ToolTip="It defaults to NO. Check the box to allow pass through.">
+                                        ToolTipService.ToolTip="It defaults to NO. Check the box to enable pass through.">
                                         Pass Through 
                                         <Run Foreground="Red"> * </Run>
                                     </TextBlock></CheckBox>
                             </StackPanel>
+                            <!-- Visibility Visible -->
                             <StackPanel Orientation="Vertical" 
                                         x:Name="WhatProfile"
                                         Grid.Row="1" 
@@ -445,6 +523,52 @@
                                             Width="120"/>
                                 </StackPanel>
                             </StackPanel>
+                            <!-- Visibility Visible -->
+                            <StackPanel Orientation="Vertical" 
+                                        x:Name="AC3WhatProfile"
+                                        Grid.Row="1" 
+                                        Grid.Column="2"
+                                        Visibility="Hidden">
+                                <StackPanel Orientation="Vertical">
+                                    <CheckBox x:Name="PhaseShift" Margin="6,6,6,6">
+                                        <TextBlock 
+                                        ToolTipService.ToolTip="Check the box to enable Phase Shift.">
+                                        Phase Shift
+                                        <Run Foreground="Red"> * </Run>
+                                        </TextBlock>
+                                    </CheckBox>
+                                    <CheckBox x:Name="SurroundAttenuation" Margin="6,6,6,6">
+                                        <TextBlock 
+                                        ToolTipService.ToolTip="Check the box to enable Surround Attenuation.">
+                                        Surround Attenuation
+                                        <Run Foreground="Red"> * </Run>
+                                        </TextBlock>
+                                    </CheckBox>
+                                    <CheckBox x:Name="PeakLevel" Margin="6,6,6,6">
+                                        <TextBlock 
+                                        ToolTipService.ToolTip="Check the box to enable Peak Level.">
+                                        Peak Level
+                                        <Run Foreground="Red"> * </Run>
+                                        </TextBlock>
+                                    </CheckBox>
+                                    <StackPanel Orientation="Horizontal">
+                                        <CheckBox x:Name="DCFilter" Margin="6,6,6,6">
+                                            <TextBlock 
+                                            ToolTipService.ToolTip="Check the box to enable DC Filter.">
+                                            DC Filter
+                                            <Run Foreground="Red"> * </Run>
+                                            </TextBlock>
+                                        </CheckBox>
+                                        <CheckBox x:Name="LFEFilter" Margin="6,6,6,6">
+                                            <TextBlock 
+                                            ToolTipService.ToolTip="Check the box to enable LFE Filter.">
+                                            LFE Filter
+                                            <Run Foreground="Red"> * </Run>
+                                            </TextBlock>
+                                        </CheckBox>
+                                    </StackPanel>
+                                </StackPanel>
+                            </StackPanel>
                             <!--Visibility hidden -->
                             <StackPanel x:Name="AC3UpperLeft" 
                                         Orientation="Vertical" 
@@ -455,10 +579,11 @@
                                        HorizontalAlignment="Left"
                                        Margin="6,6,6,6"/>
                                     <ComboBox x:Name="codingMode" 
-                                          Margin="6,6,6,6" 
-                                          ToolTip="Select the coding mode for your AC3 Audio Profile.">
+                                              MinWidth="100"
+                                              Margin="6,6,6,6"      
+                                              ToolTip="Select the coding mode for your AC3 Audio Profile.">
                                         <ComboBoxItem>_1_0</ComboBoxItem>
-                                        <ComboBoxItem IsSelected="True">_1_1</ComboBoxItem>
+                                        <ComboBoxItem>_1_1</ComboBoxItem>
                                         <ComboBoxItem>_2_0</ComboBoxItem>
                                         <ComboBoxItem>_2_1</ComboBoxItem>
                                         <ComboBoxItem>_3_0</ComboBoxItem>
@@ -484,10 +609,11 @@
                                        HorizontalAlignment="Left"
                                        Margin="6,6,6,6"/>
                                     <ComboBox x:Name="adConverter" 
-                                          Margin="6,6,6,6" 
-                                          ToolTip="Select the type of AD_Converter.">
+                                              MinWidth="100"
+                                              Margin="6,6,6,6" 
+                                              ToolTip="Select the type of AD_Converter.">
                                         <ComboBoxItem>Standard</ComboBoxItem>
-                                        <ComboBoxItem IsSelected="True">HDCD</ComboBoxItem>
+                                        <ComboBoxItem>HDCD</ComboBoxItem>
                                     </ComboBox>
                                     <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
                                 </StackPanel>
@@ -502,11 +628,12 @@
                                     <Label Content="Room Type:"
                                        HorizontalAlignment="Left"
                                        Margin="6,6,6,6"/>
-                                    <ComboBox x:Name="roomType" 
-                                          Margin="6,6,6,6" 
-                                          ToolTip="Select the type of Room Type.">
+                                    <ComboBox x:Name="roomType"
+                                              MinWidth="100"
+                                              Margin="6,6,6,6" 
+                                              ToolTip="Select the type of Room Type.">
                                         <ComboBoxItem>small</ComboBoxItem>
-                                        <ComboBoxItem IsSelected="True">none</ComboBoxItem>
+                                        <ComboBoxItem>none</ComboBoxItem>
                                         <ComboBoxItem>large</ComboBoxItem>
                                     </ComboBox>
                                     <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
@@ -516,9 +643,10 @@
                                        HorizontalAlignment="Left"
                                        Margin="6,6,6,6"/>
                                     <ComboBox x:Name="mixMode" 
-                                          Margin="6,6,6,6" 
-                                          ToolTip="Select the type of Mix Mode.">
-                                        <ComboBoxItem IsSelected="True">Not_indicated</ComboBoxItem>
+                                              MinWidth="100"
+                                              Margin="6,6,6,6" 
+                                              ToolTip="Select the type of Mix Mode.">
+                                        <ComboBoxItem>Not_indicated</ComboBoxItem>
                                         <ComboBoxItem>Lt_Rt_Preferred</ComboBoxItem>
                                         <ComboBoxItem>Lo_Ro_Preferred</ComboBoxItem>
                                     </ComboBox>
@@ -546,11 +674,12 @@
                                     <Label Content="LT_RT Center Mix"
                                        HorizontalAlignment="Left"
                                        Margin="6,6,6,6"/>
-                                    <ComboBox x:Name="ltRTmix" 
-                                          Margin="6,6,6,6" 
-                                          ToolTip="Select the type of Mix Mode.">
+                                    <ComboBox x:Name="ltRTmix"
+                                              MinWidth="100"
+                                              Margin="6,6,6,6" 
+                                              ToolTip="Select the type of Mix Mode.">
                                         <ComboBoxItem>up_1_5</ComboBoxItem>
-                                        <ComboBoxItem IsSelected="True">up_3_0</ComboBoxItem>
+                                        <ComboBoxItem>up_3_0</ComboBoxItem>
                                         <ComboBoxItem>unity</ComboBoxItem>
                                         <ComboBoxItem>dn_1_5</ComboBoxItem>
                                         <ComboBoxItem>dn_3_0</ComboBoxItem>
@@ -565,10 +694,11 @@
                                        HorizontalAlignment="Left"
                                        Margin="6,6,6,6"/>
                                     <ComboBox x:Name="ltRtsurmix" 
-                                          Margin="6,6,6,6" 
-                                          ToolTip="Select the type of Mix Mode.">
+                                              MinWidth="100"
+                                              Margin="6,6,6,6" 
+                                              ToolTip="Select the type of Mix Mode.">
                                         <ComboBoxItem>up_1_5</ComboBoxItem>
-                                        <ComboBoxItem IsSelected="True">up_3_0</ComboBoxItem>
+                                        <ComboBoxItem>up_3_0</ComboBoxItem>
                                         <ComboBoxItem>unity</ComboBoxItem>
                                         <ComboBoxItem>dn_1_5</ComboBoxItem>
                                         <ComboBoxItem>dn_3_0</ComboBoxItem>
@@ -583,10 +713,11 @@
                                        HorizontalAlignment="Left"
                                        Margin="6,6,6,6"/>
                                     <ComboBox x:Name="loRosurmix" 
-                                          Margin="6,6,6,6" 
-                                          ToolTip="Select the type of Mix Mode.">
+                                              MinWidth="100"
+                                              Margin="6,6,6,6" 
+                                              ToolTip="Select the type of Mix Mode.">
                                         <ComboBoxItem>up_1_5</ComboBoxItem>
-                                        <ComboBoxItem IsSelected="True">up_3_0</ComboBoxItem>
+                                        <ComboBoxItem>up_3_0</ComboBoxItem>
                                         <ComboBoxItem>unity</ComboBoxItem>
                                         <ComboBoxItem>dn_1_5</ComboBoxItem>
                                         <ComboBoxItem>dn_3_0</ComboBoxItem>
@@ -601,16 +732,17 @@
                             <StackPanel x:Name="AC3BottomLeft" 
                                         Orientation="Vertical" 
                                         Grid.Row="3"
-                                        Visibility="Visible">
+                                        Visibility="Hidden">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                     <Label Content="LO_RO Center Mix"
                                        HorizontalAlignment="Left"
                                        Margin="6,6,6,6"/>
-                                    <ComboBox x:Name="loRomix" 
-                                          Margin="6,6,6,6" 
-                                          ToolTip="Select the type of Mix Mode.">
+                                    <ComboBox x:Name="loRomix"
+                                              MinWidth="100"
+                                              Margin="6,6,6,6" 
+                                              ToolTip="Select the type of Mix Mode.">
                                         <ComboBoxItem>up_1_5</ComboBoxItem>
-                                        <ComboBoxItem IsSelected="True">up_3_0</ComboBoxItem>
+                                        <ComboBoxItem>up_3_0</ComboBoxItem>
                                         <ComboBoxItem>unity</ComboBoxItem>
                                         <ComboBoxItem>dn_1_5</ComboBoxItem>
                                         <ComboBoxItem>dn_3_0</ComboBoxItem>
@@ -625,20 +757,293 @@
                                        HorizontalAlignment="Left"
                                        Margin="6,6,6,6"/>
                                     <ComboBox x:Name="SurroundMode" 
-                                          Margin="6,6,6,6" 
-                                          ToolTip="Select the type of Mix Mode.">
+                                              MinWidth="100"
+                                              Margin="6,6,6,6" 
+                                              ToolTip="Select the type of Mix Mode.">
                                         <ComboBoxItem>None</ComboBoxItem>
-                                        <ComboBoxItem IsSelected="True">Surround_EX</ComboBoxItem>
+                                        <ComboBoxItem>Surround_EX</ComboBoxItem>
                                         <ComboBoxItem>Dolby_Surround_EX</ComboBoxItem>
                                     </ComboBox>
                                     <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Label Content="Bi Stream Mode:"
+                                       HorizontalAlignment="Left"
+                                       Margin="6,6,6,6"/>
+                                    <ComboBox x:Name="bitStreamMode" 
+                                              MinWidth="100"
+                                              Margin="6,6,6,6" 
+                                              ToolTip="Select the type of Bit Stream Mode.">
+                                        <ComboBoxItem>Complete_Main</ComboBoxItem>
+                                        <ComboBoxItem>Main_M_E</ComboBoxItem>
+                                        <ComboBoxItem>Assc_Visual_Imp</ComboBoxItem>
+                                        <ComboBoxItem>Assc_Hear_Imp</ComboBoxItem>
+                                        <ComboBoxItem>Assc_Dialogue</ComboBoxItem>
+                                        <ComboBoxItem>Assc_Commentary</ComboBoxItem>
+                                        <ComboBoxItem>Assc_Emergency</ComboBoxItem>
+                                        <ComboBoxItem>Assc_Voice_Over</ComboBoxItem>
+                                        <ComboBoxItem>Main_Sv_Karaoke</ComboBoxItem>
+                                    </ComboBox>
+                                    <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <!--Visibility hidden -->
+                            <StackPanel x:Name="AC3BottomMiddle" 
+                                        Orientation="Vertical" 
+                                        Grid.Row="3"
+                                        Grid.Column="1"
+                                        Visibility="Hidden">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Label Content="Line Compression:"
+                                       HorizontalAlignment="Left"
+                                       Margin="6,6,6,6"/>
+                                    <ComboBox x:Name="lineCompression" 
+                                              Margin="6,6,6,6" 
+                                              MinWidth="100"
+                                              ToolTip="Select the type of Line Compression.">
+                                        <ComboBoxItem>Film_Light</ComboBoxItem>
+                                        <ComboBoxItem>None</ComboBoxItem>
+                                        <ComboBoxItem>Film_Standard</ComboBoxItem>
+                                        <ComboBoxItem>Music_Light</ComboBoxItem>
+                                        <ComboBoxItem>Music_Standard</ComboBoxItem>
+                                        <ComboBoxItem>Speech</ComboBoxItem>
+                                    </ComboBox>
+                                    <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Label Content="RF Compression:"
+                                       HorizontalAlignment="Left"
+                                       Margin="6,6,6,6"/>
+                                    <ComboBox x:Name="rfCompression" 
+                                              MinWidth="100"
+                                              Margin="6,6,6,6" 
+                                              ToolTip="Select the type of RF Compression.">
+                                        <ComboBoxItem>Film_Light</ComboBoxItem>
+                                        <ComboBoxItem>None</ComboBoxItem>
+                                        <ComboBoxItem>Film_Standard</ComboBoxItem>
+                                        <ComboBoxItem>Music_Light</ComboBoxItem>
+                                        <ComboBoxItem>Music_Standard</ComboBoxItem>
+                                        <ComboBoxItem>Speech</ComboBoxItem>
+                                    </ComboBox>
+                                    <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
+                                </StackPanel>
+                                <CheckBox x:Name="Copyright" 
+                                          Margin="6,12,12,12"
+                                          HorizontalAlignment="Right"
+                                          ToolTipService.ToolTip="It defaults to NO. Check the box to enable copyright.">Copyright</CheckBox>
+                            </StackPanel>
+                            <!--Visibility hidden -->
+                            <StackPanel x:Name="AC3BottomRight" 
+                                        Orientation="Vertical" 
+                                        Grid.Row="3"
+                                        Grid.Column="2"
+                                        Visibility="Hidden">
+                                <StackPanel Orientation="Vertical">
+                                    <CheckBox x:Name="Deemphasis" Margin="6,6,6,6">
+                                        <TextBlock 
+                                        ToolTipService.ToolTip="Check the box to enable Deemphasis.">
+                                        Deemphasis
+                                        <Run Foreground="Red"> * </Run>
+                                        </TextBlock>
+                                    </CheckBox>
+                                    <CheckBox x:Name="Bandwidth" Margin="6,6,6,6">
+                                        <TextBlock 
+                                        ToolTipService.ToolTip="Check the box to enable Bandwidth.">
+                                        Bandwidth
+                                        <Run Foreground="Red"> * </Run>
+                                        </TextBlock>
+                                    </CheckBox>
+                                    <CheckBox x:Name="LFEChannel" Margin="6,6,6,6">
+                                        <TextBlock 
+                                        ToolTipService.ToolTip="Check the box to enable LFE Channel.">
+                                        LFE Channel
+                                        <Run Foreground="Red"> * </Run>
+                                        </TextBlock>
+                                    </CheckBox>
+                                    <StackPanel Orientation="Horizontal">
+                                        <CheckBox x:Name="DDEmeta" 
+                                                  ToolTipService.ToolTip="Tick to enable DDE Metadata"  
+                                                  Margin="6,6,6,6">DDE Metadata</CheckBox>
+                                        <CheckBox x:Name="Original" 
+                                                  ToolTipService.ToolTip="Tick to mark the data as original"  
+                                                  Margin="6,6,6,6">Original</CheckBox>
+                                    </StackPanel>
                                 </StackPanel>
                             </StackPanel>
                         </Grid>
                     </StackPanel>
                 </TabItem>
-                <TabItem Header="Video Encoding Profile" x:Name="video" Margin="4.6,0,-4.6,0" />
-                <TabItem Header="Transport Profile" x:Name="transport" />
+                <TabItem Header="Video Encoding Profile" x:Name="video">
+                    <StackPanel Orientation="Vertical">
+                        <Border Style="{StaticResource labelBorder}">
+                            <Label x:Name="VideoProfile" 
+                                   HorizontalAlignment="Center"
+                                   Content="This is the subtitle. e.g. Video Profile edited Screen Text to be decided." 
+                                   FontSize="10"/>
+                        </Border>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <StackPanel Orientation="Vertical" Grid.Column="0">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Label Content="Video Codec Name:"
+                                       HorizontalAlignment="Left"
+                                       Margin="6,6,6,6"/>
+                                    <TextBox x:Name="videoCodec"
+                                         ToolTipService.ToolTip="Enter the audio codec name"
+                                         FontSize="12"
+                                         Margin="6,6,6,6"
+                                         Width="100"/>
+                                    <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Label Content="Profile Name:"
+                                       HorizontalAlignment="Left"
+                                       Margin="6,6,6,6"/>
+                                    <TextBox x:Name="profile"
+                                         ToolTipService.ToolTip="Enter the Video Profile name."
+                                         FontSize="12"
+                                         Margin="6,6,6,6"
+                                         Width="100"/>
+                                    <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Label Content="Video Rate Comtrol:"
+                                       HorizontalAlignment="Left"
+                                       Margin="6,6,6,6"/>
+                                    <ComboBox x:Name="RateControl" 
+                                              MinWidth="100"
+                                              Margin="6,6,6,6" 
+                                              ToolTip="Select the type of Video Rate Control.">
+                                        <ComboBoxItem>CBR</ComboBoxItem>
+                                        <ComboBoxItem>VBR_1</ComboBoxItem>
+                                        <ComboBoxItem>VBR_2</ComboBoxItem>
+                                    </ComboBox>
+                                    <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical" Grid.Column="1">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Label Content="Frame Count:"
+                                       HorizontalAlignment="Left"
+                                       Margin="6,6,6,6"/>
+                                    <TextBox x:Name="frameCount"
+                                         ToolTipService.ToolTip="Enter the Frame Count number."
+                                         FontSize="12"
+                                         Margin="6,6,6,6"
+                                         Width="100"/>
+                                    <Label Content="*" FontSize="14" Margin="0,6,6,0" Visibility="Hidden"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Label Content="Packet Count:"
+                                       HorizontalAlignment="Left"
+                                       Margin="6,6,6,6"/>
+                                    <TextBox x:Name="packetCount"
+                                         ToolTipService.ToolTip="Enter the Packet Count number."
+                                         FontSize="12"
+                                         Margin="6,6,6,6"
+                                         Width="100"/>
+                                    <Label Content="*" FontSize="14" Margin="0,6,6,0" Visibility="Hidden"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Label Content="Frame Rate:"
+                                       HorizontalAlignment="Left"
+                                       Margin="6,6,6,6"/>
+                                    <TextBox x:Name="frameRate"
+                                         ToolTipService.ToolTip="Enter the Frame Rate number."
+                                         FontSize="12"
+                                         Margin="6,6,6,6"
+                                         Width="100"/>
+                                    <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical" Grid.Column="2">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Label Content="Height:"
+                                       HorizontalAlignment="Left"
+                                       Margin="6,6,6,6"/>
+                                    <TextBox x:Name="height"
+                                         ToolTipService.ToolTip="Enter the Height in centimeters."
+                                         FontSize="12"
+                                         Margin="6,6,6,6"
+                                         Width="100"/>
+                                    <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Label Content="Width:"
+                                       HorizontalAlignment="Left"
+                                       Margin="6,6,6,6"/>
+                                    <TextBox x:Name="width"
+                                         ToolTipService.ToolTip="Enter the Width in centimeters."
+                                         FontSize="12"
+                                         Margin="6,6,6,6"
+                                         Width="100"/>
+                                    <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Label Content="Aspect Ratio:"
+                                       HorizontalAlignment="Left"
+                                       Margin="6,6,6,6"/>
+                                    <TextBox x:Name="aspectRatio"
+                                         ToolTipService.ToolTip="Enter the Aspect Ratio."
+                                         FontSize="12"
+                                         Margin="6,6,6,6"
+                                         Width="100"/>
+                                    <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical" Grid.Row="1">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Label Content="Level:"
+                                       HorizontalAlignment="Left"
+                                       Margin="6,6,6,6"/>
+                                    <TextBox x:Name="level"
+                                         ToolTipService.ToolTip="Enter the Video Level."
+                                         FontSize="12"
+                                         Margin="6,6,6,6"
+                                         Width="100"/>
+                                    <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Label Content="Frame Type:"
+                                       HorizontalAlignment="Left"
+                                       Margin="6,6,6,6"/>
+                                    <ComboBox x:Name="frameType"
+                                              MinWidth="100"
+                                              Margin="6,6,6,6" 
+                                              ToolTip="Select the type of Video Rate Control.">
+                                        <ComboBoxItem>Interlaced</ComboBoxItem>
+                                        <ComboBoxItem>Progressive</ComboBoxItem>
+                                    </ComboBox>
+                                    <Label Content="*" FontSize="14" Margin="0,6,6,0" Visibility="Hidden" Foreground="Red"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </TabItem>
+                <TabItem Header="Transport Profile" x:Name="transport">
+
+                    <Border Padding="10" Background="#FF3F3F3F">
+                        <ComboBox Grid.Column="1" Height="30" Width="250" >
+                            <ComboBoxItem Name="Item1">Item1</ComboBoxItem>
+                            <ComboBoxItem Name="Item2">Item2</ComboBoxItem>
+                            <ComboBoxItem Name="Item3">Item3</ComboBoxItem>
+                            <ComboBoxItem Name="Item4">Item4</ComboBoxItem>
+                            <ComboBoxItem Name="Item5">Item5</ComboBoxItem>
+                            <ComboBoxItem Name="Item6">Item6</ComboBoxItem>
+                        </ComboBox>
+                    </Border>
+                </TabItem>
                 <ListView x:Name="listView" Height="100" Width="100">
                     <ListView.View>
                         <GridView>

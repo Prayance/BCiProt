@@ -177,7 +177,25 @@
   <ItemGroup>
     <Resource Include="DepricatedCode.txt" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\1445439582_data_recovery.png" />
+    <Resource Include="Images\1445439612_Movies_-_Subtitles.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\1445440702_edit-clear.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\1445440764_POWER - RESTART.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\1445440879_document-save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\1444326032_icon-95-folder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\1445441274_icon-arrow-down-b.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
