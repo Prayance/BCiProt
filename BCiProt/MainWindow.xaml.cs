@@ -149,6 +149,11 @@ namespace BCiProt
             pt.Show();
             this.Hide();
         }
+
+        private void GraphButton_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("It will go to the graphs page. Maybe we need to buy a graph toolkit.");
+        }
     }
 
     public enum OnOff { ON, OFF };

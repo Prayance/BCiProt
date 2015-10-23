@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BCiProt"
         xmlns:ViewModel="clr-namespace:BCiProt.Model"
+        xmlns:localEnum="clr-namespace:BCiProt.DataModel"
         xmlns:extToolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
@@ -12,6 +13,13 @@
         Icon="Images/1444317552_App_Services_copy_Amazon_Elastic_Transcoder.ico" Closing="Window_Closing">
         <Window.Resources>
             <ViewModel:ViewModel x:Key="ViewModel"/>
+<!--Normal WPF way to bind to enums
+        <ObjectDataProvider x:Key="dataFromEnum" MethodName="GetValues"
+                                ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:TypeExtension TypeName="localEnum:Video_Codec"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>-->
     </Window.Resources>
     <DockPanel>
         <!-- Main tool bar at the top -->
@@ -53,17 +61,27 @@
                             <ContextMenu >
                                 <MenuItem Header="New Profile"></MenuItem>
                                 <MenuItem Header="Open Profile"></MenuItem>
-                                <MenuItem Header="Save Profile"
-                                          x:Name="SaveProfile">
+                                <MenuItem Header="Commit"
+                                          x:Name="Commit">
                                     <MenuItem.Icon>
                                         <Image Source="/Images/1445440879_document-save.png"  Height="24"/>
                                     </MenuItem.Icon>
                                 </MenuItem>
-                                <MenuItem Header="Save Profile As"></MenuItem>
+                                <MenuItem Header="Export Profile As"></MenuItem>
                             </ContextMenu>
                         </MenuItem.ContextMenu>
                     </MenuItem>
                 </Menu>
+            </ToolBar>
+            <ToolBar>
+                <Button Click="Button_Click_7"
+                        ToolTip="Load a Saved Profile."
+                        ToolBar.OverflowMode="AsNeeded">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="/Images/1445632210_ark2.png" Height="24" Width="24" />
+                        <TextBlock Margin="3,0,0,0">Load</TextBlock>
+                    </StackPanel>
+                </Button>
             </ToolBar>
             <ToolBar>
                 <Button Click="Button_Click"
@@ -162,15 +180,13 @@
             <StatusBarItem Grid.Column="4">
                 <TextBlock Text=" You have to fill in all the options that are marked with a star."/>
             </StatusBarItem>
-
         </StatusBar>
 
         <!-- Main Grid -->
         <Grid>
-
             <TabControl Margin="14,14,9.8,10.2" x:Name="myTab"
                     BorderBrush="Gainsboro" Resources="{ StaticResource TabContr}">
-                <!-- General Profile Settings -->
+                <!-- GENERAL PROFILE TAB -->
                 <TabItem Header="General Profile Settings" x:Name="general" >
                     <StackPanel Orientation="Vertical" Margin="6,6,6,6">
                         <Border Style="{StaticResource labelBorder}">
@@ -200,7 +216,7 @@
                                     <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                <Label Content="Profile Version:" Margin="6,6,6,6"/>
+                                    <Label Content="Profile Version:" Margin="6,6,6,6"/>
                                     <TextBox x:Name="prVersion"
                                      ToolTipService.ToolTip="Enter the data bit rate"
                                      FontSize="12"
@@ -209,12 +225,14 @@
                                     <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
                                 </StackPanel>
                             </StackPanel>
+                            <StackPanel Grid.Column="1">
+                                
+                            </StackPanel>
+
                         </Grid>
                     </StackPanel>
-
                 </TabItem>
-
-                <!-- Data Profile -->
+                <!-- DATA PROFILE TAB -->
                 <TabItem Header="Data Profile" x:Name="data">
                     <StackPanel Orientation="Vertical" Margin="6,6,6,6">
                         <Border Style="{StaticResource labelBorder}">
@@ -233,13 +251,12 @@
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <StackPanel Orientation="Horizontal" Margin="6,6,6,6">
-                                <Label Content="Codec Choice:" Margin="6,6,6,6"/>
-                                <ComboBox x:Name="CodecCB" Margin="6,6,6,6" ToolTip="Select the codec of your data profile.">
-                                    <ComboBoxItem>codec 0</ComboBoxItem>
-                                    <ComboBoxItem IsSelected="True">codec 1</ComboBoxItem>
-                                    <ComboBoxItem>codec 2</ComboBoxItem>
-                                    <ComboBoxItem>codec 3</ComboBoxItem>
-                                </ComboBox>
+                                <Label Content="Data Codec:" Margin="6,6,6,6"/>
+                                <ComboBox x:Name="CodecCB" 
+                                          Margin="6,6,6,6" 
+                                          ToolTip="Select the codec of your data profile."
+                                          MinWidth="100"
+                                          ItemsSource="{Binding Source={localEnum:EnumBindingSource {x:Type localEnum:Data_Codec}}}"/>
                                 <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
                                 <Label Content="Data Bit Rate:" Margin="12,6,6,6"/>
                                 <TextBox x:Name="bitRate"
@@ -285,12 +302,8 @@
                                     <ComboBox x:Name="subCodecCB" 
                                               Margin="0,6,0,0"
                                               MinWidth="100"
-                                              ToolTip="Select the codec of your data profile.">
-                                        <ComboBoxItem>sub codec 0</ComboBoxItem>
-                                        <ComboBoxItem>sub codec 1</ComboBoxItem>
-                                        <ComboBoxItem>sub codec 2</ComboBoxItem>
-                                        <ComboBoxItem>sub codec 3</ComboBoxItem>
-                                    </ComboBox>
+                                              ToolTip="Select the codec of your data profile."
+                                              ItemsSource="{Binding Source={localEnum:EnumBindingSource {x:Type localEnum:Subtitle_Codec}}}"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Vertical"  Margin="6,6,6,6">
                                     <Label Content="Subtitle Character Encoding"/>
@@ -330,6 +343,7 @@
                         </Grid>
                     </StackPanel>
                 </TabItem>
+                <!-- AUDIO PROFILE TAB-->
                 <TabItem Header="Audio Profile" x:Name="audio">
                     <StackPanel Orientation="Vertical">
                         <Border Style="{StaticResource labelBorder}">
@@ -388,14 +402,15 @@
                         </StackPanel>
                         <StackPanel Orientation="Vertical" Grid.Column="1">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                <Label Content="Codec Name:"
+                                <Label Content="Audio Codec:"
                                        HorizontalAlignment="Left"
                                        Margin="6,6,6,6"/>
-                                <TextBox x:Name="codec"
-                                         ToolTipService.ToolTip="Enter the audio codec name"
-                                         FontSize="12"
-                                         Margin="6,6,6,6"
-                                         Width="100"/>
+                                    <ComboBox x:Name="codec"
+                                              ToolTipService.ToolTip="Choose the audio codec name"
+                                              FontSize="12"
+                                              Margin="6,6,6,6"
+                                              MinWidth="100"
+                                              ItemsSource="{Binding Source={localEnum:EnumBindingSource {x:Type localEnum:Audio_Codec}}}"/>
                                  <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
@@ -525,18 +540,24 @@
 		                                   VerticalAlignment="Top"
                                            Loaded="AC3Profile_Loaded"/>
                                 <StackPanel Orientation="Horizontal">
-                                    <Button Margin="6,6,6,6"
-                                            HorizontalAlignment="Left"
-                                            Content="Proceed to AC3 Profile"
-                                            Click="Button_Click_3"
-                                            ToolTipService.ToolTip="Click to proceed with an AC3 Audio Profile."
-                                            Width="120"/>
-                                    <Button Margin="6,6,6,6"
-                                            HorizontalAlignment="Right"
-                                            Content="Save as Other Profile"
-                                            Click="Button_Click_4"
-                                            ToolTipService.ToolTip="Click to proceed with an other Audio Profile."
-                                            Width="120"/>
+                                    <local:ImageButton ImageHeight="24"
+                                                       ImageWidth="24"
+                                                       Image="/Images/1445611021_sign-up.png" 
+                                                       Margin="6,6,6,6"
+                                                       HorizontalAlignment="Left"
+                                                       Width="120"
+                                                       Content ="Proceed to AC3  "
+                                                       Click="Button_Click_3"
+                                                       ToolTipService.ToolTip="Click to proceed with an AC3 Audio Profile."/>
+                                    <local:ImageButton ImageHeight="24"
+                                                       ImageWidth="24"
+                                                       Image="/Images/1445611033_User.png" 
+                                                       Margin="6,6,6,6"
+                                                       HorizontalAlignment="Right"
+                                                       Width="120"
+                                                       Content ="Save as Other  "
+                                                       Click="Button_Click_4"
+                                                       ToolTipService.ToolTip="Click to proceed with an other Audio Profile."/>
                                 </StackPanel>
                             </StackPanel>
                             <!-- Visibility Visible -->
@@ -889,6 +910,7 @@
                         </Grid>
                     </StackPanel>
                 </TabItem>
+                <!-- VIDEO ENCODING TAB -->
                 <TabItem Header="Video Encoding Profile" x:Name="video">
                     <StackPanel Orientation="Vertical">
                         <Border Style="{StaticResource labelBorder}">
@@ -913,14 +935,15 @@
 
                             <StackPanel Orientation="Vertical" Grid.Column="0">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                    <Label Content="Video Codec Name:"
+                                    <Label Content="Video Codec:"
                                        HorizontalAlignment="Left"
                                        Margin="6,6,6,6"/>
-                                    <TextBox x:Name="videoCodec"
-                                         ToolTipService.ToolTip="Enter the audio codec name"
-                                         FontSize="12"
-                                         Margin="6,6,6,6"
-                                         Width="100"/>
+                                    <ComboBox x:Name="videoCodec"
+                                              ToolTipService.ToolTip="Enter the video codec name"
+                                              FontSize="12"
+                                              Margin="6,6,6,6"
+                                              MinWidth="100"
+                                              ItemsSource="{Binding Source={localEnum:EnumBindingSource {x:Type localEnum:Video_Codec}}}"/>
                                     <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
@@ -942,9 +965,14 @@
                                               MinWidth="100"
                                               Margin="6,6,6,6" 
                                               ToolTip="Select the type of Video Rate Control.">
-                                        <ComboBoxItem>CBR</ComboBoxItem>
-                                        <ComboBoxItem>VBR_1</ComboBoxItem>
-                                        <ComboBoxItem>VBR_2</ComboBoxItem>
+                                        <ComboBoxItem 
+                                            ToolTipService.ToolTip="Constant Bit Rate">CBR</ComboBoxItem>
+                                        <ComboBoxItem 
+                                            ToolTipService.ToolTip="Variable Bit Rate Single Pass">VBR_1</ComboBoxItem>
+                                        <ComboBoxItem 
+                                            ToolTipService.ToolTip="Variable Bit Rate Double Pass">VBR_2</ComboBoxItem>
+                                        <ComboBoxItem 
+                                            ToolTipService.ToolTip="Variable Bit Rate Triple Pass">VBR_3</ComboBoxItem>
                                     </ComboBox>
                                     <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
                                 </StackPanel>
@@ -1003,7 +1031,7 @@
                                        Margin="6,6,0,6"/>
                                     <TextBox x:Name="height"
                                              IsEnabled="False"
-                                             ToolTipService.ToolTip="Enter the Height in centimeters."
+                                             ToolTipService.ToolTip="Enter the Frame Height in centimeters."
                                              FontSize="12"
                                              Margin="6,6,0,6"
                                              Width="45"/>
@@ -1013,7 +1041,7 @@
                                        Margin="0,6,0,6"/>
                                     <TextBox x:Name="width"
                                              IsEnabled="False"
-                                             ToolTipService.ToolTip="Enter the Width in centimeters."
+                                             ToolTipService.ToolTip="Enter the Frame Width in centimeters."
                                              FontSize="12"
                                              Margin="6,6,0,6"
                                              Width="45"/>
@@ -1163,13 +1191,12 @@
                             
                             <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="2">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                    <Label Content="Bit Rate Target:"
+                                    <Label Content="Bit Rate:"
                                        HorizontalAlignment="Left"
                                        Margin="6,6,6,6"/>
                                     <TextBox x:Name="videoBitRateTarget"
                                          ToolTipService.ToolTip="Enter the Video Bit Rate target numerical alue."
                                          FontSize="12"
-                                         IsEnabled="False"
                                          Margin="6,6,6,6"
                                          Width="100"/>
                                     <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
@@ -1179,7 +1206,6 @@
                                            HorizontalAlignment="Left"
                                            Margin="6,6,0,6"/>
                                     <TextBox x:Name="vidBitRateMin"
-                                             IsEnabled="False"
                                              ToolTipService.ToolTip="Enter the minimum Bit Rate target."
                                              FontSize="12"
                                              Margin="6,6,0,6"
@@ -1188,7 +1214,6 @@
                                            HorizontalAlignment="Left"
                                            Margin="0,6,0,6"/>
                                     <TextBox x:Name="vidBitRateMax"
-                                             IsEnabled="False"
                                              ToolTipService.ToolTip="Enter the maximum Bit Rate target."
                                              FontSize="12"
                                              Margin="6,6,0,6"
@@ -1347,7 +1372,7 @@
                                               Checked="gopEnabled_Checked"
                                               Unchecked="gopEnabled_Unchecked"
                                               Margin="6,6,6,6">
-                                              GOP </CheckBox>
+                                              GOP Closed</CheckBox>
                                     <!-- weighted Prediction checkbox -->
                                     <CheckBox x:Name="weightedPrediction"
                                               ToolTipService.ToolTip="Check the box to enable Weighted Prediction."
@@ -1394,7 +1419,6 @@
                                     <TextBox x:Name="codecRateControl"
                                          ToolTipService.ToolTip="Enter the Video Codec Rate Control."
                                          FontSize="12"
-                                         IsEnabled="False"
                                          Margin="6,0,6,6"
                                          Width="100"/>
                                     <Label Content="*" FontSize="14" Margin="0,6,6,0" Visibility="Hidden" Foreground="Red"/>
@@ -1406,7 +1430,6 @@
                                     <TextBox x:Name="codecParameters"
                                          ToolTipService.ToolTip="Enter the Video Parameters."
                                          FontSize="12"
-                                         IsEnabled="False"
                                          Margin="6,6,6,6"
                                          Width="100"/>
                                     <Label Content="*" FontSize="14" Margin="0,6,6,0" Visibility="Hidden" Foreground="Red"/>
@@ -1486,8 +1509,8 @@
                                          FontSize="12"
                                          Margin="6,6,6,6"
                                          Width="100"/>
+                                    <Label Content="*" FontSize="14" Margin="0,6,6,0" Visibility="Hidden" Foreground="Red"/>
                                 </StackPanel>
-                                <Label Content="*" FontSize="14" Margin="0,6,6,0" Visibility="Hidden" Foreground="Red"/>
                             </StackPanel>
 
                             <!-- if we have logo then the following are visible: -->
@@ -1544,7 +1567,7 @@
                                     <ComboBox x:Name="positionStyle"
                                               MinWidth="100"
                                               Margin="6,6,6,6" 
-                                              ToolTip="Select the type of Colorimetry.">
+                                              ToolTip="Select the Logo Position Style.">
                                         <ComboBoxItem Content="Relative"/>
                                         <ComboBoxItem Content="Absolute"/>
                                     </ComboBox>
@@ -1553,7 +1576,7 @@
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,2,0,0">
                                     <local:ImageButton ImageHeight="22"
                                                        ImageWidth="22"
-                                                       Image="/Images/1445439582_data_recovery.png" 
+                                                       Image="/Images/1444325824_icon-70-document-code.png" 
                                                        Margin="0,0,6,0"
                                                        Click="ImageButton_Click"
                                                        Content ="File Logo "
@@ -1571,8 +1594,8 @@
                                         HorizontalAlignment="Right"
                                         x:Name="dataPanel"
                                         Visibility="Hidden"
-                                        Grid.Row="1" 
-                                        Grid.Column="3">
+                                        Grid.Row="3" 
+                                        Grid.Column="1">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                     <Label Content="Data Text:"
                                        HorizontalAlignment="Right"
@@ -1679,13 +1702,13 @@
                                              Width="45"/>
                                 </StackPanel>
                             </StackPanel>
-                            <!-- if the GOP is checked the following are visible-->
+                            <!-- GOP panel -->
                             <StackPanel Orientation="Vertical" 
                                         HorizontalAlignment="Right"
-                                        Visibility="Hidden"
+                                        Visibility="Visible"
                                         x:Name="GOPpanel" 
-                                        Grid.Row="3" 
-                                        Grid.Column="1">
+                                        Grid.Row="1" 
+                                        Grid.Column="3">
                                 <Label Content="Group of Pictures - GOP" 
                                        FontSize="10"
                                        Margin="0"/>
@@ -1694,7 +1717,6 @@
                                            HorizontalAlignment="Left"
                                            Margin="6,0,0,6"/>
                                     <TextBox x:Name="gopLMin"
-                                             IsEnabled="False"
                                              ToolTipService.ToolTip="Enter the minimum length GOP value."
                                              FontSize="12"
                                              Margin="6,0,0,6"
@@ -1703,7 +1725,6 @@
                                            HorizontalAlignment="Left"
                                            Margin="0,0,0,6"/>
                                     <TextBox x:Name="gopLMax"
-                                             IsEnabled="False"
                                              ToolTipService.ToolTip="Enter the maximum length GOP value."
                                              FontSize="12"
                                              Margin="6,0,0,6"
@@ -1714,7 +1735,6 @@
                                            HorizontalAlignment="Left"
                                            Margin="6,0,6,6"/>
                                     <TextBox x:Name="gopMMin"
-                                             IsEnabled="False"
                                              ToolTipService.ToolTip="Enter the minimum GOP M frames Value."
                                              FontSize="12"
                                              Margin="6,0,12,6"
@@ -1723,7 +1743,6 @@
                                            HorizontalAlignment="Left"
                                            Margin="6,0,6,6"/>
                                     <TextBox x:Name="gopMMax"
-                                             IsEnabled="False"
                                              ToolTipService.ToolTip="Enter the maximum GOP M frames value."
                                              FontSize="12"
                                              Margin="6,0,0,6"
@@ -1733,7 +1752,7 @@
                             <!-- if we have crop enabled then the crop panel is visible -->
                             <StackPanel Orientation="Vertical" 
                                         HorizontalAlignment="Right"
-                                        Visibility="Visible"
+                                        Visibility="Hidden"
                                         x:Name="cropPanel" 
                                         Grid.Row="3" 
                                         Grid.Column="2">
@@ -1778,15 +1797,246 @@
                         </Grid>
                     </StackPanel>
                 </TabItem>
+                <!-- TRANSPORT PROFILE TAB -->
                 <TabItem Header="Transport Profile" x:Name="transport">
+                    <StackPanel Orientation="Vertical">
+                        <Border Style="{StaticResource labelBorder}">
+                            <Label x:Name="transportProfileTab" 
+                                   HorizontalAlignment="Center"
+                                   Content="This is the subtitle. e.g. Transport Profile edited Screen Text to be decided." 
+                                   FontSize="10"/>
+                        </Border>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel Orientation="Vertical" >
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Label Content="Transport Profile Name:" Margin="6,6,6,6"/>
+                                    <TextBox x:Name="transportName"
+                                     ToolTipService.ToolTip="Enter the Transport Profile Name."
+                                     FontSize="12"
+                                     Margin="6,6,6,6"
+                                     Width="80"/>
+                                    <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Label Content="Codec Type:" Margin="6,6,6,6"/>
+                                    <ComboBox x:Name="transCodec"
+                                              ToolTipService.ToolTip="Enter the Codec Type."
+                                              FontSize="12"
+                                              Margin="6,6,6,6"
+                                              MinWidth="100"
+                                              ItemsSource="{Binding Source={localEnum:EnumBindingSource {x:Type localEnum:Transport}}}"/>
+                                    <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Label Content="Target Bit Rate:" Margin="6,6,6,6"/>
+                                    <TextBox x:Name="transBitRate"
+                                     ToolTipService.ToolTip="Enter the Codec Type."
+                                     FontSize="12"
+                                     Margin="6,6,6,6"
+                                     Width="80"/>
+                                    <Label Content="*" FontSize="14" Margin="0,6,6,0" Visibility="Hidden" Foreground="Red"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <!-- profile button grid -->
+                            <StackPanel Orientation="Vertical" 
+                                        HorizontalAlignment="Right"
+                                        x:Name="transProfileType"
+                                        Grid.Column="1">
+                                <TextBlock x:Name="transProfileText"
+                                           HorizontalAlignment="Left"
+                                           Width="312"
+                                           Margin="6,6,6,6"
+                                           FontSize="12"
+		                                   TextWrapping="Wrap"
+		                                   Text="Transport Profile"
+		                                   VerticalAlignment="Top"
+                                           Loaded="transProfileText_Loaded"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <local:ImageButton ImageHeight="24"
+                                                       ImageWidth="24"
+                                                       Image="/Images/1445611008_cv.png" 
+                                                       Margin="6,6,6,6"
+                                                       HorizontalAlignment="Left"
+                                                       Content="Proceed to MPEGTS"
+                                                       Click="Button_Click_5"
+                                                       ToolTipService.ToolTip="Click to proceed with an MPEGTS Transport Profile."
+                                                       Width="150"/>
+                                    <local:ImageButton ImageHeight="24"
+                                                       ImageWidth="24"
+                                                       Image="/Images/1445611033_User.png" 
+                                                       Margin="6,6,6,6"
+                                                       HorizontalAlignment="Right"
+                                                       Width="150"
+                                                       Content="Save as Other"
+                                                       Click="Button_Click_6"
+                                                       ToolTipService.ToolTip="Click to proceed with an other Transport Profile."/>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical" Grid.Row="1">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Label Content="Service Provider:" Margin="6,6,6,6"/>
+                                    <TextBox x:Name="serviceProvider"
+                                     ToolTipService.ToolTip="Enter the Service Provider name."
+                                     FontSize="12"
+                                     Margin="6,6,6,6"
+                                     Width="80"/>
+                                    <Label Content="*" FontSize="14" Margin="0,6,6,0" Visibility="Hidden" Foreground="Red"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Label Content="Service Name:" Margin="6,6,6,6"/>
+                                    <TextBox x:Name="serviceName"
+                                     ToolTipService.ToolTip="Enter the Service Name."
+                                     FontSize="12"
+                                     Margin="6,6,6,6"
+                                     Width="80"/>
+                                    <Label Content="*" FontSize="14" Margin="0,6,6,0" Visibility="Hidden" Foreground="Red"/>
+                                </StackPanel>
+                                <!-- visibility hidden PIDdata -->
+                                <StackPanel Visibility="Hidden"
+                                            x:Name="PIDdatapanel"
+                                            Orientation="Horizontal" 
+                                            HorizontalAlignment="Right">
+                                    <Label Content="First PID for Data:" Margin="6,6,6,6"/>
+                                    <TextBox x:Name="PIDdata"
+                                     ToolTipService.ToolTip="First PID for data numeric value."
+                                     FontSize="12"
+                                     Margin="6,6,6,6"
+                                     Width="80"/>
+                                    <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <!-- visibility hidden PID panel -->
+                            <StackPanel Orientation="Vertical" 
+                                        Visibility="Hidden"
+                                        x:Name="PIDpanel"
+                                        Grid.Row="1" 
+                                        Grid.Column="1">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Label Content="First PID for PMT:" Margin="6,6,6,6"/>
+                                    <TextBox x:Name="PIDpmt"
+                                     ToolTipService.ToolTip="First PID for PMT numeric value."
+                                     FontSize="12"
+                                     Margin="6,6,6,6"
+                                     Width="80"/>
+                                    <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Label Content="First PID for Video:" Margin="6,6,6,6"/>
+                                    <TextBox x:Name="PIDvideo"
+                                     ToolTipService.ToolTip="First PID for video numeric value."
+                                     FontSize="12"
+                                     Margin="6,6,6,6"
+                                     Width="80"/>
+                                    <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Label Content="First PID for Audio:" Margin="6,6,6,6"/>
+                                    <TextBox x:Name="PIDaudio"
+                                     ToolTipService.ToolTip="First PID for audio numeric value."
+                                     FontSize="12"
+                                     Margin="6,6,6,6"
+                                     Width="80"/>
+                                    <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <!-- visibility hidden mpegts more options left -->
+                            <StackPanel Orientation="Vertical" 
+                                        x:Name="mpegtsMoreOptionsLeft"
+                                        Visibility="Hidden"
+                                        Grid.Row="2">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <CheckBox x:Name="M2TSmode" Margin="6,6,6,6">
+                                        <TextBlock 
+                                            ToolTipService.ToolTip="Check the box to enable M2TS mode.">
+                                            M2TS mode
+                                            <Run Foreground="Red"> * </Run>
+                                        </TextBlock>
+                                    </CheckBox>
+                                    <CheckBox x:Name="constantMuxRate" 
+                                              Checked="constantMuxRate_Checked"
+                                              Unchecked="constantMuxRate_Unchecked"
+                                              Margin="6,6,6,6">
+                                        <TextBlock 
+                                            ToolTipService.ToolTip="Check the box to enable Constant MuxRate.">
+                                            Constant MuxRate
+                                            <Run Foreground="Red"> * </Run>
+                                        </TextBlock>
+                                    </CheckBox>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Label Content="Mux Rate:" Margin="6,6,6,6"/>
+                                    <TextBox x:Name="muxRate"
+                                             IsEnabled="True"
+                                             ToolTipService.ToolTip="Enter the mux rate numeric value."
+                                             FontSize="12"
+                                             Margin="6,6,6,6"
+                                             Width="80"/>
+                                    <Label Content="*" FontSize="14" Margin="0,6,6,0" Visibility="Hidden" Foreground="Red"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Label Content="PCR Interval:" Margin="6,6,6,6"/>
+                                    <TextBox x:Name="pcrInterval"
+                                     ToolTipService.ToolTip="Enter the PCR Interval numeric value."
+                                     FontSize="12"
+                                     Margin="6,6,6,6"
+                                     Width="80"/>
+                                    <Label Content="*" FontSize="14" Margin="0,6,6,0" Visibility="Hidden" Foreground="Red"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <!-- visibility hidden mpegts more options right-->
+                            <StackPanel Orientation="Vertical" 
+                                        x:Name="mpegtsMoreOptionsRight"
+                                        Visibility="Hidden"
+                                        Grid.Row="2"
+                                        Grid.Column="1">
+                                <StackPanel Orientation="Horizontal">
+                                    <CheckBox x:Name="mpegtscopyts" 
+                                              Content="MPEGTS copyts"
+                                              ToolTipService.ToolTip="Check to enable the MPEGTS copyts."
+                                              Margin="6,6,6,6">
+                                    </CheckBox>
+                                    <CheckBox x:Name="resendHeaders" 
+                                              ToolTipService.ToolTip="Check to enable Resend Headers."
+                                              Content="Resend Headers"
+                                              Margin="6,6,6,6">
+                                    </CheckBox>
+                                    <CheckBox x:Name="useLatm" 
+                                              ToolTipService.ToolTip="Check to enable the use of LATM."
+                                              Content="LATM enable"
+                                              Margin="6,6,6,6">
+                                    </CheckBox>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Label Content="PES Payload Size:" Margin="6,6,6,6"/>
+                                    <TextBox x:Name="pesPayloadSize"
+                                     ToolTipService.ToolTip="Enter the PES Payload Size numeric value."
+                                     FontSize="12"
+                                     Margin="6,6,6,6"
+                                     Width="80"/>
+                                    <Label Content="*" FontSize="14" Margin="0,6,6,0" Visibility="Hidden" Foreground="Red"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Label Content="Tables Version:" Margin="6,6,6,6"/>
+                                    <TextBox x:Name="tablesVersion"
+                                     ToolTipService.ToolTip="Enter the value of Tables Version."
+                                     FontSize="12"
+                                     Margin="6,6,6,6"
+                                     Width="80"/>
+                                    <Label Content="*" FontSize="14" Margin="0,6,6,0" Visibility="Hidden" Foreground="Red"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
                 </TabItem>
-                <ListView x:Name="listView" Height="100" Width="100">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn/>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
             </TabControl>
         </Grid>
     </DockPanel>

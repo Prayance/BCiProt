@@ -56,13 +56,14 @@
                     </StackPanel>
                 </Button>
                 <Separator />
-                <Label VerticalAlignment="Center">Font size:</Label>
-                <ComboBox>
-                    <ComboBoxItem>10</ComboBoxItem>
-                    <ComboBoxItem IsSelected="True">12</ComboBoxItem>
-                    <ComboBoxItem>14</ComboBoxItem>
-                    <ComboBoxItem>16</ComboBoxItem>
-                </ComboBox>
+                <Button Click="GraphButton_Click"
+                        x:Name="GraphButton"
+                        ToolTip="Click to view a selection of Graphs for the transcoders.">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="/Images/1445632519_bar_chart.png" Height="24" Width="24" />
+                        <TextBlock Margin="3,0,0,0">Graphs</TextBlock>
+                    </StackPanel>
+                </Button>
             </ToolBar>
         </ToolBarTray>
 
