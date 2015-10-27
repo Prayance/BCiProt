@@ -82,6 +82,8 @@
     <Compile Include="Convertors\VisibilityConvertor.cs" />
     <Compile Include="DataModel\EnumBindingSourceExtension.cs" />
     <Compile Include="DataModel\CodecEnums.cs" />
+    <Compile Include="ExportDataModel\DataProfile.cs" />
+    <Compile Include="HelperClasses\TreeViewToXml.cs" />
     <Compile Include="HelpPage.xaml.cs">
       <DependentUpon>HelpPage.xaml</DependentUpon>
     </Compile>
@@ -237,6 +239,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\1445893164_add_database.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\1445977162_floppy-disk.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
