@@ -13,9 +13,6 @@ namespace BCiProt.HelperClasses
 {
     public class TreeViewToXml
     {
-        private static string xmlstring = "";
-        private static StreamWriter sr;
-
         
     }
 

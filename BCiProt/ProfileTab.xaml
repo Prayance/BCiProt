@@ -13,32 +13,12 @@
         Icon="Images/1444317552_App_Services_copy_Amazon_Elastic_Transcoder.ico" Closing="Window_Closing">
         <Window.Resources>
             <ViewModel:ViewModel x:Key="ViewModel"/>
-<!--Normal WPF way to bind to enums
-        <ObjectDataProvider x:Key="dataFromEnum" MethodName="GetValues"
-                                ObjectType="{x:Type sys:Enum}">
-            <ObjectDataProvider.MethodParameters>
-                <x:TypeExtension TypeName="localEnum:Video_Codec"/>
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>-->
-    </Window.Resources>
+        </Window.Resources>
     <DockPanel>
         <!-- Main tool bar at the top -->
         <!-- All the options will slowly be modified -->
         <ToolBarTray DockPanel.Dock="Top">
             <ToolBar>
-                <!--<Button Command="New" 
-                        Content="New" 
-                        ToolBar.OverflowMode="AsNeeded"></Button>
-                <Button Command="Open" 
-                        Content="Open" 
-                        ToolBar.OverflowMode="AsNeeded"></Button>
-                <Button ToolTip="Click to Save the Changes you have made."
-                        ToolBar.OverflowMode="AsNeeded">
-                    <StackPanel Orientation="Vertical">
-                        <Image Source="/Images/1445440879_document-save.png" Height="24" Width="24" />
-                        <TextBlock Margin="3,0,0,0">Save</TextBlock>
-                    </StackPanel>
-                </Button>-->
                 <Menu VerticalAlignment="Center">
                     <MenuItem  x:Name="FileButton" 
                                Background="Transparent"
@@ -67,7 +47,11 @@
                                         <Image Source="/Images/1445440879_document-save.png"  Height="24"/>
                                     </MenuItem.Icon>
                                 </MenuItem>
-                                <MenuItem Header="Export Profile As"></MenuItem>
+                                <MenuItem Header="Export Profile As" x:Name="ExportProfileXml">
+                                    <MenuItem.Icon>
+                                        <Image Source="/Images/1446042610_download.png"  Height="24"/>
+                                    </MenuItem.Icon>
+                                </MenuItem>
                             </ContextMenu>
                         </MenuItem.ContextMenu>
                     </MenuItem>
@@ -83,12 +67,20 @@
                     </StackPanel>
                 </Button>
                 <Separator />
-                <Button x:Name="SaveDataProfile" 
-                        Click="SaveDataProfile_Click"
+                <Button x:Name="SaveDataProfileXml" 
+                        Click="SaveDataProfileXml_Click"
                         ToolTip="Click to Save Data Profile as Xml">
                     <StackPanel Orientation="Vertical">
                         <Image Source="/Images/1445977162_floppy-disk.png" Height="24" Width="24" />
                         <TextBlock Margin="3,0,0,0">Save as Xml</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="SaveDataProfile" 
+                        Click="SaveDataProfile_Click"
+                        ToolTip="Click to Save Data Profile as Xml">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="/Images/1446042683_save_add.png" Height="24" Width="24" />
+                        <TextBlock Margin="3,0,0,0">Save Profile</TextBlock>
                     </StackPanel>
                 </Button>
             </ToolBar>
@@ -500,7 +492,7 @@
                                             <HierarchicalDataTemplate DataType="{x:Type ViewModel:TreeModel}" ItemsSource="{Binding Nodes}">
                                                 <StackPanel Orientation="Horizontal">
                                                     <!--<Image Source="/WpfTutorialSamples;component/Images/user.png" Margin="0,0,5,0" />-->
-                                                    <TextBlock Text="{Binding Type}" FontFamily="Monotype Corsiva" FontWeight="Bold" FontSize="13.333"/>
+                                                    <TextBlock Text="{Binding Type}" FontWeight="Bold" FontSize="14"/>
                                                     <TextBlock Text=" [" Foreground="Blue" />
                                                     <TextBlock Text="{Binding Nodes.Count}" Foreground="Blue" />
                                                     <TextBlock Text="]" Foreground="Blue" />
@@ -521,7 +513,6 @@
                                 <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="6,6,6,6">
                                     <Label Content="Data Codec:" x:Name="DCodecLabel" Margin="6,6,6,6" MaxHeight="30"/>
                                     <ComboBox x:Name="CodecCB" 
-                                              IsEnabled="True"
                                               DropDownClosed="CodecCB_DropDownClosed"
                                               MaxHeight="30"
                                               Margin="6,6,6,6" 
@@ -531,7 +522,7 @@
                                     <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red" MaxHeight="30"/>
                                     <Label Content="Data Bit Rate:" x:Name="DBitLabel" Margin="12,6,6,6" MaxHeight="30"/>
                                     <TextBox x:Name="bitRate"
-                                             IsEnabled="True"
+                                             IsEnabled="False"
                                              MaxHeight="30"
                                              ToolTipService.ToolTip="Enter the data bit rate"
                                              FontSize="12"
@@ -541,49 +532,71 @@
                                 <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" >
                                     <StackPanel Orientation="Vertical">
                                         <Label x:Name="dataLocation"
-                                           MinHeight="16"
-                                           MinWidth="80"
-                                           FontSize="12"
-                                           Margin="6,6,6,6"/>
+                                               Content=""
+                                               MinHeight="16"
+                                               MinWidth="80"
+                                               FontSize="12"
+                                               Margin="6,6,6,6"/>
                                         <local:ImageButton ImageHeight="40"
-                                                       ImageWidth="30"
-                                                       Image="/Images/1445439582_data_recovery.png" 
-                                                       Margin="6,6,6,6"
-                                                       Content ="Data location   "
-                                                       Click="Button_Click_1"
-                                                       ToolTip="Click to choose your data location."/>
+                                                           x:Name="dataLocationButton"
+                                                           ImageWidth="30"
+                                                           IsEnabled="False"
+                                                           Image="/Images/1445439582_data_recovery.png" 
+                                                           Margin="6,6,6,6"
+                                                           Content ="Data location   "
+                                                           Click="dataLocationButton_Click"
+                                                           ToolTip="Click to choose your data location."/>
                                     </StackPanel>
                                     <StackPanel Orientation="Vertical">
                                         <Label x:Name="subtitleLocation"
-                                           MinWidth="80"
-                                           MinHeight="16"
-                                           FontSize="12"
-                                           Margin="6,6,6,6"/>
-                                        <local:ImageButton ImageHeight="40"
+                                               Content=""
+                                               MinWidth="80"
+                                               MinHeight="16"
+                                               FontSize="12"
+                                               Margin="6,6,6,6"/>
+                                        <local:ImageButton x:Name="subFileChoose"
+                                                           ImageHeight="40"
                                                            ImageWidth="30"
+                                                           IsEnabled="False"
                                                            Image="/Images/1445439612_Movies_-_Subtitles.png" 
                                                            Margin="6,6,6,6"
                                                            Content ="Subtitle File Location   "
-                                                           Click="Button_Click_2"
+                                                           Click="subFileChoose_Click"
                                                            ToolTip="Click to choose your subtitle's file location."/>
                                     </StackPanel>
                                     <StackPanel Orientation="Vertical">
-                                        <Label 
-                                           MinWidth="80"
-                                           MinHeight="16"
-                                           FontSize="12"
-                                            Visibility="Hidden"
-                                           Margin="6,6,6,6"/>
                                         <local:ImageButton ImageHeight="40"
-                                                       VerticalAlignment="Bottom"
-                                                       x:Name="AddSubtitle"
-                                                       ImageWidth="30"
-                                                       MaxHeight="40"
-                                                       Image="/Images/1445893164_add_database.png" 
-                                                       Margin="6,6,6,6"
-                                                       Content ="Add Subtitle   "
-                                                       Click="AddSubtitle_Click"
-                                                       ToolTip="Click to save the current subtitle and add a new one."/>
+                                                           VerticalAlignment="Bottom"
+                                                           IsEnabled="False"
+                                                           x:Name="AddPrivateData"
+                                                           ImageWidth="30"
+                                                           MaxHeight="40"
+                                                           Image="/Images/1446043844_data_recovery.png" 
+                                                           Margin="6,6,6,6"
+                                                           Content ="Add Private Data"
+                                                           Click="AddPrivateData_Click"
+                                                           ToolTip="Click to save the current subtitle and add a new one."/>
+                                        <local:ImageButton ImageHeight="40"
+                                                           IsEnabled="False"
+                                                           VerticalAlignment="Bottom"
+                                                           x:Name="AddSubtitle"
+                                                           ImageWidth="30"
+                                                           MaxHeight="40"
+                                                           Image="/Images/1445893164_add_database.png" 
+                                                           Margin="6,6,6,6"
+                                                           Content ="    Add Subtitle    "
+                                                           Click="AddSubtitle_Click"
+                                                           ToolTip="Click to save the current subtitle and add a new one."/>
+                                        <local:ImageButton ImageHeight="40"
+                                                           VerticalAlignment="Bottom"
+                                                           x:Name="cancelData"
+                                                           ImageWidth="30"
+                                                           MaxHeight="40"
+                                                           Image="/Images/1446067213_delete_database.png" 
+                                                           Margin="6,6,6,6"
+                                                           Content ="        Cancel        "
+                                                           Click="cancelData_Click"
+                                                           ToolTip="Click to Cancel All changes to the current Data Profile."/>
                                     </StackPanel>
                                 </StackPanel>
                             <!--<Label Grid.Row="1" Content="Subtitle Settings" Margin="6,0,0,0"/>-->

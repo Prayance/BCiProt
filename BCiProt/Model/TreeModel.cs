@@ -19,9 +19,7 @@ namespace BCiProt.Model
             this.Nodes = new ObservableCollection<TreeNode>();
         }
 
-
         public string Type { get; set; }
-
         public ObservableCollection<TreeNode> Nodes { get; set; }
     }
 
@@ -30,6 +28,7 @@ namespace BCiProt.Model
     {
         public string controlType { get; set; }
         public string controlValue { get; set; }
+        public string fullFileLocation { get; set; } // this property is used on the export and import functions only.
     }
 
 
