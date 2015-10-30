@@ -115,13 +115,10 @@ namespace BCiProt
         /// <param name="e"></param>
         private void Window_Closing(object sender, CancelEventArgs e)
         {
-            //messagebox appears
-            MessageBoxResult result = MessageBox.Show("Are you sure?", "Exit", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            //if user clicks cancel
-            if (result == MessageBoxResult.Yes)
-            {
+            // if the user clicks the window close x button:
+            if (MessageBox.Show("Are you sure that you want to exit?", "Exit", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 Application.Current.Shutdown();
-            }
+
             #region // Save the user settings for resize
             var userPrefs = new UserPreferences();
 
@@ -153,6 +150,45 @@ namespace BCiProt
         private void GraphButton_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("It will go to the graphs page. Maybe we need to buy a graph toolkit.");
+        }
+
+        private void ExitButton_Click(object sender, RoutedEventArgs e)
+        {
+            #region // User settings for resize
+            var userPrefs = new UserPreferences();
+
+            this.Height = userPrefs.WindowHeight;
+            this.Width = userPrefs.WindowWidth;
+            this.Top = userPrefs.WindowTop;
+            this.Left = userPrefs.WindowLeft;
+            this.WindowState = userPrefs.WindowState;
+            #endregion
+
+            // if the user clicks the window close x button:
+            if (MessageBox.Show("Are you sure that you want to exit?", "Exit", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                Application.Current.Shutdown();
+        }
+
+        private void LogoutButton_Click(object sender, RoutedEventArgs e)
+        {
+            #region // User settings for resize
+            var userPrefs = new UserPreferences();
+
+            this.Height = userPrefs.WindowHeight;
+            this.Width = userPrefs.WindowWidth;
+            this.Top = userPrefs.WindowTop;
+            this.Left = userPrefs.WindowLeft;
+            this.WindowState = userPrefs.WindowState;
+            #endregion
+
+            // if the user clicks the window close x button:
+            if (MessageBox.Show("Are you sure that you want to logout?", "Logout", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                LoginWindow lw = new LoginWindow();
+                lw.Show();
+                this.Hide(); // do not forget to reset this page before hide.
+            }
+
         }
     }
 

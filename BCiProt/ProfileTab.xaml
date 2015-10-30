@@ -9,8 +9,8 @@
         xmlns:extToolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
-        Title="BCi Transcoder - Profile Selection"  Height="500" Width="700" 
-        Icon="Images/1444317552_App_Services_copy_Amazon_Elastic_Transcoder.ico" Closing="Window_Closing">
+        Title="BCi Transcoder - Profile Selection"  Height="500" Width="700"
+        Icon="Images/1444317552_App_Services_copy_Amazon_Elastic_Transcoder.ico">
         <Window.Resources>
             <ViewModel:ViewModel x:Key="ViewModel"/>
         </Window.Resources>

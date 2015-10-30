@@ -21,7 +21,7 @@
     <DockPanel>
         <!-- Main tool bar at the top -->
         <ToolBarTray DockPanel.Dock="Top">
-            <ToolBar>
+            <ToolBar Margin="6,6,6,6">
                 <Button Command="New" 
                         Content="New" 
                         ToolBar.OverflowMode="AsNeeded"/>
@@ -31,8 +31,7 @@
                 <Button Command="Save" 
                         Content="Save" 
                         ToolBar.OverflowMode="AsNeeded"/>
-            </ToolBar>
-            <ToolBar>
+                <Separator />
                 <Button Command="Cut" 
                         ToolTip="Cut selection to Windows Clipboard."
                         ToolBar.OverflowMode="AsNeeded">
@@ -41,6 +40,7 @@
                         <TextBlock Margin="3,0,0,0">Cut</TextBlock>
                     </StackPanel>
                 </Button>
+                <Separator />
                 <Button Command="Copy" 
                         ToolTip="Copy selection to Windows Clipboard."
                         ToolBar.OverflowMode="AsNeeded">
@@ -49,19 +49,40 @@
                         <TextBlock Margin="3,0,0,0">Copy</TextBlock>
                     </StackPanel>
                 </Button>
+                <Separator />
                 <Button Command="Paste" ToolTip="Paste from Windows Clipboard.">
                     <StackPanel Orientation="Vertical">
                         <Image Source="/Images/1444411649_paste.png" Height="24" Width="24" />
                         <TextBlock Margin="3,0,0,0">Paste</TextBlock>
                     </StackPanel>
                 </Button>
-                <Separator />
+            </ToolBar>
+            <ToolBar Margin="6,6,6,6">
                 <Button Click="GraphButton_Click"
                         x:Name="GraphButton"
                         ToolTip="Click to view a selection of Graphs for the transcoders.">
                     <StackPanel Orientation="Vertical">
                         <Image Source="/Images/1445632519_bar_chart.png" Height="24" Width="24" />
                         <TextBlock Margin="3,0,0,0">Graphs</TextBlock>
+                    </StackPanel>
+                </Button>
+            </ToolBar>
+            <ToolBar Margin="6,6,6,6">
+                <Button Click="LogoutButton_Click"
+                        x:Name="LogoutButton"
+                        ToolTip="Click to logout">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="/Images/1446243606_logout.png" Height="24" Width="24" />
+                        <TextBlock Margin="3,0,0,0">Logout</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Separator/>
+                <Button Click="ExitButton_Click"
+                        x:Name="ExitButton"
+                        ToolTip="Click to logout">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="/Images/1446243647_Exit_button.png" Height="24" Width="24" />
+                        <TextBlock Margin="3,0,0,0">Exit</TextBlock>
                     </StackPanel>
                 </Button>
             </ToolBar>
