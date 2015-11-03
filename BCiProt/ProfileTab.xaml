@@ -10,7 +10,7 @@
         mc:Ignorable="d"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         Title="BCi Transcoder - Profile Selection"  Height="500" Width="700"
-        Icon="Images/1444317552_App_Services_copy_Amazon_Elastic_Transcoder.ico">
+        Icon="Images/1444317552_App_Services_copy_Amazon_Elastic_Transcoder.ico" Closing="Window_Closing">
         <Window.Resources>
             <ViewModel:ViewModel x:Key="ViewModel"/>
         </Window.Resources>
@@ -77,7 +77,7 @@
                 </Button>
                 <Button x:Name="SaveDataProfile" 
                         Click="SaveDataProfile_Click"
-                        ToolTip="Click to Save Data Profile as Xml">
+                        ToolTip="Click to Save to an existing Data Profile">
                     <StackPanel Orientation="Vertical">
                         <Image Source="/Images/1446042683_save_add.png" Height="24" Width="24" />
                         <TextBlock Margin="3,0,0,0">Save Profile</TextBlock>
@@ -483,10 +483,10 @@
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
-                            <!--treeview panel short the datatype!!! -->
+                            <!--treeview panel -->
                                 <StackPanel Grid.RowSpan="3" Grid.Column="0">
                                     <TreeView Name="dataTree" 
-                                              Width="200" 
+                                              Width="250" 
                                               Height="300">
                                         <TreeView.Resources>
                                             <HierarchicalDataTemplate DataType="{x:Type ViewModel:TreeModel}" ItemsSource="{Binding Nodes}">
@@ -650,6 +650,7 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
@@ -657,8 +658,33 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
-
-                         <StackPanel Orientation="Vertical">
+                                <!--treeview panel -->
+                                <StackPanel Grid.RowSpan="4" Grid.Column="0">
+                                    <TreeView Name="audioTree" 
+                                              Width="auto" 
+                                              Height="auto">
+                                        <TreeView.Resources>
+                                            <HierarchicalDataTemplate DataType="{x:Type ViewModel:TreeModel}" ItemsSource="{Binding Nodes}">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <!--<Image Source="/WpfTutorialSamples;component/Images/user.png" Margin="0,0,5,0" />-->
+                                                    <TextBlock Text="{Binding Type}" FontWeight="Bold" FontSize="14"/>
+                                                    <TextBlock Text=" [" Foreground="Blue" />
+                                                    <TextBlock Text="{Binding Nodes.Count}" Foreground="Blue" />
+                                                    <TextBlock Text="]" Foreground="Blue" />
+                                                </StackPanel>
+                                            </HierarchicalDataTemplate>
+                                            <DataTemplate DataType="{x:Type ViewModel:TreeNode}">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <!--<Image Source="/WpfTutorialSamples;component/Images/user.png" Margin="0,0,5,0" />-->
+                                                    <TextBlock Text="{Binding controlType}" />
+                                                    <TextBlock Text=" : " Foreground="Green" />
+                                                    <TextBlock Text="{Binding controlValue}" Foreground="Green" />
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </TreeView.Resources>
+                                    </TreeView>
+                                </StackPanel>
+                                <StackPanel Orientation="Vertical" Grid.Column="1">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                 <Label Content="Audio Profile Name:"
                                        HorizontalAlignment="Left"
@@ -693,7 +719,7 @@
                                  <Label Content="*" FontSize="14" Margin="0,6,6,0" Visibility="Hidden"/>
                               </StackPanel>
                         </StackPanel>
-                        <StackPanel Orientation="Vertical" Grid.Column="1">
+                        <StackPanel Orientation="Vertical" Grid.Column="2">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                 <Label Content="Audio Codec:"
                                        HorizontalAlignment="Left"
@@ -711,32 +737,16 @@
                                        HorizontalAlignment="Left"
                                        Margin="6,6,6,6"/>
                                 <Grid Margin="6,6,6,6" DataContext="{Binding Source={StaticResource ViewModel}}">
-                                    <local:MultiSelectComboBox 
-                                        Width="100" 
-                                        MinWidth="100"
-                                        Height="30"
-                                        ItemsSource="{Binding Items}"
-                                        SelectedItems="{Binding SelectedItems}"
-                                        x:Name="MSC" 
-                                        ToolTipService.ToolTip="Choose as many channels as you require."/>
+                                    <local:MultiSelectComboBox Width="100" 
+                                                               MinWidth="100"
+                                                               Height="30"
+                                                               ItemsSource="{Binding Items}"
+                                                               SelectedItems="{Binding SelectedItems}"
+                                                               x:Name="MSC" 
+                                                               ToolTipService.ToolTip="Choose as many channels as you require."/>
 
                                 </Grid>
                                     <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
-                                    <!--<ComboBox x:Name="channels" 
-                                          Margin="6,6,6,6" 
-                                          ToolTip="Select the codec of your data profile.">
-                                    <ComboBoxItem>FL - Front Left</ComboBoxItem>
-                                    <ComboBoxItem IsSelected="True">FR - Front Right</ComboBoxItem>
-                                    <ComboBoxItem>FC - Front Centre</ComboBoxItem>
-                                    <ComboBoxItem>LFE - Low Frequency Effects</ComboBoxItem>
-                                    <ComboBoxItem>BL - Back Left</ComboBoxItem>
-                                    <ComboBoxItem>BR - Back Right</ComboBoxItem>
-                                    <ComboBoxItem>FLC - Front Left Centre</ComboBoxItem>
-                                    <ComboBoxItem>FRC - Front Right Centre</ComboBoxItem>
-                                    <ComboBoxItem>BC - Back Centre</ComboBoxItem>
-                                    <ComboBoxItem>SL - Side Left</ComboBoxItem>
-                                    <ComboBoxItem>SR - Side Right</ComboBoxItem>
-                                </ComboBox>-->
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                 <Label Content="Layout Type:"
@@ -750,79 +760,114 @@
                                     <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
                              </StackPanel>
                         </StackPanel>
-                            <StackPanel Orientation="Vertical" Grid.Column="2">
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                    <Label Content="Language:"
+                                <StackPanel Orientation="Vertical" Grid.Column="3">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                        <Label Content="Language:"
                                        HorizontalAlignment="Left"
                                        Margin="6,6,6,6"/>
-                                    <ComboBox x:Name="language"
+                                        <ComboBox x:Name="language"
                                               Margin="6,6,6,6" 
                                               MinWidth="100"
                                               ToolTip="Select the audio language.">
-                                    </ComboBox>
-                                    <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                    <Label Content="Bit Rate:"
+                                        </ComboBox>
+                                        <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                        <Label Content="Bit Rate:"
                                        HorizontalAlignment="Left"
                                        Margin="6,6,6,6"/>
-                                    <TextBox x:Name="audioBitRate"
+                                        <TextBox x:Name="audioBitRate"
                                          ToolTipService.ToolTip="Bitrate is in kbps."
                                          FontSize="12"
                                          Margin="6,6,6,6"
                                          Width="100"/>
-                                    <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                    <Label Content="Gain Target:"
-                                       HorizontalAlignment="Left"
-                                       Margin="6,6,6,6"/>
-                                    <TextBox x:Name="GainTarget"
-                                         ToolTipService.ToolTip="Enter the number of Gain Target."
-                                         FontSize="12"
-                                         Margin="6,6,6,6"
-                                         Width="100"/>
-                                    <Label Content="*" FontSize="14" Margin="0,6,6,0" Visibility="Hidden"/>
-                                </StackPanel>
-                            </StackPanel>
-                            <StackPanel Orientation="Vertical" Grid.Row="1">
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                    <Label Content="Maximum Frequency:"
-                                       HorizontalAlignment="Left"
-                                       Margin="6,6,6,6"/>
-                                    <TextBox x:Name="maxFrequency"
-                                         ToolTipService.ToolTip="Enter the max Frequence in Hz"
-                                         FontSize="12"
-                                         Margin="6,6,6,6"
-                                         Width="100"/>
-                                    <Label Content="*" FontSize="14" Margin="0,6,6,0" Visibility="Hidden"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                    <Label Content="Minimum Frequency:"
-                                       HorizontalAlignment="Left"
-                                       Margin="6,6,6,6"/>
-                                    <TextBox x:Name="minFrequency"
-                                         ToolTipService.ToolTip="Enter the min Frequence in Hz."
-                                         FontSize="12"
-                                         Margin="6,6,6,6"
-                                         Width="100"/>
-                                    <Label Content="*" FontSize="14" Margin="0,6,6,0" Visibility="Hidden"/>
-                                </StackPanel>
-                            </StackPanel>
-                            <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1">
-                                <CheckBox x:Name="Gain" ToolTipService.ToolTip="Click to enable Gain." Margin="6,18,6,6">Gain Enabled</CheckBox>
-                                <CheckBox x:Name="Passthrough" Margin="6,12,6,6">
-                                    <TextBlock 
+                                        <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
+                                    </StackPanel>
+                                    <CheckBox x:Name="Passthrough" 
+                                              Checked="Passthrough_Checked"
+                                              Unchecked="Passthrough_Unchecked"
+                                              Margin="6,12,6,6">
+                                        <TextBlock 
                                         ToolTipService.ToolTip="It defaults to NO. Check the box to enable pass through.">
                                         Pass Through 
                                         <Run Foreground="Red"> * </Run>
-                                    </TextBlock></CheckBox>
-                            </StackPanel>
-                            <!-- Visibility Visible -->
+                                        </TextBlock>
+                                    </CheckBox>
+                                </StackPanel>
+                                <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                        <Label Content="Maximum Frequency:"
+                                               HorizontalAlignment="Left"
+                                               Margin="6,6,6,6"/>
+                                        <TextBox x:Name="maxFrequency"
+                                                 ToolTipService.ToolTip="Enter the max Frequence in Hz"
+                                                 FontSize="12"
+                                                 Margin="6,6,6,6"
+                                                 Width="100"/>
+                                        <Label Content="*" FontSize="14" Margin="0,6,6,0" Visibility="Hidden"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                        <Label Content="Minimum Frequency:"
+                                           HorizontalAlignment="Left"
+                                           Margin="6,6,6,6"/>
+                                        <TextBox x:Name="minFrequency"
+                                             ToolTipService.ToolTip="Enter the min Frequence in Hz."
+                                             FontSize="12"
+                                             Margin="6,6,6,6"
+                                             Width="100"/>
+                                        <Label Content="*" FontSize="14" Margin="0,6,6,0" Visibility="Hidden"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" 
+                                                HorizontalAlignment="Center">
+                                        <local:ImageButton ImageHeight="24"
+                                                           ImageWidth="24"
+                                                           Image="/Images/1446585194_save as.png" 
+                                                           Margin="6,6,6,6"
+                                                           x:Name="SaveChannel"
+                                                           HorizontalAlignment="Left"
+                                                           Width="120"
+                                                           Content ="  Save Channel  "
+                                                           Click="SaveChannel_Click"
+                                                           ToolTipService.ToolTip="Click to Save this Channel, into the audio Profile."/>
+                                    </StackPanel>
+                                </StackPanel>
+                                <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="2">
+                                    <CheckBox x:Name="Gain" 
+                                          Unchecked="Gain_Unchecked"
+                                          Checked="Gain_Checked"
+                                          ToolTipService.ToolTip="Click to enable Gain." 
+                                          Margin="6,14,6,6">Gain Enabled</CheckBox>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                        <Label Content="Gain Target:"
+                                               HorizontalAlignment="Left"
+                                               Margin="6,6,6,6"/>
+                                        <TextBox x:Name="GainTarget"
+                                                 ToolTipService.ToolTip="Enter the number of Gain Target."
+                                                 FontSize="12"
+                                                 Margin="6,6,6,6"
+                                                 Width="100"/>
+                                        <Label Content="*" FontSize="14" Margin="0,6,6,0" Visibility="Hidden"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" 
+                                                HorizontalAlignment="Center">
+                                        <local:ImageButton ImageHeight="24"
+                                                           ImageWidth="24"
+                                                           Image="/Images/1446585140_audio_left_channel.png" 
+                                                           Margin="6,6,6,6"
+                                                           x:Name="AddChannel"
+                                                           HorizontalAlignment="Left"
+                                                           Width="120"
+                                                           Content ="   Add Channel   "
+                                                           Click="AddChannel_Click"
+                                                           ToolTipService.ToolTip="Click to Add a new Channel, into the audio Profile."/>
+                                    </StackPanel>
+                                </StackPanel>
+                                <!-- Visibility Visible -->
                             <StackPanel Orientation="Vertical" 
                                         x:Name="WhatProfile"
                                         Grid.Row="1" 
-                                        Grid.Column="2">
+                                        Visibility="Visible"
+                                        Grid.Column="3">
                                 <TextBlock x:Name="AC3Profile"
                                            HorizontalAlignment="Left"
                                            Width="260"
@@ -837,10 +882,11 @@
                                                        ImageWidth="24"
                                                        Image="/Images/1445611021_sign-up.png" 
                                                        Margin="6,6,6,6"
+                                                       x:Name="AC3proceed"
                                                        HorizontalAlignment="Left"
                                                        Width="120"
                                                        Content ="Proceed to AC3  "
-                                                       Click="Button_Click_3"
+                                                       Click="AC3proceed_Click"
                                                        ToolTipService.ToolTip="Click to proceed with an AC3 Audio Profile."/>
                                     <local:ImageButton ImageHeight="24"
                                                        ImageWidth="24"
@@ -857,7 +903,7 @@
                             <StackPanel Orientation="Vertical" 
                                         x:Name="AC3WhatProfile"
                                         Grid.Row="1" 
-                                        Grid.Column="2"
+                                        Grid.Column="3"
                                         Visibility="Hidden">
                                 <StackPanel Orientation="Vertical">
                                     <CheckBox x:Name="PhaseShift" Margin="6,6,6,6">
@@ -903,6 +949,7 @@
                             <StackPanel x:Name="AC3UpperLeft" 
                                         Orientation="Vertical" 
                                         Grid.Row="2" 
+                                        Grid.Column="1"
                                         Visibility="Hidden">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                     <Label Content="AC3 Coding Mode:"
@@ -952,7 +999,7 @@
                             <StackPanel x:Name="AC3UpperMiddle" 
                                         Orientation="Vertical" 
                                         Grid.Row="2" 
-                                        Grid.Column="1"
+                                        Grid.Column="2"
                                         Visibility="Hidden">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                     <Label Content="Room Type:"
@@ -998,7 +1045,7 @@
                             <StackPanel x:Name="AC3UpperRight" 
                                         Orientation="Vertical" 
                                         Grid.Row="2" 
-                                        Grid.Column="2"
+                                        Grid.Column="3"
                                         Visibility="Hidden">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                     <Label Content="LT_RT Center Mix"
@@ -1062,6 +1109,7 @@
                             <StackPanel x:Name="AC3BottomLeft" 
                                         Orientation="Vertical" 
                                         Grid.Row="3"
+                                        Grid.Column="1"
                                         Visibility="Hidden">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                     <Label Content="LO_RO Center Mix"
@@ -1121,7 +1169,7 @@
                             <StackPanel x:Name="AC3BottomMiddle" 
                                         Orientation="Vertical" 
                                         Grid.Row="3"
-                                        Grid.Column="1"
+                                        Grid.Column="2"
                                         Visibility="Hidden">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                     <Label Content="Line Compression:"
@@ -1166,7 +1214,7 @@
                             <StackPanel x:Name="AC3BottomRight" 
                                         Orientation="Vertical" 
                                         Grid.Row="3"
-                                        Grid.Column="2"
+                                        Grid.Column="3"
                                         Visibility="Hidden">
                                 <StackPanel Orientation="Vertical">
                                     <CheckBox x:Name="Deemphasis" Margin="6,6,6,6">

@@ -131,6 +131,7 @@
       <DependentUpon>HelpPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\TreeModel.cs" />
+    <Compile Include="Model\TreeViewItemBase.cs" />
     <Compile Include="Model\ViewModel.cs" />
     <Compile Include="Model\ViewModelBase.cs" />
     <Compile Include="MultiSelectComboBox.xaml.cs">
@@ -312,6 +313,10 @@
   <ItemGroup>
     <Resource Include="Images\1446243606_logout.png" />
     <Resource Include="Images\1446243647_Exit_button.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\1446585140_audio_left_channel.png" />
+    <Resource Include="Images\1446585194_save as.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

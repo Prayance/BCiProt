@@ -40,8 +40,6 @@ namespace BCiProt.Model
             }
         }
 
-
-
         public ViewModel()
         {
             Items = new Dictionary<string, object>();

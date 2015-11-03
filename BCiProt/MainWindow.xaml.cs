@@ -188,7 +188,6 @@ namespace BCiProt
                 lw.Show();
                 this.Hide(); // do not forget to reset this page before hide.
             }
-
         }
     }
 
