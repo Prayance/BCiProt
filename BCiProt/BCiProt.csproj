@@ -130,6 +130,7 @@
     <Compile Include="HelpPage.xaml.cs">
       <DependentUpon>HelpPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\TreeChannelModel.cs" />
     <Compile Include="Model\TreeModel.cs" />
     <Compile Include="Model\TreeViewItemBase.cs" />
     <Compile Include="Model\ViewModel.cs" />
@@ -317,6 +318,10 @@
   <ItemGroup>
     <Resource Include="Images\1446585140_audio_left_channel.png" />
     <Resource Include="Images\1446585194_save as.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\1447958815_ok.png" />
+    <Resource Include="Images\1447958832_cancel.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

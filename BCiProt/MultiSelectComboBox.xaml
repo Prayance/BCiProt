@@ -95,6 +95,10 @@
                         <Setter TargetName="DropDownBorder" Property="CornerRadius" Value="4"/>
                         <Setter TargetName="DropDownBorder" Property="Margin" Value="0,2,0,0"/>
                     </Trigger>
+                    <Trigger Property="IsEnabled" Value="false">
+                        <Setter Value="#FFC3C2C2" Property="Background" />
+                        <Setter Value="#FFC3C2C2" Property="Foreground" />
+                    </Trigger>
                 </ControlTemplate.Triggers>
             </ControlTemplate>
         </ComboBox.Template>
