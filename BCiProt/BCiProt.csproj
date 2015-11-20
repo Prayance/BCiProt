@@ -224,9 +224,6 @@
     <Resource Include="Images\1444328473_05-myhouse.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\1444326007_icon-70-document-code.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\1444317552_App_Services_copy_Amazon_Elastic_Transcoder.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -322,6 +319,25 @@
   <ItemGroup>
     <Resource Include="Images\1447958815_ok.png" />
     <Resource Include="Images\1447958832_cancel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\AudioTreeViewImages\1448054383_3d_objects.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\AudioTreeViewImages\channel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\AudioTreeViewImages\1448054041_domain_name_investment.png" />
+    <Resource Include="Images\AudioTreeViewImages\1448054044_Blue_tag.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\AudioTreeViewImages\1448054094_Black_tag.png" />
+    <Resource Include="Images\AudioTreeViewImages\1448054095_Red_tag.png" />
+    <Resource Include="Images\AudioTreeViewImages\1448054097_Green_tag.png" />
+    <Resource Include="Images\AudioTreeViewImages\1448054098_Yellow_tag.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\AudioTreeViewImages\purple.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

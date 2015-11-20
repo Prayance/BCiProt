@@ -660,25 +660,42 @@
                                 </Grid.RowDefinitions>
                                 <!--treeview panel -->
                                 <StackPanel Grid.RowSpan="4" Grid.Column="0">
-                                    <TreeView Name="audioTree" 
+                                    <TreeView x:Name="audioTree" 
                                               Width="250" 
                                               Height="300">
                                         <TreeView.Resources>
-                                            <HierarchicalDataTemplate DataType="{x:Type ViewModel:TreeModel}" ItemsSource="{Binding Nodes}">
+                                            <HierarchicalDataTemplate DataType="{x:Type ViewModel:TreeChannelModel}" ItemsSource="{Binding BasicNodes}">
                                                 <StackPanel Orientation="Horizontal">
-                                                    <!--<Image Source="/WpfTutorialSamples;component/Images/user.png" Margin="0,0,5,0" />-->
-                                                    <TextBlock Text="{Binding Type}" FontWeight="Bold" FontSize="14"/>
+                                                    <Image Source="/Images/AudioTreeViewImages/channel.png" Margin="0,0,5,0" Height="16" Width="16"/>
+                                                    <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="14"/>
                                                     <TextBlock Text=" [" Foreground="Blue" />
-                                                    <TextBlock Text="{Binding Nodes.Count}" Foreground="Blue" />
-                                                    <TextBlock Text="]" Foreground="Blue" />
+                                                    <TextBlock Text="{Binding BasicNodes.Count}" FontWeight="Bold" Foreground="Blue" FontSize="14"/>
+                                                    <TextBlock Text="] " Foreground="Blue" />
                                                 </StackPanel>
                                             </HierarchicalDataTemplate>
-                                            <DataTemplate DataType="{x:Type ViewModel:TreeNode}">
+                                            <DataTemplate DataType="{x:Type ViewModel:ChannelBasicType}">
                                                 <StackPanel Orientation="Horizontal">
-                                                    <!--<Image Source="/WpfTutorialSamples;component/Images/user.png" Margin="0,0,5,0" />-->
-                                                    <TextBlock Text="{Binding controlType}" />
-                                                    <TextBlock Text=" : " Foreground="Green" />
-                                                    <TextBlock Text="{Binding controlValue}" Foreground="Green" />
+                                                    <Image Source="{Binding imageSource}" Margin="0,0,5,0" Height="16" Width="16"/>
+                                                    <TextBlock Text="{Binding basicType}" Foreground="DarkSeaGreen" FontSize="12"/>
+                                                    <TextBlock Text=" "/>
+                                                    <TextBlock Text="{Binding basicValue}" FontSize="12"/>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                            <HierarchicalDataTemplate DataType="{x:Type ViewModel:TreeChannelModel}" ItemsSource="{Binding ExtraNodes}">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Image Source="/Images/AudioTreeViewImages/purple.png" Margin="0,0,5,0" Height="16" Width="16"/>
+                                                    <TextBlock Text="{Binding Mode}" FontWeight="Bold" FontSize="14"/>
+                                                    <TextBlock Text=" [" Foreground="Blue" />
+                                                    <TextBlock Text="{Binding ExtraNodes.Count}" FontWeight="Bold" Foreground="Blue" FontSize="14"/>
+                                                    <TextBlock Text="] " Foreground="Blue" />
+                                                </StackPanel>
+                                            </HierarchicalDataTemplate>
+                                            <DataTemplate DataType="{x:Type ViewModel:ChannelExtraType}">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Image Source="{Binding imageSource}" Margin="0,0,5,0" Height="16" Width="16"/>
+                                                    <TextBlock Text="{Binding extraType}" Foreground="DarkSeaGreen" FontSize="12"/>
+                                                    <TextBlock Text=" "/>
+                                                    <TextBlock Text="{Binding extraValue}" FontSize="12"/>
                                                 </StackPanel>
                                             </DataTemplate>
                                         </TreeView.Resources>
@@ -687,6 +704,7 @@
                                 <StackPanel Orientation="Vertical" Grid.Column="1">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Audio Profile Name:"
+                                               x:Name="aPName"
                                                HorizontalAlignment="Left"
                                                Margin="6,6,6,6"/>
                                         <TextBox x:Name="AudioName"
@@ -699,6 +717,7 @@
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Sample Type:"
+                                               x:Name="aSType"
                                                HorizontalAlignment="Left"
                                                Margin="6,6,6,6"/>
                                         <TextBox x:Name="sampleType"
@@ -711,6 +730,7 @@
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Sample Rate Target:"
+                                               x:Name="aSRTarget"
                                                HorizontalAlignment="Left"
                                                Margin="6,6,6,6"/>
                                         <TextBox x:Name="sampleRate"
@@ -725,6 +745,7 @@
                                 <StackPanel Orientation="Vertical" Grid.Column="2">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Audio Codec:"
+                                               x:Name="aACodec"
                                                HorizontalAlignment="Left"
                                                Margin="6,6,6,6"/>
                                         <ComboBox x:Name="codec"
@@ -738,6 +759,7 @@
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Channels:"
+                                               x:Name="aChannel"
                                                HorizontalAlignment="Left"
                                                Margin="6,6,6,6"/>
                                         <Grid Margin="6,6,6,6" DataContext="{Binding Source={StaticResource ViewModel}}">
@@ -755,6 +777,7 @@
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Layout Type:"
+                                               x:Name="aLType"
                                                HorizontalAlignment="Left"
                                                Margin="6,6,6,6"/>
                                         <TextBox x:Name="layout"
@@ -769,6 +792,7 @@
                                 <StackPanel Orientation="Vertical" Grid.Column="3">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Language:"
+                                               x:Name="aLanguage"
                                                HorizontalAlignment="Left"
                                                Margin="6,6,6,6"/>
                                         <ComboBox x:Name="language"
@@ -781,6 +805,7 @@
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Bit Rate:"
+                                               x:Name="aBRate"
                                                HorizontalAlignment="Left"
                                                Margin="6,6,6,6"/>
                                         <TextBox x:Name="audioBitRate"
@@ -796,7 +821,7 @@
                                               Checked="Passthrough_Checked"
                                               Unchecked="Passthrough_Unchecked"
                                               Margin="6,12,6,6">
-                                        <TextBlock 
+                                        <TextBlock x:Name="PassthroughText"
                                         ToolTipService.ToolTip="It defaults to NO. Check the box to enable pass through.">
                                         Pass Through 
                                         <Run Foreground="Red"> * </Run>
@@ -806,6 +831,7 @@
                                 <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Maximum Frequency:"
+                                               x:Name="maxF"
                                                HorizontalAlignment="Left"
                                                Margin="6,6,6,6"/>
                                         <TextBox x:Name="maxFrequency"
@@ -818,6 +844,7 @@
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Minimum Frequency:"
+                                               x:Name="minF"
                                                HorizontalAlignment="Left"
                                                Margin="6,6,6,6"/>
                                         <TextBox x:Name="minFrequency"
@@ -849,10 +876,12 @@
                                               IsEnabled="True"
                                               Unchecked="Gain_Unchecked"
                                               Checked="Gain_Checked"
+                                              Content="Gain Enabled"
                                               ToolTipService.ToolTip="Click to enable Gain." 
-                                              Margin="6,14,6,6">Gain Enabled</CheckBox>
+                                              Margin="6,14,6,6"/>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Gain Target:"
+                                               x:Name="aGTarget"
                                                HorizontalAlignment="Left"
                                                Margin="6,6,6,6"/>
                                         <TextBox x:Name="GainTarget"
@@ -916,47 +945,62 @@
                                                        ToolTipService.ToolTip="Click to proceed with an other Audio Profile."/>
                                     </StackPanel>
                                 </StackPanel>
-                                <!-- Visibility Visible -->
+                                <!-- Visibility Hidden -->
                                 <StackPanel Orientation="Vertical" 
                                             x:Name="AC3WhatProfile"
                                             Grid.Row="1" 
                                             Grid.Column="3"
                                             Visibility="Hidden">
                                     <StackPanel Orientation="Vertical">
-                                        <CheckBox x:Name="PhaseShift" Margin="6,6,6,6">
-                                            <TextBlock 
-                                        ToolTipService.ToolTip="Check the box to enable Phase Shift.">
-                                        Phase Shift
-                                        <Run Foreground="Red"> * </Run>
+                                        <CheckBox x:Name="PhaseShift" 
+                                                  Checked="PhaseShift_Checked"
+                                                  Unchecked="PhaseShift_Unchecked"
+                                                  Margin="6,6,6,6">
+                                            <TextBlock x:Name="apShift"
+                                                ToolTipService.ToolTip="Check the box to enable Phase Shift.">
+                                                Phase Shift
+                                                <Run Foreground="Red"> * </Run>
                                             </TextBlock>
                                         </CheckBox>
-                                        <CheckBox x:Name="SurroundAttenuation" Margin="6,6,6,6">
-                                            <TextBlock 
-                                        ToolTipService.ToolTip="Check the box to enable Surround Attenuation.">
-                                        Surround Attenuation
-                                        <Run Foreground="Red"> * </Run>
+                                        <CheckBox x:Name="SurroundAttenuation" 
+                                                  Checked="SurroundAttenuation_Checked"
+                                                  Unchecked="SurroundAttenuation_Unchecked"
+                                                  Margin="6,6,6,6">
+                                            <TextBlock x:Name="aSAttenuation"
+                                                ToolTipService.ToolTip="Check the box to enable Surround Attenuation.">
+                                                Surround Attenuation
+                                                <Run Foreground="Red"> * </Run>
                                             </TextBlock>
                                         </CheckBox>
-                                        <CheckBox x:Name="PeakLevel" Margin="6,6,6,6">
-                                            <TextBlock 
-                                        ToolTipService.ToolTip="Check the box to enable Peak Level.">
-                                        Peak Level
-                                        <Run Foreground="Red"> * </Run>
+                                        <CheckBox x:Name="PeakLevel" 
+                                                  Checked="PeakLevel_Checked"
+                                                  Unchecked="PeakLevel_Unchecked"
+                                                  Margin="6,6,6,6">
+                                            <TextBlock x:Name="aPLevel"
+                                                ToolTipService.ToolTip="Check the box to enable Peak Level.">
+                                                Peak Level
+                                                <Run Foreground="Red"> * </Run>
                                             </TextBlock>
                                         </CheckBox>
                                         <StackPanel Orientation="Horizontal">
-                                            <CheckBox x:Name="DCFilter" Margin="6,6,6,6">
-                                                <TextBlock 
-                                            ToolTipService.ToolTip="Check the box to enable DC Filter.">
-                                            DC Filter
-                                            <Run Foreground="Red"> * </Run>
+                                            <CheckBox x:Name="DCFilter" 
+                                                      Checked="DCFilter_Checked"
+                                                      Unchecked="DCFilter_Unchecked"
+                                                      Margin="6,6,6,6">
+                                                <TextBlock x:Name="aDCFilter"
+                                                    ToolTipService.ToolTip="Check the box to enable DC Filter.">
+                                                    DC Filter
+                                                    <Run Foreground="Red"> * </Run>
                                                 </TextBlock>
                                             </CheckBox>
-                                            <CheckBox x:Name="LFEFilter" Margin="6,6,6,6">
-                                                <TextBlock 
-                                            ToolTipService.ToolTip="Check the box to enable LFE Filter.">
-                                            LFE Filter
-                                            <Run Foreground="Red"> * </Run>
+                                            <CheckBox x:Name="LFEFilter" 
+                                                      Checked="LFEFilter_Checked"
+                                                      Unchecked="LFEFilter_Unchecked"
+                                                      Margin="6,6,6,6">
+                                                <TextBlock x:Name="aLFEFilter"
+                                                    ToolTipService.ToolTip="Check the box to enable LFE Filter.">
+                                                    LFE Filter
+                                                    <Run Foreground="Red"> * </Run>
                                                 </TextBlock>
                                             </CheckBox>
                                         </StackPanel>
@@ -970,12 +1014,13 @@
                                         Visibility="Hidden">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="AC3 Coding Mode:"
-                                       HorizontalAlignment="Left"
-                                       Margin="6,6,6,6"/>
+                                               x:Name="aAC3CMode"
+                                               HorizontalAlignment="Left"
+                                               Margin="6,6,6,6"/>
                                         <ComboBox x:Name="codingMode" 
-                                              MinWidth="100"
-                                              Margin="6,6,6,6"      
-                                              ToolTip="Select the coding mode for your AC3 Audio Profile.">
+                                                  MinWidth="100"
+                                                  Margin="6,6,6,6"      
+                                                  ToolTip="Select the coding mode for your AC3 Audio Profile.">
                                             <ComboBoxItem>_1_0</ComboBoxItem>
                                             <ComboBoxItem>_1_1</ComboBoxItem>
                                             <ComboBoxItem>_2_0</ComboBoxItem>
@@ -989,23 +1034,25 @@
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Bit-Rate Target:"
-                                       HorizontalAlignment="Left"
-                                       Margin="6,6,6,6"/>
+                                               x:Name="aBRTarget"
+                                               HorizontalAlignment="Left"
+                                               Margin="6,6,6,6"/>
                                         <TextBox x:Name="audioBitRateTarget"
-                                         ToolTipService.ToolTip="Enter the number of bit-rate target."
-                                         FontSize="12"
-                                         Margin="6,6,6,6"
-                                         Width="100"/>
+                                                 ToolTipService.ToolTip="Enter the number of bit-rate target."
+                                                 FontSize="12"
+                                                 Margin="6,6,6,6"
+                                                 Width="100"/>
                                         <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                        <Label Content="AC3 Coding Mode:"
-                                       HorizontalAlignment="Left"
-                                       Margin="6,6,6,6"/>
+                                        <Label Content="AD Converter:"
+                                               x:Name="aadConverter"
+                                               HorizontalAlignment="Left"
+                                               Margin="6,6,6,6"/>
                                         <ComboBox x:Name="adConverter" 
-                                              MinWidth="100"
-                                              Margin="6,6,6,6" 
-                                              ToolTip="Select the type of AD_Converter.">
+                                                  MinWidth="100"
+                                                  Margin="6,6,6,6" 
+                                                  ToolTip="Select the type of AD_Converter.">
                                             <ComboBoxItem>Standard</ComboBoxItem>
                                             <ComboBoxItem>HDCD</ComboBoxItem>
                                         </ComboBox>
@@ -1020,12 +1067,13 @@
                                         Visibility="Hidden">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Room Type:"
-                                       HorizontalAlignment="Left"
-                                       Margin="6,6,6,6"/>
+                                               x:Name="aRType"
+                                               HorizontalAlignment="Left"
+                                               Margin="6,6,6,6"/>
                                         <ComboBox x:Name="roomType"
-                                              MinWidth="100"
-                                              Margin="6,6,6,6" 
-                                              ToolTip="Select the type of Room Type.">
+                                                  MinWidth="100"
+                                                  Margin="6,6,6,6" 
+                                                  ToolTip="Select the type of Room Type.">
                                             <ComboBoxItem>small</ComboBoxItem>
                                             <ComboBoxItem>none</ComboBoxItem>
                                             <ComboBoxItem>large</ComboBoxItem>
@@ -1034,12 +1082,13 @@
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Mix Mode:"
-                                       HorizontalAlignment="Left"
-                                       Margin="6,6,6,6"/>
+                                               x:Name="aMMode"
+                                               HorizontalAlignment="Left"
+                                               Margin="6,6,6,6"/>
                                         <ComboBox x:Name="mixMode" 
-                                              MinWidth="100"
-                                              Margin="6,6,6,6" 
-                                              ToolTip="Select the type of Mix Mode.">
+                                                  MinWidth="100"
+                                                  Margin="6,6,6,6" 
+                                                  ToolTip="Select the type of Mix Mode.">
                                             <ComboBoxItem>Not_indicated</ComboBoxItem>
                                             <ComboBoxItem>Lt_Rt_Preferred</ComboBoxItem>
                                             <ComboBoxItem>Lo_Ro_Preferred</ComboBoxItem>
@@ -1048,30 +1097,32 @@
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Dialog Level:"
-                                       HorizontalAlignment="Left"
-                                       Margin="6,6,6,6"/>
+                                               x:Name="aDLevel"
+                                               HorizontalAlignment="Left"
+                                               Margin="6,6,6,6"/>
                                         <TextBox x:Name="dialogLevel"
-                                         ToolTipService.ToolTip="Enter the number of dialog level. (integer)"
-                                         FontSize="12"
-                                         Margin="6,6,6,6"
-                                         Width="100"/>
+                                                 ToolTipService.ToolTip="Enter the number of dialog level. (integer)"
+                                                 FontSize="12"
+                                                 Margin="6,6,6,6"
+                                                 Width="100"/>
                                         <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
                                     </StackPanel>
                                 </StackPanel>
                                 <!--Visibility hidden -->
                                 <StackPanel x:Name="AC3UpperRight" 
-                                        Orientation="Vertical" 
-                                        Grid.Row="2" 
-                                        Grid.Column="3"
-                                        Visibility="Hidden">
+                                            Orientation="Vertical" 
+                                            Grid.Row="2" 
+                                            Grid.Column="3"
+                                            Visibility="Hidden">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="LT_RT Center Mix"
-                                       HorizontalAlignment="Left"
-                                       Margin="6,6,6,6"/>
+                                               x:Name="aLRCMix"
+                                               HorizontalAlignment="Left"
+                                               Margin="6,6,6,6"/>
                                         <ComboBox x:Name="ltRTmix"
-                                              MinWidth="100"
-                                              Margin="6,6,6,6" 
-                                              ToolTip="Select the type of Mix Mode.">
+                                                  MinWidth="100"
+                                                  Margin="6,6,6,6" 
+                                                  ToolTip="Select the type of Mix Mode.">
                                             <ComboBoxItem>up_1_5</ComboBoxItem>
                                             <ComboBoxItem>up_3_0</ComboBoxItem>
                                             <ComboBoxItem>unity</ComboBoxItem>
@@ -1085,12 +1136,13 @@
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="LT_RT Surround Mix"
-                                       HorizontalAlignment="Left"
-                                       Margin="6,6,6,6"/>
+                                               x:Name="aLRSMix"
+                                               HorizontalAlignment="Left"
+                                               Margin="6,6,6,6"/>
                                         <ComboBox x:Name="ltRtsurmix" 
-                                              MinWidth="100"
-                                              Margin="6,6,6,6" 
-                                              ToolTip="Select the type of Mix Mode.">
+                                                  MinWidth="100"
+                                                  Margin="6,6,6,6" 
+                                                  ToolTip="Select the type of Mix Mode.">
                                             <ComboBoxItem>up_1_5</ComboBoxItem>
                                             <ComboBoxItem>up_3_0</ComboBoxItem>
                                             <ComboBoxItem>unity</ComboBoxItem>
@@ -1104,12 +1156,13 @@
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="LO_RO Surround Mix"
-                                       HorizontalAlignment="Left"
-                                       Margin="6,6,6,6"/>
+                                               x:Name="aLRSoMix"
+                                               HorizontalAlignment="Left"
+                                               Margin="6,6,6,6"/>
                                         <ComboBox x:Name="loRosurmix" 
-                                              MinWidth="100"
-                                              Margin="6,6,6,6" 
-                                              ToolTip="Select the type of Mix Mode.">
+                                                  MinWidth="100"
+                                                  Margin="6,6,6,6" 
+                                                  ToolTip="Select the type of Mix Mode.">
                                             <ComboBoxItem>up_1_5</ComboBoxItem>
                                             <ComboBoxItem>up_3_0</ComboBoxItem>
                                             <ComboBoxItem>unity</ComboBoxItem>
@@ -1130,12 +1183,13 @@
                                         Visibility="Hidden">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="LO_RO Center Mix"
-                                       HorizontalAlignment="Left"
-                                       Margin="6,6,6,6"/>
+                                               x:Name="aLRCoMix"
+                                               HorizontalAlignment="Left"
+                                               Margin="6,6,6,6"/>
                                         <ComboBox x:Name="loRomix"
-                                              MinWidth="100"
-                                              Margin="6,6,6,6" 
-                                              ToolTip="Select the type of Mix Mode.">
+                                                  MinWidth="100"
+                                                  Margin="6,6,6,6" 
+                                                  ToolTip="Select the type of Mix Mode.">
                                             <ComboBoxItem>up_1_5</ComboBoxItem>
                                             <ComboBoxItem>up_3_0</ComboBoxItem>
                                             <ComboBoxItem>unity</ComboBoxItem>
@@ -1149,12 +1203,13 @@
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Surround Mode:"
-                                       HorizontalAlignment="Left"
-                                       Margin="6,6,6,6"/>
+                                               x:Name="aSMode"
+                                               HorizontalAlignment="Left"
+                                               Margin="6,6,6,6"/>
                                         <ComboBox x:Name="SurroundMode" 
-                                              MinWidth="100"
-                                              Margin="6,6,6,6" 
-                                              ToolTip="Select the type of Mix Mode.">
+                                                  MinWidth="100"
+                                                  Margin="6,6,6,6" 
+                                                  ToolTip="Select the type of Mix Mode.">
                                             <ComboBoxItem>None</ComboBoxItem>
                                             <ComboBoxItem>Surround_EX</ComboBoxItem>
                                             <ComboBoxItem>Dolby_Surround_EX</ComboBoxItem>
@@ -1163,11 +1218,12 @@
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Bi Stream Mode:"
-                                       HorizontalAlignment="Left"
-                                       Margin="6,6,6,6"/>
+                                               x:Name="aBSMode"
+                                               HorizontalAlignment="Left"
+                                               Margin="6,6,6,6"/>
                                         <ComboBox x:Name="bitStreamMode" 
-                                              MinWidth="100"
-                                              Margin="6,6,6,6" 
+                                                  MinWidth="100"
+                                                  Margin="6,6,6,6" 
                                               ToolTip="Select the type of Bit Stream Mode.">
                                             <ComboBoxItem>Complete_Main</ComboBoxItem>
                                             <ComboBoxItem>Main_M_E</ComboBoxItem>
@@ -1190,12 +1246,13 @@
                                         Visibility="Hidden">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Line Compression:"
-                                       HorizontalAlignment="Left"
-                                       Margin="6,6,6,6"/>
+                                               x:Name="aLCompression"
+                                               HorizontalAlignment="Left"
+                                               Margin="6,6,6,6"/>
                                         <ComboBox x:Name="lineCompression" 
-                                              Margin="6,6,6,6" 
-                                              MinWidth="100"
-                                              ToolTip="Select the type of Line Compression.">
+                                                  Margin="6,6,6,6" 
+                                                  MinWidth="100"
+                                                  ToolTip="Select the type of Line Compression.">
                                             <ComboBoxItem>Film_Light</ComboBoxItem>
                                             <ComboBoxItem>None</ComboBoxItem>
                                             <ComboBoxItem>Film_Standard</ComboBoxItem>
@@ -1207,12 +1264,13 @@
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="RF Compression:"
-                                       HorizontalAlignment="Left"
-                                       Margin="6,6,6,6"/>
+                                               x:Name="aRFCompression"
+                                               HorizontalAlignment="Left"
+                                               Margin="6,6,6,6"/>
                                         <ComboBox x:Name="rfCompression" 
-                                              MinWidth="100"
-                                              Margin="6,6,6,6" 
-                                              ToolTip="Select the type of RF Compression.">
+                                                  MinWidth="100"
+                                                  Margin="6,6,6,6" 
+                                                  ToolTip="Select the type of RF Compression.">
                                             <ComboBoxItem>Film_Light</ComboBoxItem>
                                             <ComboBoxItem>None</ComboBoxItem>
                                             <ComboBoxItem>Film_Standard</ComboBoxItem>
@@ -1223,9 +1281,11 @@
                                         <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
                                     </StackPanel>
                                     <CheckBox x:Name="Copyright" 
-                                          Margin="6,12,12,12"
-                                          HorizontalAlignment="Right"
-                                          ToolTipService.ToolTip="It defaults to NO. Check the box to enable copyright.">Copyright</CheckBox>
+                                              Checked="Copyright_Checked"
+                                              Unchecked="Copyright_Unchecked"
+                                              Margin="6,12,12,12"
+                                              HorizontalAlignment="Right"
+                                              ToolTipService.ToolTip="It defaults to NO. Check the box to enable copyright.">Copyright</CheckBox>
                                 </StackPanel>
                                 <!--Visibility hidden -->
                                 <StackPanel x:Name="AC3BottomRight" 
@@ -1234,34 +1294,49 @@
                                         Grid.Column="3"
                                         Visibility="Hidden">
                                     <StackPanel Orientation="Vertical">
-                                        <CheckBox x:Name="Deemphasis" Margin="6,6,6,6">
-                                            <TextBlock 
-                                        ToolTipService.ToolTip="Check the box to enable Deemphasis.">
-                                        Deemphasis
-                                        <Run Foreground="Red"> * </Run>
+                                        <CheckBox x:Name="Deemphasis" 
+                                                  Checked="Deemphasis_Checked"
+                                                  Unchecked="Deemphasis_Unchecked"
+                                                  Margin="6,6,6,6">
+                                            <TextBlock x:Name="aDeemphasis"
+                                                ToolTipService.ToolTip="Check the box to enable Deemphasis.">
+                                                Deemphasis
+                                                <Run Foreground="Red"> * </Run>
                                             </TextBlock>
                                         </CheckBox>
-                                        <CheckBox x:Name="Bandwidth" Margin="6,6,6,6">
-                                            <TextBlock 
-                                        ToolTipService.ToolTip="Check the box to enable Bandwidth.">
-                                        Bandwidth
-                                        <Run Foreground="Red"> * </Run>
+                                        <CheckBox x:Name="Bandwidth" 
+                                                  Checked="Bandwidth_Checked"
+                                                  Unchecked="Bandwidth_Unchecked"
+                                                  Margin="6,6,6,6">
+                                            <TextBlock x:Name="aBandwidth"
+                                                ToolTipService.ToolTip="Check the box to enable Bandwidth.">
+                                                Bandwidth
+                                                <Run Foreground="Red"> * </Run>
                                             </TextBlock>
                                         </CheckBox>
-                                        <CheckBox x:Name="LFEChannel" Margin="6,6,6,6">
-                                            <TextBlock 
-                                        ToolTipService.ToolTip="Check the box to enable LFE Channel.">
-                                        LFE Channel
-                                        <Run Foreground="Red"> * </Run>
+                                        <CheckBox x:Name="LFEChannel" 
+                                                  Checked="LFEChannel_Checked"
+                                                  Unchecked="LFEChannel_Unchecked"
+                                                  Margin="6,6,6,6">
+                                            <TextBlock x:Name="aLFEChannel"
+                                                ToolTipService.ToolTip="Check the box to enable LFE Channel.">
+                                                LFE Channel
+                                                <Run Foreground="Red"> * </Run>
                                             </TextBlock>
                                         </CheckBox>
                                         <StackPanel Orientation="Horizontal">
                                             <CheckBox x:Name="DDEmeta" 
-                                                  ToolTipService.ToolTip="Tick to enable DDE Metadata"  
-                                                  Margin="6,6,6,6">DDE Metadata</CheckBox>
+                                                      Checked="DDEmeta_Checked"
+                                                      Unchecked="DDEmeta_Unchecked"
+                                                      Content="DDE Metadata"
+                                                      ToolTipService.ToolTip="Tick to enable DDE Metadata"  
+                                                      Margin="6,6,6,6"/>
                                             <CheckBox x:Name="Original" 
-                                                  ToolTipService.ToolTip="Tick to mark the data as original"  
-                                                  Margin="6,6,6,6">Original</CheckBox>
+                                                      Checked="Original_Checked"
+                                                      Content="Original"
+                                                      Unchecked="Original_Unchecked"
+                                                      ToolTipService.ToolTip="Tick to mark the data as original"  
+                                                      Margin="6,6,6,6"/> 
                                         </StackPanel>
                                     </StackPanel>
                                 </StackPanel>
