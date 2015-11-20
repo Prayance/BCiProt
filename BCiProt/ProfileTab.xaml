@@ -1287,7 +1287,7 @@
                                               HorizontalAlignment="Right"
                                               ToolTipService.ToolTip="It defaults to NO. Check the box to enable copyright.">Copyright</CheckBox>
                                 </StackPanel>
-                                <!--Visibility hidden -->
+                                <!--Visibility  hidden -->
                                 <StackPanel x:Name="AC3BottomRight" 
                                         Orientation="Vertical" 
                                         Grid.Row="3"
