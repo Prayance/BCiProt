@@ -11,9 +11,9 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         Title="BCi Transcoder - Profile Selection"  Height="500" Width="700"
         Icon="Images/1444317552_App_Services_copy_Amazon_Elastic_Transcoder.ico" Closing="Window_Closing">
-        <Window.Resources>
-            <ViewModel:ViewModel x:Key="ViewModel"/>
-        </Window.Resources>
+    <Window.Resources>
+        <ViewModel:ViewModel x:Key="ViewModel"/>
+    </Window.Resources>
     <DockPanel>
         <!-- Main tool bar at the top -->
         <!-- All the options will slowly be modified -->
@@ -67,8 +67,8 @@
                     </StackPanel>
                 </Button>
                 <Separator />
-                <Button x:Name="SaveDataProfileXml" 
-                        Click="SaveDataProfileXml_Click"
+                <Button x:Name="SaveASXml" 
+                        Click="SaveASXml_Click"
                         ToolTip="Click to Save Data Profile as Xml">
                     <StackPanel Orientation="Vertical">
                         <Image Source="/Images/1445977162_floppy-disk.png" Height="24" Width="24" />
@@ -202,7 +202,9 @@
                                 </Grid.RowDefinitions>
                                 <StackPanel Orientation="Vertical">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                        <Label Content="Profile Name:" Margin="6,6,6,6"/>
+                                        <Label Content="Profile Name:" 
+                                               x:Name="gPName"
+                                               Margin="6,6,6,6"/>
                                         <TextBox x:Name="prName"
                                                  ToolTipService.ToolTip="Enter the data bit rate"
                                                  FontSize="12"
@@ -243,14 +245,20 @@
                                              <Run Foreground="Red"> * </Run>
                                         </TextBlock>
                                     </CheckBox>
-                                    <CheckBox x:Name="copyDataFromSource" Margin="6,6,6,6">
+                                    <CheckBox x:Name="copyDataFromSource" 
+                                              Checked="copyDataFromSource_Checked"
+                                              Unchecked="copyDataFromSource_Unchecked"
+                                              Margin="6,6,6,6">
                                         <TextBlock 
                                              ToolTipService.ToolTip="Check the box to enable the Copy Data from Source funcitonality.">
                                              Copy Data From Source
                                              <Run Foreground="Red"> * </Run>
                                         </TextBlock>
                                     </CheckBox>
-                                    <CheckBox x:Name="overwriteOutput" Margin="6,6,6,6">
+                                    <CheckBox x:Name="overwriteOutput"
+                                              Checked="overwriteOutput_Checked"
+                                              Unchecked="overwriteOutput_Unchecked"
+                                              Margin="6,6,6,6">
                                         <TextBlock 
                                              ToolTipService.ToolTip="Check the box to allow the Overwrite Output.">
                                              Overwrite Output
@@ -286,14 +294,20 @@
                                         </ComboBox>
                                         <Label Content="*" FontSize="14" Margin="0,6,6,0" Visibility="Hidden" Foreground="Red"/>
                                     </StackPanel>
-                                    <CheckBox x:Name="metaDataEnabled" Margin="6,6,6,6">
+                                    <CheckBox x:Name="metaDataEnabled" 
+                                              Checked="metaDataEnabled_Checked"
+                                              Unchecked="metaDataEnabled_Unchecked"
+                                              Margin="6,6,6,6">
                                         <TextBlock 
                                              ToolTipService.ToolTip="Check the box to enable Metadata.">
                                              Metadata Enable
                                              <Run Foreground="Red"> * </Run>
                                         </TextBlock>
                                     </CheckBox>
-                                    <CheckBox x:Name="generateThumbnail" Margin="6,6,6,6">
+                                    <CheckBox x:Name="generateThumbnail" 
+                                              Checked="generateThumbnail_Checked"
+                                              Unchecked="generateThumbnail_Unchecked"
+                                              Margin="6,6,6,6">
                                         <TextBlock 
                                              ToolTipService.ToolTip="Check the box to enable the thumbnail generation.">
                                              Generate Thumbnail
@@ -385,15 +399,15 @@
                                         <Label Content="*" FontSize="14" Margin="0,6,6,0" Visibility="Hidden" Foreground="Red"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" 
-                                                HorizontalAlignment="Right">
+                                                HorizontalAlignment="Right" Margin="0,0,-0.2,0">
                                         <Label Content="Audio Filter Type:"
-                                               HorizontalAlignment="Left"
-                                               Margin="6,6,6,6"/>
+                                    		HorizontalAlignment="Left"
+                                    		Margin="6,6,6,6"/>
                                         <ComboBox x:Name="audioFilter"
-                                                  IsEnabled="False"
-                                                  MinWidth="100"
-                                                  Margin="6,6,6,6" 
-                                                  ToolTip="Select the type of Audio Filter.">
+                                    		IsEnabled="False"
+                                    		MinWidth="100"
+                                    		Margin="6,6,6,6" 
+                                    		ToolTip="Select the type of Audio Filter.">
                                             <ComboBoxItem Content="Language"/>
                                             <ComboBoxItem Content="PID"/>
                                             <ComboBoxItem Content="Layout"/>
@@ -672,9 +686,6 @@
                                                     <TextBlock Text="{Binding Mode}" FontWeight="Bold" FontSize="14"/>
                                                     <TextBlock Text=" profile - "/>
                                                     <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="14"/>
-                                                    <TextBlock Text=" [" Foreground="Blue" />
-                                                    <TextBlock Text="{Binding BasicNodes.Count}" FontWeight="Bold" Foreground="Blue" FontSize="14"/>
-                                                    <TextBlock Text="] " Foreground="Blue" />
                                                 </StackPanel>
                                             </HierarchicalDataTemplate>
                                             <DataTemplate
@@ -1325,7 +1336,7 @@
                                                       Content="Original"
                                                       Unchecked="Original_Unchecked"
                                                       ToolTipService.ToolTip="Tick to mark the data as original"  
-                                                      Margin="6,6,6,6"/> 
+                                                      Margin="6,6,6,6"/>
                                         </StackPanel>
                                     </StackPanel>
                                 </StackPanel>
@@ -1358,35 +1369,35 @@
                                 <StackPanel Orientation="Vertical" Grid.Column="0">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Video Codec:"
-                                       HorizontalAlignment="Left"
-                                       Margin="6,6,6,6"/>
+                                               HorizontalAlignment="Left"
+                                               Margin="6,6,6,6"/>
                                         <ComboBox x:Name="videoCodec"
-                                              ToolTipService.ToolTip="Enter the video codec name"
-                                              FontSize="12"
-                                              Margin="6,6,6,6"
-                                              MinWidth="100"
-                                              ItemsSource="{Binding Source={localEnum:EnumBindingSource {x:Type localEnum:Video_Codec}}}"/>
+                                                  ToolTipService.ToolTip="Enter the video codec name"
+                                                  FontSize="12"
+                                                  Margin="6,6,6,6"
+                                                  MinWidth="100"
+                                                  ItemsSource="{Binding Source={localEnum:EnumBindingSource {x:Type localEnum:Video_Codec}}}"/>
                                         <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Profile Name:"
-                                       HorizontalAlignment="Left"
-                                       Margin="6,6,6,6"/>
+                                               HorizontalAlignment="Left"
+                                               Margin="6,6,6,6"/>
                                         <TextBox x:Name="profile"
-                                         ToolTipService.ToolTip="Enter the Video Profile name."
-                                         FontSize="12"
-                                         Margin="6,6,6,6"
-                                         Width="100"/>
+                                                 ToolTipService.ToolTip="Enter the Video Profile name."
+                                                 FontSize="12"
+                                                 Margin="6,6,6,6"
+                                                 Width="100"/>
                                         <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Video Rate Comtrol:"
-                                        HorizontalAlignment="Left"
-                                       Margin="6,6,6,6"/>
+                                               HorizontalAlignment="Left"
+                                               Margin="6,6,6,6"/>
                                         <ComboBox x:Name="RateControl" 
-                                              MinWidth="100"
-                                              Margin="6,6,6,6" 
-                                              ToolTip="Select the type of Video Rate Control.">
+                                                  MinWidth="100"
+                                                  Margin="6,6,6,6" 
+                                                  ToolTip="Select the type of Video Rate Control.">
                                             <ComboBoxItem 
                                             ToolTipService.ToolTip="Constant Bit Rate">CBR</ComboBoxItem>
                                             <ComboBoxItem 
@@ -1400,36 +1411,36 @@
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Video Format:"
-                                       HorizontalAlignment="Left"
-                                       Margin="6,6,6,6"/>
+                                               HorizontalAlignment="Left"
+                                               Margin="6,6,6,6"/>
                                         <TextBox x:Name="format"
-                                         ToolTipService.ToolTip="Enter the Video Format."
-                                         FontSize="12"
-                                         Margin="6,6,6,6"
-                                         Width="100"/>
+                                                 ToolTipService.ToolTip="Enter the Video Format."
+                                                 FontSize="12"
+                                                 Margin="6,6,6,6"
+                                                 Width="100"/>
                                         <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
                                     </StackPanel>
                                 </StackPanel>
                                 <StackPanel Orientation="Vertical" Grid.Column="1">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Frame Count:"
-                                       HorizontalAlignment="Left"
-                                       Margin="6,6,6,6"/>
+                                               HorizontalAlignment="Left"
+                                               Margin="6,6,6,6"/>
                                         <TextBox x:Name="frameCount"
-                                         ToolTipService.ToolTip="Enter the Frame Count number."
-                                         FontSize="12"
-                                         Margin="6,6,6,6"
-                                         Width="100"/>
+                                                 ToolTipService.ToolTip="Enter the Frame Count number."
+                                                 FontSize="12"
+                                                 Margin="6,6,6,6"
+                                                 Width="100"/>
                                         <Label Content="*" FontSize="14" Margin="0,6,6,0" Visibility="Hidden"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Frame Type:"
-                                       HorizontalAlignment="Left"
-                                       Margin="6,6,6,6"/>
+                                               HorizontalAlignment="Left"
+                                               Margin="6,6,6,6"/>
                                         <ComboBox x:Name="frameType"
-                                              MinWidth="100"
-                                              Margin="6,6,6,6" 
-                                              ToolTip="Select the type of Frame Type.">
+                                                  MinWidth="100"
+                                                  Margin="6,6,6,6" 
+                                                  ToolTip="Select the type of Frame Type.">
                                             <ComboBoxItem Content="Interlaced"/>
                                             <ComboBoxItem Content="Progressive"/>
                                         </ComboBox>
@@ -1437,55 +1448,55 @@
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Frame Rate:"
-                                       HorizontalAlignment="Left"
-                                       Margin="6,6,6,6"/>
+                                               HorizontalAlignment="Left"
+                                               Margin="6,6,6,6"/>
                                         <TextBox x:Name="frameRate"
-                                         ToolTipService.ToolTip="Enter the Frame Rate number."
-                                         FontSize="12"
-                                         IsEnabled="False"
-                                         Margin="6,6,6,6"
-                                         Width="100"/>
+                                                 ToolTipService.ToolTip="Enter the Frame Rate number."
+                                                 FontSize="12"
+                                                 IsEnabled="False"
+                                                 Margin="6,6,6,6"
+                                                 Width="100"/>
                                         <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Height:"
-                                       HorizontalAlignment="Left"
-                                       Margin="6,6,0,6"/>
+                                               HorizontalAlignment="Left"
+                                               Margin="6,6,0,6"/>
                                         <TextBox x:Name="height"
-                                             IsEnabled="False"
-                                             ToolTipService.ToolTip="Enter the Frame Height in centimeters."
-                                             FontSize="12"
-                                             Margin="6,6,0,6"
-                                             Width="45"/>
+                                                 IsEnabled="False"
+                                                 ToolTipService.ToolTip="Enter the Frame Height in centimeters."
+                                                 FontSize="12"
+                                                 Margin="6,6,0,6"
+                                                 Width="45"/>
                                         <Label Content="*" FontSize="14" Margin="0,6,0,0" Foreground="Red"/>
                                         <Label Content="Width:"
                                        HorizontalAlignment="Left"
                                        Margin="0,6,0,6"/>
                                         <TextBox x:Name="width"
-                                             IsEnabled="False"
-                                             ToolTipService.ToolTip="Enter the Frame Width in centimeters."
-                                             FontSize="12"
-                                             Margin="6,6,0,6"
-                                             Width="45"/>
+                                                 IsEnabled="False"
+                                                 ToolTipService.ToolTip="Enter the Frame Width in centimeters."
+                                                 FontSize="12"
+                                                 Margin="6,6,0,6"
+                                                 Width="45"/>
                                         <Label Content="*" FontSize="14" Margin="0,6,0,0" Foreground="Red"/>
                                     </StackPanel>
                                 </StackPanel>
                                 <StackPanel Orientation="Vertical" Grid.Column="2">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Aspect Ratio:"
-                                       HorizontalAlignment="Left"
-                                       Margin="6,6,6,6"/>
+                                               HorizontalAlignment="Left"
+                                               Margin="6,6,6,6"/>
                                         <TextBox x:Name="aspectRatio"
-                                         ToolTipService.ToolTip="Enter the Aspect Ratio."
-                                         FontSize="12"
-                                         Margin="6,6,6,6"
-                                         Width="100"/>
+                                                 ToolTipService.ToolTip="Enter the Aspect Ratio."
+                                                 FontSize="12"
+                                                 Margin="6,6,6,6"
+                                                 Width="100"/>
                                         <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Colorimetry:"
-                                       HorizontalAlignment="Left"
-                                       Margin="6,6,6,6"/>
+                                               HorizontalAlignment="Left"
+                                               Margin="6,6,6,6"/>
                                         <ComboBox x:Name="colorimetry"
                                               MinWidth="100"
                                               Margin="6,6,6,6" 
@@ -1498,12 +1509,12 @@
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Deinterlace Method:"
-                                       HorizontalAlignment="Left"
-                                       Margin="6,6,6,6"/>
+                                               HorizontalAlignment="Left"
+                                               Margin="6,6,6,6"/>
                                         <ComboBox x:Name="deinterlaceMethod"
-                                              MinWidth="100"
-                                              Margin="6,6,6,6" 
-                                              ToolTip="Select the method of Deinterlace.">
+                                                  MinWidth="100"
+                                                  Margin="6,6,6,6" 
+                                                  ToolTip="Select the method of Deinterlace.">
                                             <ComboBoxItem Content="Weave"/>
                                             <ComboBoxItem Content="Blend"/>
                                             <ComboBoxItem Content="Inverse Telecine"/>
@@ -1514,37 +1525,37 @@
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Slice Number:"
-                                       HorizontalAlignment="Left"
-                                       Margin="6,6,6,6"/>
+                                               HorizontalAlignment="Left"
+                                               Margin="6,6,6,6"/>
                                         <TextBox x:Name="sliceNumber"
-                                         ToolTipService.ToolTip="Enter the Slice Number."
-                                         FontSize="12"
-                                         Margin="6,6,6,6"
-                                         Width="100"/>
+                                                 ToolTipService.ToolTip="Enter the Slice Number."
+                                                 FontSize="12"
+                                                 Margin="6,6,6,6"
+                                                 Width="100"/>
                                         <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red" Visibility="Hidden"/>
                                     </StackPanel>
                                 </StackPanel>
                                 <StackPanel Orientation="Vertical" Grid.Row="1">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Level:"
-                                       HorizontalAlignment="Left"
-                                       Margin="6,6,6,6"/>
+                                               HorizontalAlignment="Left"
+                                               Margin="6,6,6,6"/>
                                         <TextBox x:Name="level"
-                                         ToolTipService.ToolTip="Enter the Video Level."
-                                         FontSize="12"
-                                         Margin="6,6,6,6"
-                                         Width="100"/>
+                                                 ToolTipService.ToolTip="Enter the Video Level."
+                                                 FontSize="12"
+                                                 Margin="6,6,6,6"
+                                                 Width="100"/>
                                         <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
                                     </StackPanel>
 
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Field Order:"
-                                       HorizontalAlignment="Left"
-                                       Margin="6,6,6,6"/>
+                                               HorizontalAlignment="Left"
+                                               Margin="6,6,6,6"/>
                                         <ComboBox x:Name="fieldOrder"
-                                              MinWidth="100"
-                                              Margin="6,6,6,6" 
-                                              ToolTip="Select the type of Field Order.">
+                                                  MinWidth="100"
+                                                  Margin="6,6,6,6" 
+                                                  ToolTip="Select the type of Field Order.">
                                             <ComboBoxItem Content="Top Frame First"/>
                                             <ComboBoxItem Content="Bottom Frame First"/>
                                         </ComboBox>
@@ -1552,60 +1563,68 @@
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Packet Count:"
-                                       HorizontalAlignment="Left"
-                                       Margin="6,6,6,6"/>
+                                               HorizontalAlignment="Left"
+                                               Margin="6,6,6,6"/>
                                         <TextBox x:Name="packetCount"
-                                         ToolTipService.ToolTip="Enter the Packet Count number."
-                                         FontSize="12"
-                                         Margin="6,6,6,6"
-                                         Width="100"/>
+                                                 ToolTipService.ToolTip="Enter the Packet Count number."
+                                                 FontSize="12"
+                                                 Margin="6,6,6,6"
+                                                 Width="100"/>
                                         <Label Content="*" FontSize="14" Margin="0,6,6,0" Visibility="Hidden"/>
                                     </StackPanel>
                                 </StackPanel>
                                 <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1">
                                     <StackPanel Orientation="Vertical">
-                                        <CheckBox x:Name="deblockingFilter" Margin="6,6,6,6">
+                                        <CheckBox x:Name="deblockingFilter" 
+                                                  Checked="deblockingFilter_Checked"
+                                                  Unchecked="deblockingFilter_Unchecked"
+                                                  Margin="6,6,6,6">
                                             <TextBlock 
-                                        ToolTipService.ToolTip="Check the box to enable Deblocking Filter.">
-                                        Deblocking Filter
-                                        <Run Foreground="Red"> * </Run>
+                                                ToolTipService.ToolTip="Check the box to enable Deblocking Filter.">
+                                                Deblocking Filter
+                                            <Run Foreground="Red"> * </Run>
                                             </TextBlock>
                                         </CheckBox>
-                                        <CheckBox x:Name="deringingFilter" Margin="6,6,6,6">
+                                        <CheckBox x:Name="deringingFilter" 
+                                                  Checked="deringingFilter_Checked"
+                                                  Unchecked="deringingFilter_Unchecked"
+                                                  Margin="6,6,6,6">
                                             <TextBlock 
-                                        ToolTipService.ToolTip="Check the box to enable Deringing Filter.">
-                                        Deringing Filter
-                                        <Run Foreground="Red"> * </Run>
+                                                ToolTipService.ToolTip="Check the box to enable Deringing Filter.">
+                                                Deringing Filter
+                                            <Run Foreground="Red"> * </Run>
                                             </TextBlock>
                                         </CheckBox>
                                         <StackPanel Orientation="Horizontal">
                                             <CheckBox x:Name="frameRatecb" 
-                                              Checked="frameRatecb_Checked"
-                                              Unchecked="frameRatecb_Unchecked"
-                                              Margin="6,6,6,6">
+                                                      Checked="frameRatecb_Checked"
+                                                      Unchecked="frameRatecb_Unchecked"
+                                                      Margin="6,6,6,6">
                                                 <TextBlock 
-                                        ToolTipService.ToolTip="Check the box to enable Frame Rate.">
-                                        Frame Rate
-                                        <Run Foreground="Red"> * </Run>
+                                                    ToolTipService.ToolTip="Check the box to enable Frame Rate.">
+                                                    Frame Rate
+                                                     <Run Foreground="Red"> * </Run>
                                                 </TextBlock>
                                             </CheckBox>
                                         </StackPanel>
                                         <CheckBox x:Name="frameSize" 
-                                              Checked="frameSize_Checked"
-                                              Unchecked="frameSize_Unchecked"
-                                              Margin="6,6,6,6">
+                                                  Checked="frameSize_Checked"
+                                                  Unchecked="frameSize_Unchecked"
+                                                  Margin="6,6,6,6">
                                             <TextBlock 
-                                        ToolTipService.ToolTip="Check the box to enable Frame Size.">
-                                        Frame Size
-                                        <Run Foreground="Red"> * </Run>
+                                                ToolTipService.ToolTip="Check the box to enable Frame Size.">
+                                                Frame Size
+                                                <Run Foreground="Red"> * </Run>
                                             </TextBlock>
                                         </CheckBox>
                                         <CheckBox x:Name="DisplayAspecRatio" 
-                                              Margin="6,6,6,6">
+                                                  Checked="DisplayAspecRatio_Checked"
+                                                  Unchecked="DisplayAspecRatio_Unchecked"
+                                                  Margin="6,6,6,6">
                                             <TextBlock 
-                                        ToolTipService.ToolTip="Check the box to enable the display of aspect ratio.">
-                                        Display Aspect Ratio
-                                        <Run Foreground="Red"> * </Run>
+                                                    ToolTipService.ToolTip="Check the box to enable the display of aspect ratio.">
+                                                    Display Aspect Ratio
+                                                <Run Foreground="Red"> * </Run>
                                             </TextBlock>
                                         </CheckBox>
                                     </StackPanel>
@@ -1614,95 +1633,95 @@
                                 <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="2">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Bit Rate:"
-                                       HorizontalAlignment="Left"
-                                       Margin="6,6,6,6"/>
+                                               HorizontalAlignment="Left"
+                                               Margin="6,6,6,6"/>
                                         <TextBox x:Name="videoBitRateTarget"
-                                         ToolTipService.ToolTip="Enter the Video Bit Rate target numerical alue."
-                                         FontSize="12"
-                                         Margin="6,6,6,6"
-                                         Width="100"/>
+                                                 ToolTipService.ToolTip="Enter the Video Bit Rate target numerical alue."
+                                                 FontSize="12"
+                                                 Margin="6,6,6,6"
+                                                 Width="100"/>
                                         <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Min Bit Rate:"
-                                           HorizontalAlignment="Left"
-                                           Margin="6,6,0,6"/>
+                                               HorizontalAlignment="Left"
+                                               Margin="6,6,0,6"/>
                                         <TextBox x:Name="vidBitRateMin"
-                                             ToolTipService.ToolTip="Enter the minimum Bit Rate target."
-                                             FontSize="12"
-                                             Margin="6,6,0,6"
-                                             Width="45"/>
+                                                 ToolTipService.ToolTip="Enter the minimum Bit Rate target."
+                                                 FontSize="12"
+                                                 Margin="6,6,0,6"
+                                                 Width="45"/>
                                         <Label Content="Max Bix Rate:"
-                                           HorizontalAlignment="Left"
-                                           Margin="0,6,0,6"/>
+                                               HorizontalAlignment="Left"
+                                               Margin="0,6,0,6"/>
                                         <TextBox x:Name="vidBitRateMax"
-                                             ToolTipService.ToolTip="Enter the maximum Bit Rate target."
-                                             FontSize="12"
-                                             Margin="6,6,0,6"
-                                             Width="45"/>
+                                                 ToolTipService.ToolTip="Enter the maximum Bit Rate target."
+                                                 FontSize="12"
+                                                 Margin="6,6,0,6"
+                                                 Width="45"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Min Average:"
-                                           ToolTipService.ToolTip="The minimum average Bit Rate target."
-                                           HorizontalAlignment="Left"
-                                           Margin="6,6,0,6"/>
+                                               ToolTipService.ToolTip="The minimum average Bit Rate target."
+                                               HorizontalAlignment="Left"
+                                               Margin="6,6,0,6"/>
                                         <TextBox x:Name="bitAvgMin"
-                                             IsEnabled="False"
-                                             ToolTipService.ToolTip="Enter the minimum average Bit Rate target."
-                                             FontSize="12"
-                                             Margin="6,6,0,6"
-                                             Width="45"/>
+                                                 IsEnabled="False"
+                                                 ToolTipService.ToolTip="Enter the minimum average Bit Rate target."
+                                                 FontSize="12"
+                                                 Margin="6,6,0,6"
+                                                 Width="45"/>
                                         <Label Content="Max Average:"
-                                           ToolTipService.ToolTip="The maximum average Bit Rate target."
-                                           HorizontalAlignment="Left"
-                                           Margin="0,6,0,6"/>
+                                               ToolTipService.ToolTip="The maximum average Bit Rate target."
+                                               HorizontalAlignment="Left"
+                                               Margin="0,6,0,6"/>
                                         <TextBox x:Name="bitAvgMax"
-                                             IsEnabled="False"
-                                             ToolTipService.ToolTip="Enter the maximum average Bit Rate target."
-                                             FontSize="12"
-                                             Margin="6,6,0,6"
-                                             Width="45"/>
+                                                 IsEnabled="False"
+                                                 ToolTipService.ToolTip="Enter the maximum average Bit Rate target."
+                                                 FontSize="12"
+                                                 Margin="6,6,0,6"
+                                                 Width="45"/>
                                     </StackPanel>
                                 </StackPanel>
-
                                 <StackPanel Orientation="Vertical" 
                                         Grid.Row="2"
                                         Visibility="Visible">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <!-- Show Data checkbox -->
                                         <CheckBox x:Name="showData"
-                                              ToolTipService.ToolTip="Check the box to enable data to be visible."
-                                              Checked="showData_Checked"
-                                              Unchecked="showData_Unchecked"
-                                              Margin="6,6,6,6">
-                                            Visible Data</CheckBox>
+                                                  ToolTipService.ToolTip="Check the box to enable data to be visible."
+                                                  Checked="showData_Checked"
+                                                  Unchecked="showData_Unchecked"
+                                                  Content="Visible Data"
+                                                  Margin="6,6,6,6"/>
                                         <!-- Timecode checkbox -->
                                         <CheckBox x:Name="timecodeEnable" 
-                                              Checked="timecodeEnable_Checked"
-                                              ToolTipService.ToolTip="Check the box to show the timecode."
-                                              Unchecked="timecodeEnable_Unchecked"
-                                              Margin="6,6,6,6">
-                                            Timecode</CheckBox>
+                                                  Checked="timecodeEnable_Checked"
+                                                  ToolTipService.ToolTip="Check the box to show the timecode."
+                                                  Unchecked="timecodeEnable_Unchecked"
+                                                  Content="Timecode"
+                                                  Margin="6,6,6,6"/>
                                         <!-- logo checkbox -->
                                         <CheckBox x:Name="logoEnable" 
-                                              Checked="logoEnable_Checked"
-                                              Unchecked="logoEnable_Unchecked"
-                                              Margin="6,6,6,6">
+                                                  Checked="logoEnable_Checked"
+                                                  Unchecked="logoEnable_Unchecked"
+                                                  Margin="6,6,6,6">
                                             <TextBlock 
-                                            ToolTipService.ToolTip="Check the box to show the logo.">
-                                            Use Logo
-                                        <Run Foreground="Red"> * </Run>
+                                                    ToolTipService.ToolTip="Check the box to show the logo.">
+                                                    Use Logo
+                                                <Run Foreground="Red"> * </Run>
                                             </TextBlock>
                                         </CheckBox>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <!-- Show Crop checkbox -->
                                         <CheckBox x:Name="cropEnabled"
-                                              ToolTipService.ToolTip="Check the box to enable Crop."
-                                              Checked="cropEnabled_Checked"
-                                              Unchecked="cropEnabled_Unchecked"
-                                              Margin="6,6,12,6">
-                                            Crop</CheckBox>
+                                                  ToolTipService.ToolTip="Check the box to enable Crop."
+                                                  Checked="cropEnabled_Checked"
+                                                  Unchecked="cropEnabled_Unchecked"
+                                                  Content="Crop"
+                                                  Margin="6,6,12,6"/>
+
                                         <!-- denoise checkbox -->
                                         <CheckBox x:Name="denoiseEnable"
                                               Checked="denoiseEnable_Checked"
@@ -1716,173 +1735,173 @@
                                         </CheckBox>
                                         <!-- resize checkbox -->
                                         <CheckBox x:Name="resizeEnable"
-                                              Checked="resizeEnable_Checked"
-                                              Unchecked="resizeEnable_Unchecked"
-                                              Margin="12,6,12,6">
+                                                  Checked="resizeEnable_Checked"
+                                                  Unchecked="resizeEnable_Unchecked"
+                                                  Margin="12,6,12,6">
                                             <TextBlock 
-                                            ToolTipService.ToolTip="Check the box to enable Resize.">
-                                            Resize 
-                                        <Run Foreground="Red"> * </Run>
+                                                    ToolTipService.ToolTip="Check the box to enable Resize.">
+                                                    Resize 
+                                                <Run Foreground="Red"> * </Run>
                                             </TextBlock>
                                         </CheckBox>
                                     </StackPanel>
                                     <!-- timecode panel -->
                                     <StackPanel Orientation="Horizontal"
-                                            x:Name="timecodePanel"
-                                            Visibility="Hidden"
-                                            HorizontalAlignment="Right">
+                                                x:Name="timecodePanel"
+                                                Visibility="Hidden"
+                                                HorizontalAlignment="Right">
                                         <Label Content="Start Timecode:"
-                                       HorizontalAlignment="Left"
-                                       Margin="6,6,6,6"/>
+                                               HorizontalAlignment="Left"
+                                               Margin="6,6,6,6"/>
                                         <extToolkit:MaskedTextBox x:Name="StartTimecode"
-                                                              Mask="00:00:00:00"
-                                                              FontSize="14"
-                                                              Margin="6,6,6,6"
-                                                              Width="100" 
-                                                              ToolTipService.ToolTip="Please enter the timecode having format: H:m:s:frames"
-                                                              ValueDataType="{x:Type sys:Int32}" />
+                                                                  Mask="00:00:00:00"
+                                                                  FontSize="14"
+                                                                  Margin="6,6,6,6"
+                                                                  Width="100" 
+                                                                  ToolTipService.ToolTip="Please enter the timecode having format: H:m:s:frames"
+                                                                  ValueDataType="{x:Type sys:Int32}" />
                                         <Label Content="*" FontSize="14" Margin="0,6,6,0" Visibility="Hidden" Foreground="Red"/>
                                     </StackPanel>
                                     <!-- denoise panel -->
                                     <StackPanel Orientation="Horizontal"
-                                            x:Name="denoisePanel"
-                                            Visibility="Hidden"
-                                            HorizontalAlignment="Right">
+                                                x:Name="denoisePanel"
+                                                Visibility="Hidden"
+                                                HorizontalAlignment="Right">
                                         <Label Content="Denoise Strength:"
-                                       HorizontalAlignment="Left"
-                                       Margin="6,6,6,6"/>
+                                               HorizontalAlignment="Left"
+                                               Margin="6,6,6,6"/>
                                         <TextBox x:Name="DenoiseStrength"
-                                         ToolTipService.ToolTip="Enter the Denoise Strength."
-                                         FontSize="12"
-                                         Margin="6,6,6,6"
-                                         Width="100"/>
+                                                 ToolTipService.ToolTip="Enter the Denoise Strength."
+                                                 FontSize="12"
+                                                 Margin="6,6,6,6"
+                                                 Width="100"/>
                                         <Label Content="*" FontSize="14" Margin="0,6,6,0" Visibility="Hidden" Foreground="Red"/>
                                     </StackPanel>
                                 </StackPanel>
-
                                 <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="1">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                                         <!-- Show Inverse Telecine checkbox -->
                                         <CheckBox x:Name="inverseTelecineEnabled"
-                                              ToolTipService.ToolTip="Check the box to enable Inverse Telecine."
-                                              Checked="inverseTelecineEnabled_Checked"
-                                              Unchecked="inverseTelecineEnabled_Unchecked"
-                                              Margin="6,6,6,6">
+                                                  ToolTipService.ToolTip="Check the box to enable Inverse Telecine."
+                                                  Checked="inverseTelecineEnabled_Checked"
+                                                  Unchecked="inverseTelecineEnabled_Unchecked"
+                                                  Margin="6,6,6,6">
                                             <TextBlock 
-                                            ToolTipService.ToolTip="Check the box to enable Inverse Telecine.">
-                                            Inverse Telecine
-                                        <Run Foreground="Red"> * </Run>
+                                                    ToolTipService.ToolTip="Check the box to enable Inverse Telecine.">
+                                                    Inverse Telecine
+                                                <Run Foreground="Red"> * </Run>
                                             </TextBlock>
                                         </CheckBox>
                                         <!-- Show civolution checkbox -->
                                         <CheckBox x:Name="civolutionEnabled"
-                                              ToolTipService.ToolTip="Check the box to enable Inverse Telecine."
-                                              Checked="civolutionEnabled_Checked"
-                                              Unchecked="civolutionEnabled_Unchecked"
-                                              Margin="6,6,6,6">
+                                                  ToolTipService.ToolTip="Check the box to enable Inverse Telecine."
+                                                  Checked="civolutionEnabled_Checked"
+                                                  Unchecked="civolutionEnabled_Unchecked"
+                                                  Margin="6,6,6,6">
                                             <TextBlock 
-                                            ToolTipService.ToolTip="Check the box to enable Inverse Telecine.">
-                                            Civolution
-                                        <Run Foreground="Red"> * </Run>
+                                                    ToolTipService.ToolTip="Check the box to enable Inverse Telecine.">
+                                                    Civolution
+                                                <Run Foreground="Red"> * </Run>
                                             </TextBlock>
                                         </CheckBox>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                                         <!-- Show GOP checkbox -->
                                         <CheckBox x:Name="gopEnabled"
-                                              ToolTipService.ToolTip="Check the box to enable Group Of Pictures (GOP)."
-                                              Checked="gopEnabled_Checked"
-                                              Unchecked="gopEnabled_Unchecked"
-                                              Margin="6,6,6,6">
-                                            GOP Closed</CheckBox>
+                                                  ToolTipService.ToolTip="Check the box to enable Group Of Pictures (GOP)."
+                                                  Checked="gopEnabled_Checked"
+                                                  Unchecked="gopEnabled_Unchecked"
+                                                  Content="GOP Closed"
+                                                  Margin="6,6,6,6"/>
                                         <!-- weighted Prediction checkbox -->
                                         <CheckBox x:Name="weightedPrediction"
-                                              ToolTipService.ToolTip="Check the box to enable Weighted Prediction."
-                                              Margin="6,6,6,6">
-                                            Weighted Prediction</CheckBox>
+                                                  Checked="weightedPrediction_Checked"
+                                                  Unchecked="weightedPrediction_Unchecked"
+                                                  ToolTipService.ToolTip="Check the box to enable Weighted Prediction."
+                                                  Content="Weighted Prediction"
+                                                  Margin="6,6,6,6"/>
                                     </StackPanel>
                                     <!-- Inverse Telecine panel -->
                                     <StackPanel Orientation="Horizontal"
-                                            x:Name="inverseTelecinePanel"
-                                            Visibility="Hidden"
-                                            HorizontalAlignment="Right">
+                                                x:Name="inverseTelecinePanel"
+                                                Visibility="Hidden"
+                                                HorizontalAlignment="Right">
                                         <Label Content="Inverse Telecine:"
-                                       HorizontalAlignment="Left"
-                                       Margin="6,6,6,6"/>
+                                               HorizontalAlignment="Left"
+                                               Margin="6,6,6,6"/>
                                         <TextBox x:Name="inverseTelecineCorrection"
-                                         ToolTipService.ToolTip="Enter the Inverse Telecine Correction numeric value."
-                                         FontSize="12"
-                                         Margin="6,6,6,6"
-                                         Width="100"/>
+                                                 ToolTipService.ToolTip="Enter the Inverse Telecine Correction numeric value."
+                                                 FontSize="12"
+                                                 Margin="6,6,6,6"
+                                                 Width="100"/>
                                         <Label Content="*" FontSize="14" Margin="0,6,6,0" Visibility="Hidden" Foreground="Red"/>
                                     </StackPanel>
                                     <!-- civolution panel -->
                                     <StackPanel Orientation="Horizontal"
-                                            x:Name="civolutionPanel"
-                                            Visibility="Hidden"
-                                            HorizontalAlignment="Right">
+                                                x:Name="civolutionPanel"
+                                                Visibility="Hidden"
+                                                HorizontalAlignment="Right">
                                         <Label Content="Civolution Date:"
-                                       HorizontalAlignment="Left"
-                                       Margin="6,6,6,6"/>
+                                               HorizontalAlignment="Left"
+                                               Margin="6,6,6,6"/>
                                         <extToolkit:DateTimeUpDown 
-                                        x:Name="civolutionDateTime"
-                                        Format="FullDateTime"
-                                        ToolTipService.ToolTip="Please pick the Civolution Watermark Date."
-                                        Height="25"
-                                        Margin="0,6,0,6"
-                                        MinWidth="130"/>
+                                                x:Name="civolutionDateTime"
+                                                Format="FullDateTime"
+                                                ToolTipService.ToolTip="Please pick the Civolution Watermark Date."
+                                                Height="25"
+                                                Margin="0,6,0,6"
+                                                MinWidth="130"/>
                                     </StackPanel>
                                 </StackPanel>
                                 <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="2">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Codec Rate Control:"
-                                       HorizontalAlignment="Left"
-                                       Margin="6,0,6,6"/>
+                                               HorizontalAlignment="Left"
+                                               Margin="6,0,6,6"/>
                                         <TextBox x:Name="codecRateControl"
-                                         ToolTipService.ToolTip="Enter the Video Codec Rate Control."
-                                         FontSize="12"
-                                         Margin="6,0,6,6"
-                                         Width="100"/>
+                                                 ToolTipService.ToolTip="Enter the Video Codec Rate Control."
+                                                 FontSize="12"
+                                                 Margin="6,0,6,6"
+                                                 Width="100"/>
                                         <Label Content="*" FontSize="14" Margin="0,6,6,0" Visibility="Hidden" Foreground="Red"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Codec Parameters:"
-                                       HorizontalAlignment="Left"
-                                       Margin="6,6,6,6"/>
+                                               HorizontalAlignment="Left"
+                                               Margin="6,6,6,6"/>
                                         <TextBox x:Name="codecParameters"
-                                         ToolTipService.ToolTip="Enter the Video Parameters."
-                                         FontSize="12"
-                                         Margin="6,6,6,6"
-                                         Width="100"/>
+                                                 ToolTipService.ToolTip="Enter the Video Parameters."
+                                                 FontSize="12"
+                                                 Margin="6,6,6,6"
+                                                 Width="100"/>
                                         <Label Content="*" FontSize="14" Margin="0,6,6,0" Visibility="Hidden" Foreground="Red"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Entropy:"
-                                       HorizontalAlignment="Left"
-                                       Margin="6,6,6,6"/>
+                                               HorizontalAlignment="Left"
+                                               Margin="6,6,6,6"/>
                                         <ComboBox x:Name="entropy"
-                                              MinWidth="100"
-                                              Margin="6,6,6,6" 
-                                              ToolTip="Select the type of Entropy.">
+                                                  MinWidth="100"
+                                                  Margin="6,6,6,6" 
+                                                  ToolTip="Select the type of Entropy.">
                                             <ComboBoxItem Content="CABAC"/>
                                             <ComboBoxItem Content="CAVLC"/>
                                         </ComboBox>
                                         <Label Content="*" FontSize="14" Margin="0,6,6,0" Visibility="Hidden" Foreground="Red"/>
                                     </StackPanel>
                                 </StackPanel>
-
                                 <StackPanel Orientation="Vertical" 
-                                        HorizontalAlignment="Right"
-                                        Grid.Row="0" 
-                                        Grid.Column="3">
+                                            HorizontalAlignment="Right"
+                                            Grid.Row="0" 
+                                            Grid.Column="3">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Encoding:"
-                                       HorizontalAlignment="Right"
-                                       Margin="6,6,6,6"/>
+                                               HorizontalAlignment="Right"
+                                               Margin="6,6,6,6"/>
                                         <ComboBox x:Name="encoding"
-                                              MinWidth="100"
-                                              Margin="6,6,6,6" 
-                                              ToolTip="Select the type of Encoding.">
+                                                  MinWidth="100"
+                                                  Margin="6,6,6,6" 
+                                                  ToolTip="Select the type of Encoding.">
                                             <ComboBoxItem Content="MBAFF"/>
                                             <ComboBoxItem Content="PicAFF"/>
                                         </ComboBox>
@@ -1890,12 +1909,12 @@
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Motion Estimation Method:"
-                                       HorizontalAlignment="Right"
-                                       Margin="6,6,6,6"/>
+                                               HorizontalAlignment="Right"
+                                               Margin="6,6,6,6"/>
                                         <ComboBox x:Name="motionEstimationMethod"
-                                              MinWidth="100"
-                                              Margin="6,6,6,6" 
-                                              ToolTip="Select the type of Motion Estimation Method.">
+                                                  MinWidth="100"
+                                                  Margin="6,6,6,6" 
+                                                  ToolTip="Select the type of Motion Estimation Method.">
                                             <ComboBoxItem Content="zero"/>
                                             <ComboBoxItem Content="full"/>
                                             <ComboBoxItem Content="epzs"/>
@@ -1913,19 +1932,19 @@
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Constant Rate Factor:"
-                                       HorizontalAlignment="Right"
-                                       Margin="6,6,6,6"/>
+                                               HorizontalAlignment="Right"
+                                               Margin="6,6,6,6"/>
                                         <TextBox x:Name="constantRateFactor"
-                                         ToolTipService.ToolTip="Enter the Constant Rate Factor numerical value."
-                                         FontSize="12"
-                                         Margin="6,6,6,6"
-                                         Width="100"/>
+                                                 ToolTipService.ToolTip="Enter the Constant Rate Factor numerical value."
+                                                 FontSize="12"
+                                                 Margin="6,6,6,6"
+                                                 Width="100"/>
                                         <Label Content="*" FontSize="14" Margin="0,6,6,0" Visibility="Hidden" Foreground="Red"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Reference Number:"
-                                       HorizontalAlignment="Right"
-                                       Margin="6,6,6,6"/>
+                                               HorizontalAlignment="Right"
+                                               Margin="6,6,6,6"/>
                                         <TextBox x:Name="referenceNumber"
                                          ToolTipService.ToolTip="Enter the Reference Number."
                                          FontSize="12"
@@ -1934,7 +1953,6 @@
                                         <Label Content="*" FontSize="14" Margin="0,6,6,0" Visibility="Hidden" Foreground="Red"/>
                                     </StackPanel>
                                 </StackPanel>
-
                                 <!-- if we have logo then the following are visible: -->
                                 <StackPanel Orientation="Vertical" 
                                         HorizontalAlignment="Right"
@@ -2461,72 +2479,5 @@
                 </TabControl>
             </ScrollViewer>
         </Grid>
-        <!-- Popup Windows Section To be deleted :D --><!--
-        <Popup x:Name="OtherPopup"
-               Width="Auto"
-               IsEnabled="True"
-               IsOpen="False"
-               MinWidth="100"
-               Margin="12,12,12,12"
-               Height="Auto"
-               Placement="Center" 
-               AllowsTransparency="True" 
-               PopupAnimation="Fade" 
-               Opacity="0.6">
-            <Border CornerRadius="6"
-                    BorderBrush="Gray"
-                    BorderThickness="3"
-                    Background="Snow"
-                    Margin="12"
-                    Padding="6">
-                <Border.Effect>
-                    <DropShadowEffect Color="Gray"
-                      Opacity=".50"
-                      ShadowDepth="16" />
-                </Border.Effect>
-                <StackPanel Orientation="Vertical">
-                    <Border Style="{StaticResource labelBorder}">
-                        <Label HorizontalAlignment="Center"
-                           Background="LightSkyBlue"
-                           Content="Save Audio Profile As Other" 
-                           FontSize="12"/>
-                    </Border>
-                    <StackPanel Orientation="Horizontal" 
-                            Margin="0,6,0,0"
-                            HorizontalAlignment="Left">
-                        <Label Content="Name:" 
-                           Margin="6,6,6,6"/>
-                        <TextBox x:Name="otherName" 
-                             ToolTip="Enter the name of your choice for this Audio profile."
-                             Width="100" 
-                             Margin="6,6,6,6"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal"
-                            Margin="0,6,0,0"
-                            HorizontalAlignment="Center">
-                        <local:ImageButton ImageHeight="24"
-                                       Click="otherOK_Click"
-                                       ImageWidth="24"
-                                       Image="/Images/1447958815_ok.png" 
-                                       Margin="6,6,6,6"
-                                       x:Name="otherOK"
-                                       HorizontalAlignment="Left"
-                                       Width="70"
-                                       Content ="  OK  "
-                                       ToolTipService.ToolTip="Click to save the Audio profile."/>
-                        <local:ImageButton ImageHeight="24"
-                                       Click="otherCancel_Click"
-                                       ImageWidth="24"
-                                       Image="/Images/1447958832_cancel.png" 
-                                       Margin="6,6,6,6"
-                                       x:Name="otherCancel"
-                                       HorizontalAlignment="Left"
-                                       Width="70"
-                                       Content ="Cancel"
-                                       ToolTipService.ToolTip="Click to cancel all changes."/>
-                    </StackPanel>
-                </StackPanel>
-            </Border>
-        </Popup>-->
     </DockPanel>
 </Window>

@@ -125,6 +125,7 @@
     <Compile Include="DataModel\EnumBindingSourceExtension.cs" />
     <Compile Include="DataModel\CodecEnums.cs" />
     <Compile Include="ExportDataModel\DataProfile.cs" />
+    <Compile Include="ExportDataModel\XMLWrite.cs" />
     <Compile Include="HelperClasses\AutoClosingMessageBox.cs" />
     <Compile Include="HelperClasses\GUIHelper.cs" />
     <Compile Include="HelperClasses\TreeViewToXml.cs" />
