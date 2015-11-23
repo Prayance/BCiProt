@@ -133,7 +133,7 @@
                 </Button>
                 <Button ToolTip="Go to our page on Facebook">
                     <StackPanel Orientation="Vertical">
-                        <Image Source="/Images/1444326007_icon-70-document-code.png"  Height="24" Width="24"/>
+                        <Image Source="/Images/1444325824_icon-70-document-code.png"  Height="24" Width="24"/>
                         <TextBlock FontSize="6" Margin="0,0,0,0">Facebook</TextBlock>
                     </StackPanel>
                 </Button>
@@ -664,38 +664,26 @@
                                               Width="250" 
                                               Height="300">
                                         <TreeView.Resources>
-                                            <HierarchicalDataTemplate DataType="{x:Type ViewModel:TreeChannelModel}" ItemsSource="{Binding BasicNodes}">
+                                            <HierarchicalDataTemplate
+                                                DataType="{x:Type ViewModel:TreeChannelModel}" 
+                                                ItemsSource="{Binding BasicNodes}">
                                                 <StackPanel Orientation="Horizontal">
                                                     <Image Source="/Images/AudioTreeViewImages/channel.png" Margin="0,0,5,0" Height="16" Width="16"/>
+                                                    <TextBlock Text="{Binding Mode}" FontWeight="Bold" FontSize="14"/>
+                                                    <TextBlock Text=" profile - "/>
                                                     <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="14"/>
                                                     <TextBlock Text=" [" Foreground="Blue" />
                                                     <TextBlock Text="{Binding BasicNodes.Count}" FontWeight="Bold" Foreground="Blue" FontSize="14"/>
                                                     <TextBlock Text="] " Foreground="Blue" />
                                                 </StackPanel>
                                             </HierarchicalDataTemplate>
-                                            <DataTemplate DataType="{x:Type ViewModel:ChannelBasicType}">
+                                            <DataTemplate
+                                                DataType="{x:Type ViewModel:ChannelBasicType}">
                                                 <StackPanel Orientation="Horizontal">
                                                     <Image Source="{Binding imageSource}" Margin="0,0,5,0" Height="16" Width="16"/>
                                                     <TextBlock Text="{Binding basicType}" Foreground="DarkSeaGreen" FontSize="12"/>
                                                     <TextBlock Text=" "/>
                                                     <TextBlock Text="{Binding basicValue}" FontSize="12"/>
-                                                </StackPanel>
-                                            </DataTemplate>
-                                            <HierarchicalDataTemplate DataType="{x:Type ViewModel:TreeChannelModel}" ItemsSource="{Binding ExtraNodes}">
-                                                <StackPanel Orientation="Horizontal">
-                                                    <Image Source="/Images/AudioTreeViewImages/purple.png" Margin="0,0,5,0" Height="16" Width="16"/>
-                                                    <TextBlock Text="{Binding Mode}" FontWeight="Bold" FontSize="14"/>
-                                                    <TextBlock Text=" [" Foreground="Blue" />
-                                                    <TextBlock Text="{Binding ExtraNodes.Count}" FontWeight="Bold" Foreground="Blue" FontSize="14"/>
-                                                    <TextBlock Text="] " Foreground="Blue" />
-                                                </StackPanel>
-                                            </HierarchicalDataTemplate>
-                                            <DataTemplate DataType="{x:Type ViewModel:ChannelExtraType}">
-                                                <StackPanel Orientation="Horizontal">
-                                                    <Image Source="{Binding imageSource}" Margin="0,0,5,0" Height="16" Width="16"/>
-                                                    <TextBlock Text="{Binding extraType}" Foreground="DarkSeaGreen" FontSize="12"/>
-                                                    <TextBlock Text=" "/>
-                                                    <TextBlock Text="{Binding extraValue}" FontSize="12"/>
                                                 </StackPanel>
                                             </DataTemplate>
                                         </TreeView.Resources>
@@ -1284,8 +1272,9 @@
                                               Checked="Copyright_Checked"
                                               Unchecked="Copyright_Unchecked"
                                               Margin="6,12,12,12"
+                                              Content="Copyright"
                                               HorizontalAlignment="Right"
-                                              ToolTipService.ToolTip="It defaults to NO. Check the box to enable copyright.">Copyright</CheckBox>
+                                              ToolTipService.ToolTip="It defaults to NO. Check the box to enable copyright."/>
                                 </StackPanel>
                                 <!--Visibility  hidden -->
                                 <StackPanel x:Name="AC3BottomRight" 
@@ -2472,7 +2461,7 @@
                 </TabControl>
             </ScrollViewer>
         </Grid>
-        <!-- Popup Windows Section To be deleted :D -->
+        <!-- Popup Windows Section To be deleted :D --><!--
         <Popup x:Name="OtherPopup"
                Width="Auto"
                IsEnabled="True"
@@ -2538,6 +2527,6 @@
                     </StackPanel>
                 </StackPanel>
             </Border>
-        </Popup>
+        </Popup>-->
     </DockPanel>
 </Window>

@@ -12,13 +12,13 @@ namespace BCiProt.Model
         public TreeChannelModel()
         {
             this.BasicNodes = new ObservableCollection<ChannelBasicType>();
-            this.ExtraNodes = new ObservableCollection<ChannelExtraType>();
+            //this.ExtraNodes = new ObservableCollection<ChannelExtraType>();
         }
 
         public string Name { get; set; }
         public string Mode { get; set; }
         public ObservableCollection<ChannelBasicType> BasicNodes { get; set; }
-        public ObservableCollection<ChannelExtraType> ExtraNodes { get; set; }
+        //public ObservableCollection<ChannelExtraType> ExtraNodes { get; set; }
 
         /// <summary>
         /// If the mode is AC3 then the string will have AC3 
@@ -40,13 +40,13 @@ namespace BCiProt.Model
         public string basicType { get; set; }
         public string basicValue { get; set; }
         public string imageSource { get; set; }
+        public bool isBasic { get; set; } // if it is basic = true, else it is AC3 property.
     }
 
-
-    public class ChannelExtraType
-    {
-        public string extraType { get; set; }
-        public string extraValue { get; set; }
-        public string imageSource { get; set; }
-    }
+    // Question: Do I even need the ChannelExtraType class?
+    //public class ChannelExtraType
+    //{
+    //    public string extraType { get; set; }
+    //    public string extraValue { get; set; }
+    //}
 }

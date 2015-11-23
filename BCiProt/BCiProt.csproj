@@ -125,6 +125,7 @@
     <Compile Include="DataModel\EnumBindingSourceExtension.cs" />
     <Compile Include="DataModel\CodecEnums.cs" />
     <Compile Include="ExportDataModel\DataProfile.cs" />
+    <Compile Include="HelperClasses\AutoClosingMessageBox.cs" />
     <Compile Include="HelperClasses\GUIHelper.cs" />
     <Compile Include="HelperClasses\TreeViewToXml.cs" />
     <Compile Include="HelpPage.xaml.cs">
@@ -332,7 +333,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\AudioTreeViewImages\1448054094_Black_tag.png" />
-    <Resource Include="Images\AudioTreeViewImages\1448054095_Red_tag.png" />
     <Resource Include="Images\AudioTreeViewImages\1448054097_Green_tag.png" />
     <Resource Include="Images\AudioTreeViewImages\1448054098_Yellow_tag.png" />
   </ItemGroup>
