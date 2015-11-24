@@ -15,7 +15,7 @@ namespace BCiProt.ExportDataModel
         // At the moment this will remain standar, so as I can test the xml easily.
         static string path = "C:\\Users\\Elisavet\\Desktop\\elly.xml";
 
-        public static void trying(TreeModel t)
+        public static void WriteToXML(TreeModel t)
         {
             try
             {
@@ -37,53 +37,12 @@ namespace BCiProt.ExportDataModel
                 XMLtw.WriteEndElement();
                 XMLtw.WriteEndDocument();
                 XMLtw.Close();
-
-                //OR
-                //XmlWriter xmlWriter = XmlWriter.Create(path);
-
-                //xmlWriter.WriteStartDocument();
-                //xmlWriter.WriteStartElement("users");
-
-                //xmlWriter.WriteStartElement("user");
-                //xmlWriter.WriteAttributeString("age", "42");
-                //xmlWriter.WriteString("John Doe");
-                //xmlWriter.WriteEndElement();
-
-                //xmlWriter.WriteStartElement("user");
-                //xmlWriter.WriteAttributeString("age", "39");
-                //xmlWriter.WriteString("Jane Doe");
-
-                //xmlWriter.WriteEndDocument();
-                //xmlWriter.Close();
-
-                //OR
-                //XmlDocument xmlDoc = new XmlDocument();
-                //XmlNode rootNode = xmlDoc.CreateElement("users");
-                //xmlDoc.AppendChild(rootNode);
-
-                //XmlNode userNode = xmlDoc.CreateElement("user");
-                //XmlAttribute attribute = xmlDoc.CreateAttribute("age");
-                //attribute.Value = "42";
-                //userNode.Attributes.Append(attribute);
-                //userNode.InnerText = "John Doe";
-                //rootNode.AppendChild(userNode);
-
-                //userNode = xmlDoc.CreateElement("user");
-                //attribute = xmlDoc.CreateAttribute("age");
-                //attribute.Value = "39";
-                //userNode.Attributes.Append(attribute);
-                //userNode.InnerText = "Jane Doe";
-                //rootNode.AppendChild(userNode);
-
-                //xmlDoc.Save(path);
             }
             catch (Exception exc)
             {
                 MessageBox.Show("Something went so wrong !" + exc.Message);
             }
         }
-
-
     }
 
 	public class StringWriterUtf8 : System.IO.StringWriter
@@ -95,3 +54,42 @@ namespace BCiProt.ExportDataModel
     }
 }
 
+
+//OR
+//XmlWriter xmlWriter = XmlWriter.Create(path);
+
+//xmlWriter.WriteStartDocument();
+//xmlWriter.WriteStartElement("users");
+
+//xmlWriter.WriteStartElement("user");
+//xmlWriter.WriteAttributeString("age", "42");
+//xmlWriter.WriteString("John Doe");
+//xmlWriter.WriteEndElement();
+
+//xmlWriter.WriteStartElement("user");
+//xmlWriter.WriteAttributeString("age", "39");
+//xmlWriter.WriteString("Jane Doe");
+
+//xmlWriter.WriteEndDocument();
+//xmlWriter.Close();
+
+//OR
+//XmlDocument xmlDoc = new XmlDocument();
+//XmlNode rootNode = xmlDoc.CreateElement("users");
+//xmlDoc.AppendChild(rootNode);
+
+//XmlNode userNode = xmlDoc.CreateElement("user");
+//XmlAttribute attribute = xmlDoc.CreateAttribute("age");
+//attribute.Value = "42";
+//userNode.Attributes.Append(attribute);
+//userNode.InnerText = "John Doe";
+//rootNode.AppendChild(userNode);
+
+//userNode = xmlDoc.CreateElement("user");
+//attribute = xmlDoc.CreateAttribute("age");
+//attribute.Value = "39";
+//userNode.Attributes.Append(attribute);
+//userNode.InnerText = "Jane Doe";
+//rootNode.AppendChild(userNode);
+
+//xmlDoc.Save(path);

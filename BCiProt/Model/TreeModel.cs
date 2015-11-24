@@ -30,4 +30,6 @@ namespace BCiProt.Model
         public string controlValue { get; set; }
         public string fullFileLocation { get; set; } // this property is used on the export and import functions only.
     }
+
+    
 }

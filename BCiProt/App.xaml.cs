@@ -18,6 +18,10 @@ namespace BCiProt
         private const int MINIMUM_SPLASH_TIME = 1500; // Miliseconds
         private const int SPLASH_FADE_TIME = 500;     // Miliseconds
 
+        /// <summary>
+        /// It loads the splash screen
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnStartup(StartupEventArgs e)
         {
             // Step 1 - Load the splash screen
