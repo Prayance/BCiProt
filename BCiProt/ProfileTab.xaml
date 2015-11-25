@@ -2262,151 +2262,153 @@
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Transport Profile Name:" Margin="6,6,6,6"/>
                                         <TextBox x:Name="transportName"
-                                     ToolTipService.ToolTip="Enter the Transport Profile Name."
-                                     FontSize="12"
-                                     Margin="6,6,6,6"
-                                     Width="80"/>
+                                                 ToolTipService.ToolTip="Enter the Transport Profile Name."
+                                                 FontSize="12"
+                                                 Margin="6,6,6,6"
+                                                 Width="80"/>
                                         <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Codec Type:" Margin="6,6,6,6"/>
                                         <ComboBox x:Name="transCodec"
-                                              ToolTipService.ToolTip="Enter the Codec Type."
-                                              FontSize="12"
-                                              Margin="6,6,6,6"
-                                              MinWidth="80"
-                                              ItemsSource="{Binding Source={localEnum:EnumBindingSource {x:Type localEnum:Transport}}}"/>
+                                                  ToolTipService.ToolTip="Enter the Codec Type."
+                                                  FontSize="12"
+                                                  Margin="6,6,6,6"
+                                                  MinWidth="80"
+                                                  ItemsSource="{Binding Source={localEnum:EnumBindingSource {x:Type localEnum:Transport}}}"/>
                                         <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Target Bit Rate:" Margin="6,6,6,6"/>
                                         <TextBox x:Name="transBitRate"
-                                     ToolTipService.ToolTip="Enter the Codec Type."
-                                     FontSize="12"
-                                     Margin="6,6,6,6"
-                                     Width="80"/>
+                                                 ToolTipService.ToolTip="Enter the Codec Type."
+                                                 FontSize="12"
+                                                 Margin="6,6,6,6"
+                                                 Width="80"/>
                                         <Label Content="*" FontSize="14" Margin="0,6,6,0" Visibility="Hidden" Foreground="Red"/>
                                     </StackPanel>
                                 </StackPanel>
                                 <!-- profile button grid -->
                                 <StackPanel Orientation="Vertical" 
-                                        HorizontalAlignment="Right"
-                                        x:Name="transProfileType"
-                                        Grid.Column="1">
+                                            HorizontalAlignment="Right"
+                                            x:Name="transProfileType"
+                                            Grid.Column="1">
                                     <TextBlock x:Name="transProfileText"
-                                           HorizontalAlignment="Left"
-                                           Width="312"
-                                           Margin="6,6,6,6"
-                                           FontSize="12"
-		                                   TextWrapping="Wrap"
-		                                   Text="Transport Profile"
-		                                   VerticalAlignment="Top"
-                                           Loaded="transProfileText_Loaded"/>
+                                               HorizontalAlignment="Left"
+                                               Width="312"
+                                               Margin="6,6,6,6"
+                                               FontSize="12"
+		                                       TextWrapping="Wrap"
+		                                       Text="Transport Profile"
+		                                       VerticalAlignment="Top"
+                                               Loaded="transProfileText_Loaded"/>
                                     <StackPanel Orientation="Horizontal">
                                         <local:ImageButton ImageHeight="24"
-                                                       ImageWidth="24"
-                                                       Image="/Images/1445611008_cv.png" 
-                                                       Margin="6,6,6,6"
-                                                       HorizontalAlignment="Left"
-                                                       Content="Proceed to MPEGTS"
-                                                       Click="Button_Click_5"
-                                                       ToolTipService.ToolTip="Click to proceed with an MPEGTS Transport Profile."
-                                                       Width="150"/>
+                                                           x:Name="proceedToMpegts"
+                                                           ImageWidth="24"
+                                                           Image="/Images/1445611008_cv.png" 
+                                                           Margin="6,6,6,6"
+                                                           HorizontalAlignment="Left"
+                                                           Content="Proceed to MPEGTS"
+                                                           Click="proceedToMpegts_Click"
+                                                           ToolTipService.ToolTip="Click to proceed with an MPEGTS Transport Profile."
+                                                           Width="150"/>
                                         <local:ImageButton ImageHeight="24"
-                                                       ImageWidth="24"
-                                                       Image="/Images/1445611033_User.png" 
-                                                       Margin="6,6,6,6"
-                                                       HorizontalAlignment="Right"
-                                                       Width="150"
-                                                       Content="Save as Other"
-                                                       Click="Button_Click_6"
-                                                       ToolTipService.ToolTip="Click to proceed with an other Transport Profile."/>
+                                                           x:Name="saveAsOtherTransp"
+                                                           ImageWidth="24"
+                                                           Image="/Images/1445611033_User.png" 
+                                                           Margin="6,6,6,6"
+                                                           HorizontalAlignment="Right"
+                                                           Width="150"
+                                                           Content="Save as Other"
+                                                           Click="saveAsOtherTransp_Click"
+                                                           ToolTipService.ToolTip="Click to proceed with an other Transport Profile."/>
                                     </StackPanel>
                                 </StackPanel>
                                 <StackPanel Orientation="Vertical" Grid.Row="1">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Service Provider:" Margin="6,6,6,6"/>
                                         <TextBox x:Name="serviceProvider"
-                                     ToolTipService.ToolTip="Enter the Service Provider name."
-                                     FontSize="12"
-                                     Margin="6,6,6,6"
-                                     Width="80"/>
+                                                 ToolTipService.ToolTip="Enter the Service Provider name."
+                                                 FontSize="12"
+                                                 Margin="6,6,6,6"
+                                                 Width="80"/>
                                         <Label Content="*" FontSize="14" Margin="0,6,6,0" Visibility="Hidden" Foreground="Red"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Service Name:" Margin="6,6,6,6"/>
                                         <TextBox x:Name="serviceName"
-                                     ToolTipService.ToolTip="Enter the Service Name."
-                                     FontSize="12"
-                                     Margin="6,6,6,6"
-                                     Width="80"/>
+                                                 ToolTipService.ToolTip="Enter the Service Name."
+                                                 FontSize="12"
+                                                 Margin="6,6,6,6"
+                                                 Width="80"/>
                                         <Label Content="*" FontSize="14" Margin="0,6,6,0" Visibility="Hidden" Foreground="Red"/>
                                     </StackPanel>
                                     <!-- visibility hidden PIDdata -->
                                     <StackPanel Visibility="Hidden"
-                                            x:Name="PIDdatapanel"
-                                            Orientation="Horizontal" 
-                                            HorizontalAlignment="Right">
+                                                x:Name="PIDdatapanel"
+                                                Orientation="Horizontal" 
+                                                HorizontalAlignment="Right">
                                         <Label Content="First PID for Data:" Margin="6,6,6,6"/>
                                         <TextBox x:Name="PIDdata"
-                                     ToolTipService.ToolTip="First PID for data numeric value."
-                                     FontSize="12"
-                                     Margin="6,6,6,6"
-                                     Width="80"/>
+                                                 ToolTipService.ToolTip="First PID for data numeric value."
+                                                 FontSize="12"
+                                                 Margin="6,6,6,6"
+                                                 Width="80"/>
                                         <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
                                     </StackPanel>
                                 </StackPanel>
                                 <!-- visibility hidden PID panel -->
                                 <StackPanel Orientation="Vertical" 
-                                        Visibility="Hidden"
-                                        x:Name="PIDpanel"
-                                        Grid.Row="1" 
-                                        Grid.Column="1">
+                                            Visibility="Hidden"
+                                            x:Name="PIDpanel"
+                                            Grid.Row="1" 
+                                            Grid.Column="1">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="First PID for PMT:" Margin="6,6,6,6"/>
                                         <TextBox x:Name="PIDpmt"
-                                     ToolTipService.ToolTip="First PID for PMT numeric value."
-                                     FontSize="12"
-                                     Margin="6,6,6,6"
-                                     Width="80"/>
+                                                 ToolTipService.ToolTip="First PID for PMT numeric value."
+                                                 FontSize="12"
+                                                 Margin="6,6,6,6"
+                                                 Width="80"/>
                                         <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="First PID for Video:" Margin="6,6,6,6"/>
                                         <TextBox x:Name="PIDvideo"
-                                     ToolTipService.ToolTip="First PID for video numeric value."
-                                     FontSize="12"
-                                     Margin="6,6,6,6"
-                                     Width="80"/>
+                                                 ToolTipService.ToolTip="First PID for video numeric value."
+                                                 FontSize="12"
+                                                 Margin="6,6,6,6"
+                                                 Width="80"/>
                                         <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="First PID for Audio:" Margin="6,6,6,6"/>
                                         <TextBox x:Name="PIDaudio"
-                                     ToolTipService.ToolTip="First PID for audio numeric value."
-                                     FontSize="12"
-                                     Margin="6,6,6,6"
-                                     Width="80"/>
+                                                 ToolTipService.ToolTip="First PID for audio numeric value."
+                                                 FontSize="12"
+                                                 Margin="6,6,6,6"
+                                                 Width="80"/>
                                         <Label Content="*" FontSize="14" Margin="0,6,6,0" Foreground="Red"/>
                                     </StackPanel>
                                 </StackPanel>
                                 <!-- visibility hidden mpegts more options left -->
                                 <StackPanel Orientation="Vertical" 
-                                        x:Name="mpegtsMoreOptionsLeft"
-                                        Visibility="Hidden"
-                                        Grid.Row="2">
+                                            x:Name="mpegtsMoreOptionsLeft"
+                                            Visibility="Hidden"
+                                            Grid.Row="2">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <CheckBox x:Name="M2TSmode" Margin="6,6,6,6">
                                             <TextBlock 
-                                            ToolTipService.ToolTip="Check the box to enable M2TS mode.">
-                                            M2TS mode
-                                            <Run Foreground="Red"> * </Run>
+                                                ToolTipService.ToolTip="Check the box to enable M2TS mode.">
+                                                M2TS mode
+                                                <Run Foreground="Red"> * </Run>
                                             </TextBlock>
                                         </CheckBox>
                                         <CheckBox x:Name="constantMuxRate" 
-                                              Checked="constantMuxRate_Checked"
-                                              Unchecked="constantMuxRate_Unchecked"
-                                              Margin="6,6,6,6">
+                                                  Checked="constantMuxRate_Checked"
+                                                  Unchecked="constantMuxRate_Unchecked"
+                                                  Margin="6,6,6,6">
                                             <TextBlock 
                                             ToolTipService.ToolTip="Check the box to enable Constant MuxRate.">
                                             Constant MuxRate
@@ -2417,62 +2419,68 @@
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Mux Rate:" Margin="6,6,6,6"/>
                                         <TextBox x:Name="muxRate"
-                                             IsEnabled="True"
-                                             ToolTipService.ToolTip="Enter the mux rate numeric value."
-                                             FontSize="12"
-                                             Margin="6,6,6,6"
-                                             Width="80"/>
+                                                 IsEnabled="True"
+                                                 ToolTipService.ToolTip="Enter the mux rate numeric value."
+                                                 FontSize="12"
+                                                 Margin="6,6,6,6"
+                                                 Width="80"/>
                                         <Label Content="*" FontSize="14" Margin="0,6,6,0" Visibility="Hidden" Foreground="Red"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="PCR Interval:" Margin="6,6,6,6"/>
                                         <TextBox x:Name="pcrInterval"
-                                     ToolTipService.ToolTip="Enter the PCR Interval numeric value."
-                                     FontSize="12"
-                                     Margin="6,6,6,6"
-                                     Width="80"/>
+                                                 ToolTipService.ToolTip="Enter the PCR Interval numeric value."
+                                                 FontSize="12"
+                                                 Margin="6,6,6,6"
+                                                 Width="80"/>
                                         <Label Content="*" FontSize="14" Margin="0,6,6,0" Visibility="Hidden" Foreground="Red"/>
                                     </StackPanel>
                                 </StackPanel>
                                 <!-- visibility hidden mpegts more options right-->
                                 <StackPanel Orientation="Vertical" 
-                                        x:Name="mpegtsMoreOptionsRight"
-                                        Visibility="Hidden"
-                                        Grid.Row="2"
-                                        Grid.Column="1">
+                                            x:Name="mpegtsMoreOptionsRight"
+                                            Visibility="Hidden"
+                                            Grid.Row="2"
+                                            Grid.Column="1">
                                     <StackPanel Orientation="Horizontal">
-                                        <CheckBox x:Name="mpegtscopyts" 
-                                              Content="MPEGTS copyts"
-                                              ToolTipService.ToolTip="Check to enable the MPEGTS copyts."
-                                              Margin="6,6,6,6">
+                                        <CheckBox x:Name="mpegtscopyts"
+                                                  Checked="mpegtscopyts_Checked"
+                                                  Unchecked="mpegtscopyts_Unchecked"
+                                                  Content="MPEGTS copyts"
+                                                  ToolTipService.ToolTip="Check to enable the MPEGTS copyts."
+                                                  Margin="6,6,6,6">
                                         </CheckBox>
                                         <CheckBox x:Name="resendHeaders" 
-                                              ToolTipService.ToolTip="Check to enable Resend Headers."
-                                              Content="Resend Headers"
-                                              Margin="6,6,6,6">
+                                                  Checked="resendHeaders_Checked"
+                                                  Unchecked="resendHeaders_Unchecked"
+                                                  ToolTipService.ToolTip="Check to enable Resend Headers."
+                                                  Content="Resend Headers"
+                                                  Margin="6,6,6,6">
                                         </CheckBox>
                                         <CheckBox x:Name="useLatm" 
-                                              ToolTipService.ToolTip="Check to enable the use of LATM."
-                                              Content="LATM enable"
-                                              Margin="6,6,6,6">
+                                                  Checked="useLatm_Checked"
+                                                  Unchecked="useLatm_Unchecked"
+                                                  ToolTipService.ToolTip="Check to enable the use of LATM."
+                                                  Content="LATM enable"
+                                                  Margin="6,6,6,6">
                                         </CheckBox>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="PES Payload Size:" Margin="6,6,6,6"/>
                                         <TextBox x:Name="pesPayloadSize"
-                                     ToolTipService.ToolTip="Enter the PES Payload Size numeric value."
-                                     FontSize="12"
-                                     Margin="6,6,6,6"
-                                     Width="80"/>
+                                                 ToolTipService.ToolTip="Enter the PES Payload Size numeric value."
+                                                 FontSize="12"
+                                                 Margin="6,6,6,6"
+                                                 Width="80"/>
                                         <Label Content="*" FontSize="14" Margin="0,6,6,0" Visibility="Hidden" Foreground="Red"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Tables Version:" Margin="6,6,6,6"/>
                                         <TextBox x:Name="tablesVersion"
-                                     ToolTipService.ToolTip="Enter the value of Tables Version."
-                                     FontSize="12"
-                                     Margin="6,6,6,6"
-                                     Width="80"/>
+                                                 ToolTipService.ToolTip="Enter the value of Tables Version."
+                                                 FontSize="12"
+                                                 Margin="6,6,6,6"
+                                                 Width="80"/>
                                         <Label Content="*" FontSize="14" Margin="0,6,6,0" Visibility="Hidden" Foreground="Red"/>
                                     </StackPanel>
                                 </StackPanel>
