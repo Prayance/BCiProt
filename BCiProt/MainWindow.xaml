@@ -101,7 +101,7 @@
                 </Button>
                 <Button ToolTip="Go to our page on Facebook">
                     <StackPanel Orientation="Vertical">
-                        <Image Source="/Images/1444326007_icon-70-document-code.png"  Height="24" Width="24"/>
+                        <Image Source="/Images/1444325824_icon-70-document-code.png"  Height="24" Width="24"/>
                         <TextBlock FontSize="6" Margin="0,0,0,0">Facebook</TextBlock>
                     </StackPanel>
                 </Button>
@@ -179,7 +179,11 @@
                         <ComboBoxItem>Transcoder 3</ComboBoxItem>
                     </ComboBox>
                     <TextBlock TextWrapping="Wrap" Margin="6,6,6,0">Or create a new one</TextBlock>
-                    <Button Margin="6,6,6,0">Create Transcoder</Button>
+                    <Button x:Name="TransCreate"
+                            Click="TransCreate_Click"
+                            Margin="6,6,6,0">
+                        Create Transcoder
+                    </Button>
                 </StackPanel>
                 <StackPanel Orientation="Vertical" Margin="0,0,0,0">
                     <TextBlock TextWrapping="Wrap" Margin="6,12,6,0">Transcoder Options</TextBlock>
@@ -199,7 +203,10 @@
                         <ComboBoxItem>Profile 3</ComboBoxItem>
                     </ComboBox>
                     <TextBlock TextWrapping="Wrap" Margin="6,6,6,0">Or create a new one</TextBlock>
-                    <Button Margin="6,6,6,0" Click="Button_Click" ToolTip="Click to view the Profiles tab and create your new profile">Create Profile</Button>
+                    <Button Margin="6,6,6,0" 
+                            Click="CreateProfile_Click"
+                            x:Name="CreateProfile"
+                            ToolTip="Click to view the Profiles tab and create your new profile">Create Profile</Button>
                 </StackPanel>
                 <StackPanel Orientation="Vertical" Margin="6,0,0,0">
                     <TextBlock TextWrapping="Wrap" Margin="6,12,6,0">Profile Options</TextBlock>

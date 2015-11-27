@@ -139,5 +139,17 @@ namespace BCiProt.HelperClasses
         }
 
         #endregion
+
+        /// <summary>
+        /// This method replace spaces to '_' 
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns>string without spaces</returns>
+        public static string replaceSpace(string str)
+        {
+            str.Trim();
+            str.Replace(" ", "_");
+            return str;
+        }
     }
 }

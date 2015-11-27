@@ -71,6 +71,7 @@ namespace BCiProt
         {
             CollectionViewSource.GetDefaultView(lvUsers.ItemsSource).Refresh();
         }
+
         /// <summary>
         /// In the lvUsersColumnHeader_Click event handler, we start off by getting a reference to the column that the user clicked. 
         /// With this, we can decide which property on the myTranscoder class to sort by, simply by looking at the Tag property that
@@ -132,21 +133,6 @@ namespace BCiProt
             #endregion
         }
 
-        /// <summary>
-        /// Create new profile.
-        /// Takes you directly to profiles tab at the moment. 
-        /// To be verified
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            ProfileTab pt = new ProfileTab(); //we can send more than 1 parameters here.
-                                              // show Profile tab form object, and hide the mainwindow
-            pt.Show();
-            this.Hide();
-        }
-
         private void GraphButton_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("It will go to the graphs page. Maybe we need to buy a graph toolkit.");
@@ -188,6 +174,25 @@ namespace BCiProt
                 lw.Show();
                 this.Hide(); // do not forget to reset this page before hide.
             }
+        }
+
+        private void TransCreate_Click(object sender, RoutedEventArgs e)
+        { 
+            this.Hide();
+            TranscoderTab tt = new TranscoderTab(this);
+            tt.Show();
+        }
+
+        /// <summary>
+        /// Takes you to the profile tab.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CreateProfile_Click(object sender, RoutedEventArgs e)
+        {
+            this.Hide();
+            ProfileTab pt = new ProfileTab(this);
+            pt.Show();
         }
     }
 

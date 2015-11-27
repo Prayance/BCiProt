@@ -133,6 +133,7 @@
     <Compile Include="HelpPage.xaml.cs">
       <DependentUpon>HelpPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\ProfileModel.cs" />
     <Compile Include="Model\TreeChannelModel.cs" />
     <Compile Include="Model\TreeModel.cs" />
     <Compile Include="Model\TreeViewItemBase.cs" />
@@ -145,6 +146,9 @@
       <DependentUpon>ProfileTab.xaml</DependentUpon>
     </Compile>
     <Compile Include="SettingsManagement\UserPreferences.cs" />
+    <Compile Include="TranscoderTab.xaml.cs">
+      <DependentUpon>TranscoderTab.xaml</DependentUpon>
+    </Compile>
     <Page Include="HelpPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -180,6 +184,10 @@
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TranscoderTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
