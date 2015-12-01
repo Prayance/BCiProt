@@ -30,7 +30,14 @@ namespace BCiProt
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            mainWindow.Show();
+            try
+            {
+                mainWindow.Show();
+            }
+            catch (InvalidOperationException exc)
+            {
+                Console.WriteLine("Had an InvalidOperationException: " + exc.Message);
+            }
         }
     }
 }

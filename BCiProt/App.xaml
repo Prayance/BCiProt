@@ -1,6 +1,7 @@
 ﻿<Application x:Class="BCiProt.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:local="clr-namespace:BCiProt">
     
     <!-- Removed the StartupUri="LoginWindow.xaml"-->
@@ -56,6 +57,176 @@
                 </Setter>
             </Style>
         </ResourceDictionary>
+
+
+        <Style x:Key="cFrame"
+               TargetType="{x:Type Frame}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Frame">
+                        <DockPanel>
+                            <!-- Main tool bar at the top -->
+                            <!-- All the options will slowly be modified -->
+                            <ToolBarTray DockPanel.Dock="Top">
+                                <ToolBar>
+                                    <Menu VerticalAlignment="Center">
+                                        <MenuItem  x:Name="FileButton" 
+                                                   Background="Transparent"
+                                                   Click="FileButton_Click">
+                                            <MenuItem.Icon>
+                                                <Image Source="/Images/1444326032_icon-95-folder.png"  
+                                                       Height="24"
+                                                       Width="24"/>
+                                            </MenuItem.Icon>
+                                            <MenuItem.Header>
+                                                <StackPanel Orientation="Vertical" Margin="3,0,0,0">
+                                                    <TextBlock Text="File" FontSize="15"/>
+                                                    <Image Source="/Images/1445441274_icon-arrow-down-b.png" 
+                                                           VerticalAlignment="Bottom" 
+                                                           Height="10" 
+                                                           Margin="3,0,0,0"/>
+                                                </StackPanel>
+                                            </MenuItem.Header>
+                                            <MenuItem.ContextMenu>
+                                                <ContextMenu >
+                                                    <MenuItem Header="New Profile"></MenuItem>
+                                                    <MenuItem Header="Open Profile"></MenuItem>
+                                                    <MenuItem Header="Commit" x:Name="Commit">
+                                                        <MenuItem.Icon>
+                                                            <Image Source="/Images/1445440879_document-save.png"  Height="24"/>
+                                                        </MenuItem.Icon>
+                                                    </MenuItem>
+                                                    <MenuItem Header="Export Profile As" x:Name="ExportProfileXml">
+                                                        <MenuItem.Icon>
+                                                            <Image Source="/Images/1446042610_download.png"  Height="24"/>
+                                                        </MenuItem.Icon>
+                                                    </MenuItem>
+                                                </ContextMenu>
+                                            </MenuItem.ContextMenu>
+                                        </MenuItem>
+                                    </Menu>
+                                </ToolBar>
+                                <ToolBar>
+                                    <Button Click="loadSaved_Click"
+                                            x:Name="loadSaved"
+                                            ToolTip="Load a Saved Profile."
+                                            ToolBar.OverflowMode="AsNeeded">
+                                        <StackPanel Orientation="Vertical">
+                                            <Image Source="/Images/1445632210_ark2.png" Height="24" Width="24" />
+                                            <TextBlock Margin="3,0,0,0">Load</TextBlock>
+                                        </StackPanel>
+                                    </Button>
+                                    <Separator />
+                                    <Button x:Name="SaveASXml" 
+                                            Click="SaveASXml_Click"
+                                            ToolTip="Click to Save Data Profile as Xml">
+                                        <StackPanel Orientation="Vertical">
+                                            <Image Source="/Images/1445977162_floppy-disk.png" Height="24" Width="24" />
+                                            <TextBlock Margin="3,0,0,0">Save as Xml</TextBlock>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button x:Name="SaveDataProfile" 
+                                            Click="SaveDataProfile_Click"
+                                            ToolTip="Click to Save to an existing Data Profile">
+                                        <StackPanel Orientation="Vertical">
+                                            <Image Source="/Images/1446042683_save_add.png" Height="24" Width="24" />
+                                            <TextBlock Margin="3,0,0,0">Save Profile</TextBlock>
+                                        </StackPanel>
+                                    </Button>
+                                </ToolBar>
+                                <ToolBar>
+                                    <Button Command="{x:Static NavigationCommands.BrowseBack}" 
+                                            IsEnabled="{TemplateBinding CanGoBack}"  
+                                            ToolTip="Go Back"
+                                            ToolBar.OverflowMode="AsNeeded">
+                                        <StackPanel Orientation="Vertical">
+                                            <Image Source="/Images/1445019496_back.png" Height="24" Width="24" />
+                                            <TextBlock Margin="3,0,0,0">Go Back</TextBlock>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Command="{x:Static NavigationCommands.BrowseForward}" 
+                                            IsEnabled="{TemplateBinding CanGoForward}"  
+                                            ToolTip="Go Forward"
+                                            ToolBar.OverflowMode="AsNeeded">
+                                        <StackPanel Orientation="Vertical">
+                                            <Image Source="/Images/1444683994_Enter.png" Height="24" Width="24" />
+                                            <TextBlock Margin="3,0,0,0">Go Forward</TextBlock>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button x:Name="addTranscoder" 
+                                            Click="addTranscoder_Click"
+                                            ToolTip="Add a transcoder on this profile."
+                                            ToolBar.OverflowMode="AsNeeded">
+                                        <StackPanel Orientation="Vertical">
+                                            <Image Source="/Images/1445439582_data_recovery.png" Height="24" Width="24" />
+                                            <TextBlock Margin="3,0,0,0">Add Transcoder</TextBlock>
+                                        </StackPanel>
+                                    </Button>
+                                </ToolBar>
+                                <ToolBar>
+                                    <Button x:Name="clearMe" 
+                                            Click="clearMe_Click"
+                                            ToolTip="Clear the current tab screen."
+                                            ToolBar.OverflowMode="AsNeeded">
+                                        <StackPanel Orientation="Vertical">
+                                            <Image Source="/Images/1445440702_edit-clear.png" Height="24" Width="24" />
+                                            <TextBlock Margin="3,0,0,0">Clear</TextBlock>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button x:Name="resetMe" 
+                                            Click="resetMe_Click"
+                                            ToolBar.OverflowMode="AsNeeded" 
+                                            ToolTip="Click to reset all the profile settings.">
+                                        <StackPanel Orientation="Vertical">
+                                            <Image Source="/Images/1445440764_POWER - RESTART.png" Height="24" Width="24" />
+                                            <TextBlock Margin="3,0,0,0">Reset</TextBlock>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button x:Name="helpBut" 
+                                            Click="helpBut_Click" 
+                                            ToolTip="Click to view the help documents">
+                                        <StackPanel Orientation="Vertical">
+                                            <Image Source="/Images/1445026218_help-questionmark.png" Height="24" Width="24" />
+                                            <TextBlock Margin="3,0,0,0">Help</TextBlock>
+                                        </StackPanel>
+                                    </Button>
+                                </ToolBar>
+                            </ToolBarTray>
+                            <!-- This will be my sidebar with extra options -->
+                            <ToolBarTray DockPanel.Dock="Left" Orientation="Vertical">
+                                <ToolBar>
+                                    <Button ToolTip="Go to Youtube downloader">
+                                        <StackPanel Orientation="Vertical">
+                                            <Image Source="/Images/1444325688_icon-32-clipboard-edit.png" Height="24" Width="24" />
+                                            <TextBlock FontSize="6" Margin="0,0,0,0">Youtube</TextBlock>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button ToolTip="Go to our page on Facebook">
+                                        <StackPanel Orientation="Vertical">
+                                            <Image Source="/Images/1444325824_icon-70-document-code.png"  Height="24" Width="24"/>
+                                            <TextBlock FontSize="6" Margin="0,0,0,0">Facebook</TextBlock>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button ToolTip="Go to do something else on Tweeter.">
+                                        <StackPanel Orientation="Vertical">
+                                            <Image Source="/Images/1444328473_05-myhouse.png" Height="24" Width="24"/>
+                                            <TextBlock FontSize="6" Margin="0,0,0,0">Tweeter</TextBlock>
+                                        </StackPanel>
+                                    </Button>
+                                </ToolBar>
+                            </ToolBarTray>
+                            <Border BorderBrush="Teal"
+                                    Margin="6"
+                                    BorderThickness="6"
+                                    CornerRadius="6"
+                                    Background="White">
+                                <ContentPresenter />
+                            </Border>
+                        </DockPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
         <!--<ResourceDictionary x:Key="VisibilityConvert">
             <ResourceDictionary.MergedDictionaries>
