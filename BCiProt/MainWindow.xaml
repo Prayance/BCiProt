@@ -14,11 +14,6 @@
             <Setter Property="HorizontalContentAlignment" Value="Left" />
         </Style>
     </Window.Resources>
-    <!--<Window.CommandBindings>
-        <CommandBinding Command="New" CanExecute="CommonCommandBinding_CanExecute" />
-        <CommandBinding Command="Open" CanExecute="CommonCommandBinding_CanExecute" />
-        <CommandBinding Command="Save" CanExecute="CommonCommandBinding_CanExecute" />
-    </Window.CommandBindings>-->
 
     <DockPanel>
         <!-- Main tool bar at the top -->
@@ -181,6 +176,7 @@
                     <TextBlock TextWrapping="Wrap" Margin="6,6,6,0">Or create a new one</TextBlock>
                     <Button x:Name="TransCreate"
                             Click="TransCreate_Click"
+                            ToolTipService.ToolTip="Click to create a new Transcoder."
                             Margin="6,6,6,0">
                         Create Transcoder
                     </Button>
