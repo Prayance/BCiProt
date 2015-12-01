@@ -18,7 +18,7 @@
             <Setter Property="BorderThickness" Value="2" />
             <Setter Property="CornerRadius" Value="3" />
         </Style>
-        
+
         <!-- The tab page styling -->
         <ResourceDictionary x:Key="TabContr">
             <Style TargetType="TabItem">

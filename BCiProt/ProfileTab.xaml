@@ -124,7 +124,8 @@
         </ToolBarTray>
 
         <!-- This will be my sidebar with extra options -->
-        <ToolBarTray DockPanel.Dock="Left" Orientation="Vertical">
+        <ToolBarTray DockPanel.Dock="Left" 
+                     Orientation="Vertical">
             <ToolBar>
                 <Button ToolTip="Go to Youtube downloader">
                     <StackPanel Orientation="Vertical">
