@@ -56,7 +56,7 @@
                 </Menu>
             </ToolBar>
             <ToolBar>
-                <Button Click="Button_Click_7"
+                <Button 
                         ToolTip="Load a Saved Profile."
                         ToolBar.OverflowMode="AsNeeded">
                     <StackPanel Orientation="Vertical">
@@ -66,7 +66,6 @@
                 </Button>
                 <Separator />
                 <Button x:Name="SaveASXml" 
-                        Click="SaveASXml_Click"
                         ToolTip="Click to Save Data Profile as Xml">
                     <StackPanel Orientation="Vertical">
                         <Image Source="/Images/1445977162_floppy-disk.png" Height="24" Width="24" />
@@ -74,7 +73,7 @@
                     </StackPanel>
                 </Button>
                 <Button x:Name="SaveDataProfile" 
-                        Click="SaveDataProfile_Click"
+                        
                         ToolTip="Click to Save to an existing Data Profile">
                     <StackPanel Orientation="Vertical">
                         <Image Source="/Images/1446042683_save_add.png" Height="24" Width="24" />
@@ -83,7 +82,7 @@
                 </Button>
             </ToolBar>
             <ToolBar>
-                <Button Click="Button_Click"
+                <Button 
                         ToolTip="Go Back to Main Window"
                         ToolBar.OverflowMode="AsNeeded">
                     <StackPanel Orientation="Vertical">
@@ -99,7 +98,7 @@
                         <TextBlock Margin="3,0,0,0">Clear</TextBlock>
                     </StackPanel>
                 </Button>
-                <Button Click="Button_Click_8"
+                <Button 
                     ToolBar.OverflowMode="AsNeeded" 
                     ToolTip="Click to reset all the profile settings.">
                     <StackPanel Orientation="Vertical">
@@ -173,5 +172,11 @@
                 <TextBlock Text=" You have to fill in all the options that are marked with a star."/>
             </StatusBarItem>
         </StatusBar>
+        <!-- Main Grid -->
+        <Grid>
+            <ScrollViewer  HorizontalScrollBarVisibility="Auto"  VerticalScrollBarVisibility="Auto">
+            </ScrollViewer>
+        </Grid>
+
     </DockPanel>
 </Window>

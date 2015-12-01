@@ -39,5 +39,21 @@ namespace BCiProt
                 Console.WriteLine("Had an InvalidOperationException: " + exc.Message);
             }
         }
+
+        private void helpBut_Click(object sender, RoutedEventArgs e)
+        {
+            HelpPage hp = new HelpPage();
+            hp.Show();
+            this.Hide();
+        }
+
+        private void FileButton_Click(object sender, RoutedEventArgs e)
+        {
+            var addButton = sender as FrameworkElement;
+            if (addButton != null)
+            {
+                addButton.ContextMenu.IsOpen = true;
+            }
+        }
     }
 }
