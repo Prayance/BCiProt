@@ -121,9 +121,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ContainerWindow.xaml.cs">
-      <DependentUpon>ContainerWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Convertors\VisibilityConvertor.cs" />
     <Compile Include="CustomControls\TabControlEx.cs" />
     <Compile Include="DataModel\EnumBindingSourceExtension.cs" />
@@ -145,12 +142,6 @@
     <Compile Include="MultiSelectComboBox.xaml.cs">
       <DependentUpon>MultiSelectComboBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Page1.xaml.cs">
-      <DependentUpon>Page1.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ProfilePage.xaml.cs">
-      <DependentUpon>ProfilePage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ProfileTab.xaml.cs">
       <DependentUpon>ProfileTab.xaml</DependentUpon>
     </Compile>
@@ -158,10 +149,6 @@
     <Compile Include="TranscoderTab.xaml.cs">
       <DependentUpon>TranscoderTab.xaml</DependentUpon>
     </Compile>
-    <Page Include="ContainerWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="HelpPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -187,14 +174,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="MultiSelectComboBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Page1.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ProfilePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

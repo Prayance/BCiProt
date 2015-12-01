@@ -15,15 +15,19 @@ using System.Windows.Shapes;
 namespace BCiProt
 {
     /// <summary>
-    /// Interaction logic for ContainerWindow.xaml
+    /// Interaction logic for HelpPage.xaml
     /// </summary>
-    public partial class ContainerWindow : Window
+    public partial class HelpPage : Window
     {
-        public ContainerWindow()
+        public HelpPage()
         {
             InitializeComponent();
-            ProfilePage p1 = new ProfilePage();
-            myframe.NavigationService.Navigate(p1);
+        }
+
+        // TODO: I need a navigation service class that holds a stack of navigated windows.
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
         }
     }
 }

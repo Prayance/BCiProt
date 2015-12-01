@@ -46,10 +46,6 @@
                     </Hyperlink>
                 </TextBlock>
                 <TextBlock Margin="12,0,12,0" Text="Copyright © 2015"/>
-
-                <Button x:Name="TestButton" 
-                        Content="Click to test" 
-                        Click="TestButton_Click"></Button>
             </StackPanel>
         </StackPanel>
         <StackPanel Orientation="Vertical">

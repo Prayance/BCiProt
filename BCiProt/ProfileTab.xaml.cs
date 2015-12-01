@@ -28,17 +28,116 @@ using Xceed.Wpf.Toolkit; // this is from the extended WPF toolkit community edit
 namespace BCiProt
 {
     /// <summary>
-    /// Interaction logic for ProfilePage.xaml
+    /// Interaction logic for ProfileTab.xaml
     /// </summary>
-    public partial class ProfilePage : Page
+    public partial class ProfileTab : Window
     {
+        private MainWindow mainWindow;
 
-        public ObservableCollection<string> myList = new ObservableCollection<string>();
+        public ObservableCollection<string> myList = new ObservableCollection<string>(); 
         protected string fontSizeCB = ""; // my font size editable's combobox value
 
-        public ProfilePage()
+        public ProfileTab(MainWindow mainWindow)
         {
             InitializeComponent();
+            this.mainWindow = mainWindow;
+
+            #region // User settings for resize
+            var userPrefs = new UserPreferences();
+
+            this.Height = userPrefs.WindowHeight;
+            this.Width = userPrefs.WindowWidth;
+            this.Top = userPrefs.WindowTop;
+            this.Left = userPrefs.WindowLeft;
+            this.WindowState = userPrefs.WindowState;
+            #endregion
+
+            populateLanguages();
+            this.SubtitleLanguage.ItemsSource = myList;
+            //this.SubtitleLanguage.SelectedIndex = 80;
+            this.language.ItemsSource = myList;
+            //this.language.SelectedIndex = 80;
+
+            // initialize data tree
+            tree.Add(tmBasic);
+            tree.Add(tmSec);
+            tree.Add(tmS);
+
+            dataTree.ItemsSource = tree;
+
+            //initialize audio tree
+            aTBasic.Mode = "Other";
+            audioT.Add(aTBasic);
+            AC3Basic.Mode = "AC3";
+            audioT.Add(AC3Basic);
+        }
+
+        /// <summary>
+        /// if the user hits the x button, it will take him back to the main page.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            try
+            {
+                mainWindow.Show();
+            }
+            catch (InvalidOperationException exc)
+            {
+                Console.WriteLine("Had an InvalidOperationException: " + exc.Message);
+            }
+            
+            GUIHelper.ClearTreeNodes(tree);
+
+            #region // Save the user settings for resize
+            var userPrefs = new UserPreferences();
+
+            userPrefs.WindowHeight = this.Height;
+            userPrefs.WindowWidth = this.Width;
+            userPrefs.WindowTop = this.Top;
+            userPrefs.WindowLeft = this.Left;
+            userPrefs.WindowState = this.WindowState;
+
+            userPrefs.Save();
+            #endregion
+        }
+
+        /// <summary>
+        /// This is the back button. It will get modified a bit more.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            mainWindow.Show();
+            this.Hide();
+
+            #region // Save the user settings for resize
+            var userPrefs = new UserPreferences();
+
+            userPrefs.WindowHeight = this.Height;
+            userPrefs.WindowWidth = this.Width;
+            userPrefs.WindowTop = this.Top;
+            userPrefs.WindowLeft = this.Left;
+            userPrefs.WindowState = this.WindowState;
+
+            userPrefs.Save();
+            #endregion
+
+
+        }
+
+        /// <summary>
+        /// Navigates to the help page.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void helpBut_Click(object sender, RoutedEventArgs e)
+        {
+            HelpPage hp = new HelpPage(); 
+            hp.Show();
+            this.Hide();
         }
 
         /// <summary>
@@ -53,6 +152,59 @@ namespace BCiProt
             }
         }
 
+        /// <summary>
+        /// This is the extended menu c# code. to make the drop down box.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void FileButton_Click(object sender, RoutedEventArgs e)
+        {
+            var addButton = sender as FrameworkElement;
+            if (addButton != null)
+            {
+                addButton.ContextMenu.IsOpen = true;
+            }
+        }
+
+        /// <summary>
+        /// Load a saved profile
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Button_Click_7(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Title = "Logo File Location";
+            openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            // TODO: openFileDialog.Filter = maybe extensions? or? 
+            if (openFileDialog.ShowDialog() == true)
+            {
+                System.Windows.MessageBox.Show("Well read the xml and load it TODO.");
+            }
+        }
+
+        /// <summary>
+        /// Reset button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Button_Click_8(object sender, RoutedEventArgs e)
+        {
+            // do different things per tab
+            // clear my tree
+        }
+
+        /// <summary>
+        /// At the moment only the general profile is loaded.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SaveASXml_Click(object sender, RoutedEventArgs e)
+        {
+            getGeneralProfileData();
+            intoGeneralTree();
+            XMLWrite.WriteToXML(gtm);
+        }
 
         /// <summary>
         /// The code below is based on testing.
@@ -297,7 +449,7 @@ namespace BCiProt
         private void AddSubtitle_Click(object sender, RoutedEventArgs e)
         {
             // used in the check of duplicate subtitle triplet of properties.
-            bool toAdd = false;
+            bool toAdd = false; 
 
             // get the user's selection
             dataCodec = CodecCB.Text;
@@ -321,7 +473,7 @@ namespace BCiProt
                 TreeNode t4 = new TreeNode() { controlType = "Subtitle File", controlValue = subFilename, fullFileLocation = subpath };
 
                 // check if the nodes already exist
-                for (int i = 0; i < tree.Count(); i++)
+                for (int i=0; i<tree.Count(); i++)
                 {
                     if ((tree[i].Nodes.Count) != 0)
                     {
@@ -344,7 +496,7 @@ namespace BCiProt
                     }
                 }
                 //if subtitle exists, inform the user and exit without entering any nodes
-                if (toAdd == false)
+                if(toAdd == false)
                 {
                     System.Windows.MessageBox.Show("The subtitle you chose has already been entered in the subtitle list.", "Already Exists!", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
@@ -371,7 +523,7 @@ namespace BCiProt
                                 tmBasic.Nodes.Add(t0);
                             }
                         }
-                        else
+                        else 
                         {
                             // if all good => happily enter the nodes in tree
                             tmS.Nodes.Add(t1);
@@ -396,7 +548,7 @@ namespace BCiProt
         private void CodecCB_DropDownClosed(object sender, EventArgs e)
         {
             // index = 1 is the subtitle value's index
-            if (CodecCB.SelectedIndex == 1)
+            if(CodecCB.SelectedIndex == 1) 
             {
                 subCodecCB.IsEnabled = true;
                 subtitleCharacterEncoding.IsEnabled = true;
@@ -409,7 +561,7 @@ namespace BCiProt
                 AddPrivateData.IsEnabled = false;
             }
             // index = 2 is the private data value's index
-            else if (CodecCB.SelectedIndex == 2)
+            else if(CodecCB.SelectedIndex == 2)
             {
                 bitRate.IsEnabled = true;
                 dataLocationButton.IsEnabled = true;
@@ -463,13 +615,13 @@ namespace BCiProt
                 System.Windows.MessageBox.Show("Please Choose a Data File to Upload.", "Information Needed", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 toAdd = false;
             }
-            else if (dataBitRate == "0")
+            else if(dataBitRate == "0")
             {
                 System.Windows.MessageBox.Show("Please Enter a Valid Data Bit Rate value.", "Information Needed", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 toAdd = false;
             }
 
-            if (toAdd)
+            if(toAdd)
             {
                 // create the child node
                 TreeNode t1 = new TreeNode() { controlType = DBitLabel.Content.ToString(), controlValue = dataBitRate };
@@ -571,7 +723,7 @@ namespace BCiProt
         private string audioBitRateText;
         private bool audioPassthrough;
         private bool audioGain;
-        // private string audioProfileotherName;
+       // private string audioProfileotherName;
         private string audioGainTarget;
         private string audioChannelText;
         private string[] audioChannelList;
@@ -630,7 +782,7 @@ namespace BCiProt
             audioMaxFrequency = string.IsNullOrWhiteSpace(maxFrequency.Text) ? "" : maxFrequency.Text.Trim();
             audioMinFrequency = string.IsNullOrWhiteSpace(minFrequency.Text) ? "" : minFrequency.Text.Trim();
 
-            if (audioProfileName == "0" || audioSampleType == "0" || audioCodec == "0" || audioLayout == "0" ||
+            if(audioProfileName == "0" || audioSampleType == "0" || audioCodec == "0" || audioLayout == "0" || 
                 audioLanguage == "0" || audioBitRateText == "0" || audioChannelText == "0")
                 System.Windows.MessageBox.Show("Please fill all the boxes that have a red star next to them!", "Data Missing", MessageBoxButton.OK, MessageBoxImage.Error);
             else
@@ -748,7 +900,7 @@ namespace BCiProt
                         populateAC3BasicAudioNode();
                         disableStandardFields();
                     }
-                }
+                } 
                 MSC.Text = "";
                 populateExtraNode();
                 audioTree.ItemsSource = audioT;
@@ -776,7 +928,7 @@ namespace BCiProt
                 AutoClosingMessageBox.Show("Saved!", "Audio Profile", 1000);
                 myTab.SelectedItem = video;
             }
-            else if (result == MessageBoxResult.No)
+            else if(result == MessageBoxResult.No)
             {
                 MessageBoxResult mr = System.Windows.MessageBox.Show("Would you like to keep editing the Audio profile? If you click no ALL your audio profile changes will be lost!", "Keep Editing", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (mr == MessageBoxResult.No)
@@ -877,9 +1029,9 @@ namespace BCiProt
         /// <returns></returns>
         private void populateBasicAudioNode()
         {
-            aTBasic.BasicNodes.Add(new ChannelBasicType() { basicType = aPName.Content.ToString(), basicValue = audioProfileName, imageSource = "/Images/AudioTreeViewImages/1448054041_domain_name_investment.png", isBasic = true });
+            aTBasic.BasicNodes.Add(new ChannelBasicType() { basicType = aPName.Content.ToString(), basicValue = audioProfileName, imageSource= "/Images/AudioTreeViewImages/1448054041_domain_name_investment.png", isBasic=true });
             aTBasic.BasicNodes.Add(new ChannelBasicType() { basicType = aChannel.Content.ToString(), basicValue = audioChannelText, imageSource = "/Images/AudioTreeViewImages/channel.png", isBasic = true });
-            aTBasic.BasicNodes.Add(new ChannelBasicType() { basicType = aSType.Content.ToString(), basicValue = audioSampleType, imageSource = "/Images/AudioTreeViewImages/1448054383_3d_objects.png", isBasic = true });
+            aTBasic.BasicNodes.Add(new ChannelBasicType() { basicType = aSType.Content.ToString(), basicValue = audioSampleType, imageSource= "/Images/AudioTreeViewImages/1448054383_3d_objects.png", isBasic = true });
             aTBasic.BasicNodes.Add(new ChannelBasicType() { basicType = aSRTarget.Content.ToString(), basicValue = audioSampleRate, imageSource = "/Images/AudioTreeViewImages/1448054097_Green_tag.png", isBasic = true });
             aTBasic.BasicNodes.Add(new ChannelBasicType() { basicType = maxF.Content.ToString(), basicValue = audioMaxFrequency, imageSource = "/Images/AudioTreeViewImages/1448054094_Black_tag.png", isBasic = true });
             aTBasic.BasicNodes.Add(new ChannelBasicType() { basicType = minF.Content.ToString(), basicValue = audioMinFrequency, imageSource = "/Images/AudioTreeViewImages/1448054094_Black_tag.png", isBasic = true });
@@ -1295,8 +1447,8 @@ namespace BCiProt
             vprofile = string.IsNullOrWhiteSpace(profile.Text) ? "0" : profile.Text.Trim(); //must
             vRateControl = string.IsNullOrWhiteSpace(RateControl.Text) ? "0" : RateControl.Text.Trim(); //must
             vformat = string.IsNullOrWhiteSpace(format.Text) ? "0" : format.Text.Trim(); //must
-            vframeCount = string.IsNullOrWhiteSpace(frameCount.Text) ? "" : frameCount.Text.Trim();
-            vframeType = string.IsNullOrWhiteSpace(frameType.Text) ? "" : frameType.Text.Trim();
+            vframeCount = string.IsNullOrWhiteSpace(frameCount.Text) ? "" : frameCount.Text.Trim(); 
+            vframeType = string.IsNullOrWhiteSpace(frameType.Text) ? "" : frameType.Text.Trim(); 
             vframeRate = string.IsNullOrWhiteSpace(frameRate.Text) ? "0" : frameRate.Text.Trim(); //must
             vheight = string.IsNullOrWhiteSpace(height.Text) ? "0" : height.Text.Trim(); //must
             vwidth = string.IsNullOrWhiteSpace(width.Text) ? "0" : width.Text.Trim(); //must
@@ -1688,6 +1840,5 @@ namespace BCiProt
             tuseLatm = false;
         }
         #endregion
-
     }
 }

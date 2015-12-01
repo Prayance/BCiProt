@@ -160,12 +160,5 @@ namespace BCiProt
                 return canProceed;
             }
         }
-
-        private void TestButton_Click(object sender, RoutedEventArgs e)
-        {
-            ContainerWindow cw = new ContainerWindow();
-            cw.Show();
-            this.Hide();
-        }
     }
 }
