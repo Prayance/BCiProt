@@ -173,10 +173,105 @@
             </StatusBarItem>
         </StatusBar>
         <!-- Main Grid -->
-        <Grid>
-            <ScrollViewer  HorizontalScrollBarVisibility="Auto"  VerticalScrollBarVisibility="Auto">
-            </ScrollViewer>
-        </Grid>
-
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" 
+                      VerticalScrollBarVisibility="Auto">
+            <StackPanel Orientation="Vertical">
+                <Border Style="{StaticResource labelBorder}" 
+                        Margin="6">
+                    <Label x:Name="GeneralSubtitle" 
+                               HorizontalAlignment="Center"
+                               Content="This is the Transcoder Profile Editor." 
+                               FontSize="10"/>
+                </Border>
+                <Grid Margin="6">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    <!--Location: Grid 0,0 -->
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Label Content="Name: "
+                                   Margin="6"/>
+                            <TextBox x:Name="name"
+                                     ToolTip="Enter the data bit rate"
+                                     FontSize="12"
+                                     Margin="6"
+                                     Width="100"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Label Content="Library Type: "
+                                   Margin="6"/>
+                            <ComboBox x:Name="libraryType"
+                                      MinWidth="100"
+                                      Margin="6,6,6,6" 
+                                      ToolTip="Select the type of Video Filter.">
+                                <ComboBoxItem Content="FFMPEG"/>
+                                <ComboBoxItem Content="ATEME"/>
+                                <ComboBoxItem Content="RHOZET"/>
+                                <ComboBoxItem Content="ELECARD"/>
+                            </ComboBox>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1">
+                        <StackPanel Orientation="Vertical">
+                            <Label x:Name="dataLocation"
+                                               Content=""
+                                               MinWidth="100"
+                                               FontSize="12"
+                                               Margin="6,6,6,6"/>
+                            <local:ImageButton ImageHeight="23"
+                                               x:Name="libraryLocationButton"
+                                               ImageWidth="30"
+                                               Image="/Images/1445439582_data_recovery.png" 
+                                               Margin="6"
+                                               Content =" Library Location "
+                                               ToolTip="Click to choose your Transcoder's Library location."/>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Grid.Column="2">
+                        <StackPanel Orientation="Vertical">
+                            <Label x:Name="fontLocation"
+                                               Content=""
+                                               MinWidth="100"
+                                               FontSize="12"
+                                               Margin="6,6,6,6"/>
+                            <local:ImageButton ImageHeight="23"
+                                               x:Name="fontLocationButton"
+                                               ImageWidth="30"
+                                               Image="/Images/1445439582_data_recovery.png" 
+                                               Margin="6"
+                                               Content ="  Font Location  "
+                                               ToolTip="Click to choose your Transcoder's Font location."/>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Grid.Column="3">
+                        <StackPanel Orientation="Vertical">
+                            <Label x:Name="logFileLocation"
+                                               Content=""
+                                               MinWidth="100"
+                                               FontSize="12"
+                                               Margin="6,6,6,6"/>
+                            <local:ImageButton ImageHeight="23"
+                                               x:Name="logFileLocationButton"
+                                               ImageWidth="30"
+                                               Image="/Images/1445439582_data_recovery.png" 
+                                               Margin="6"
+                                               Content =" Log File Location "
+                                               ToolTip="Click to choose your Transcoder's Font location."/>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
     </DockPanel>
 </Window>
