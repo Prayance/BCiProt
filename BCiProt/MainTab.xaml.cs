@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BCiProt.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,14 +19,16 @@ namespace BCiProt
     /// <summary>
     /// Interaction logic for TranscoderTab.xaml
     /// </summary>
-    public partial class TranscoderTab : Window
+    public partial class MainTab : Window
     {
         private MainWindow mainWindow;
+        List<Realm> popupItems = new List<Realm>();
 
-        public TranscoderTab(MainWindow mainWindow)
+        public MainTab(MainWindow mainWindow)
         {
             InitializeComponent();
             this.mainWindow = mainWindow;
+            locationTextBlock.Text = this.Title;
         }
 
         private void Window_Closed(object sender, EventArgs e)

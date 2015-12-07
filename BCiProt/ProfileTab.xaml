@@ -328,7 +328,8 @@
                                                   Checked="MarkOut_Checked"
                                                   Unchecked="MarkOut_Unchecked"
                                                   ToolTipService.ToolTip="Click to enable MarkOut." 
-                                                  Margin="6,6,6,6" Content="Mark Out" />
+                                                  Margin="6,6,6,6" 
+                                                  Content="Mark Out" />
                                     </StackPanel>
                                 </StackPanel>
                                 <!-- Video Filer Panel -->

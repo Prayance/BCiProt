@@ -179,7 +179,7 @@ namespace BCiProt
         private void TransCreate_Click(object sender, RoutedEventArgs e)
         { 
             this.Hide();
-            TranscoderTab tt = new TranscoderTab(this);
+            MainTab tt = new MainTab(this);
             tt.Show();
         }
 

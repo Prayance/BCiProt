@@ -134,6 +134,7 @@
       <DependentUpon>HelpPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\ProfileModel.cs" />
+    <Compile Include="Model\Realm.cs" />
     <Compile Include="Model\TreeChannelModel.cs" />
     <Compile Include="Model\TreeModel.cs" />
     <Compile Include="Model\TreeViewItemBase.cs" />
@@ -145,9 +146,18 @@
     <Compile Include="ProfileTab.xaml.cs">
       <DependentUpon>ProfileTab.xaml</DependentUpon>
     </Compile>
+    <Compile Include="RealmPage.xaml.cs">
+      <DependentUpon>RealmPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SettingsManagement\UserPreferences.cs" />
-    <Compile Include="TranscoderTab.xaml.cs">
-      <DependentUpon>TranscoderTab.xaml</DependentUpon>
+    <Compile Include="testControlsPage.xaml.cs">
+      <DependentUpon>testControlsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TranscoderPage.xaml.cs">
+      <DependentUpon>TranscoderPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainTab.xaml.cs">
+      <DependentUpon>MainTab.xaml</DependentUpon>
     </Compile>
     <Page Include="HelpPage.xaml">
       <SubType>Designer</SubType>
@@ -181,11 +191,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="RealmPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="testControlsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="TranscoderTab.xaml">
+    <Page Include="TranscoderPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -348,6 +370,19 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\AudioTreeViewImages\purple.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\green_dot.png" />
+    <Resource Include="Images\red_dot.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\1449519017_arrow-forward-outline.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\1449519236_document-new.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\1449519626_go-home.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

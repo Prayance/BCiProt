@@ -1,0 +1,239 @@
+﻿<Page x:Class="BCiProt.TranscoderPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BCiProt"
+      mc:Ignorable="d"
+      d:DesignHeight="400" d:DesignWidth="600"
+      Title="TranscoderPage">
+    <!-- Main Grid -->
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" 
+                      VerticalScrollBarVisibility="Auto">
+        <StackPanel Orientation="Vertical">
+            <Border Style="{StaticResource labelBorder}" 
+                        Margin="6">
+                <Label x:Name="GeneralSubtitle" 
+                               HorizontalAlignment="Center"
+                               Content="This is the Transcoder Profile Editor." 
+                               FontSize="10"/>
+            </Border>
+            <Grid Margin="6">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!--Location: Grid 0,0 -->
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Label Content="Name: "
+                                   Margin="6"/>
+                        <TextBox x:Name="name"
+                                     ToolTip="Enter the data bit rate"
+                                     FontSize="12"
+                                     Margin="6"
+                                     Width="100"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Label Content="Library Type: "
+                                   Margin="6"/>
+                        <ComboBox x:Name="libraryType"
+                                      MinWidth="100"
+                                      Margin="6,6,6,6" 
+                                      ToolTip="Select the type of Video Filter.">
+                            <ComboBoxItem Content="FFMPEG"/>
+                            <ComboBoxItem Content="ATEME"/>
+                            <ComboBoxItem Content="RHOZET"/>
+                            <ComboBoxItem Content="ELECARD"/>
+                        </ComboBox>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Grid.Column="1">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Label Content="Queue End Point:"
+                                   Margin="6"/>
+                        <TextBox x:Name="queueEndP"
+                                     ToolTip="Enter the queue End Point"
+                                     FontSize="12"
+                                     Margin="6"
+                                     Width="100"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Label Content="Jims User:"
+                                   Margin="6"/>
+                        <TextBox x:Name="jimUser"
+                                     ToolTip="Enter the jims user"
+                                     FontSize="12"
+                                     Margin="6"
+                                     Width="100"/>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Grid.Column="2">
+                    <StackPanel Orientation="Vertical">
+                        <Label x:Name="fontLocation"
+                                   Content=""
+                                   MinWidth="100"
+                                   FontSize="12"
+                                   Margin="6,6,6,6"/>
+                        <local:ImageButton ImageHeight="23"
+                                               x:Name="fontLocationButton"
+                                               ImageWidth="30"
+                                               Image="/Images/1445439582_data_recovery.png" 
+                                               Margin="6"
+                                               Content ="  Font Location  "
+                                               ToolTip="Click to choose your Transcoder's Font location."/>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Grid.Row="1" Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Label Content="Write Log Level:"
+                                   Margin="6"/>
+                        <TextBox x:Name="writeLogLevel"
+                                     ToolTip="Enter the write log level"
+                                     FontSize="12"
+                                     Margin="6"
+                                     Width="100"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Label Content="Max Quota Threshhold:"
+                                   Margin="6"/>
+                        <TextBox x:Name="maxQuota"
+                                     ToolTip="Enter the max quota threshhold"
+                                     FontSize="12"
+                                     Margin="6"
+                                     Width="100"/>
+                    </StackPanel>
+
+                </StackPanel>
+                <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Label Content="Jims Pass:"
+                                   Margin="6"/>
+                        <TextBox x:Name="jimPass"
+                                     ToolTip="Enter the jims pass"
+                                     FontSize="12"
+                                     Margin="6"
+                                     Width="100"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Label Content="Working Directory:"
+                                   Margin="6"/>
+                        <TextBox x:Name="workingDir"
+                                     ToolTip="Enter the working directory"
+                                     FontSize="12"
+                                     Margin="6"
+                                     Width="100"/>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Vertical">
+                    <StackPanel Orientation="Vertical">
+                        <Label x:Name="logFileLocation"
+                                   Content=""
+                                   MinWidth="100"
+                                   FontSize="12"
+                                   Margin="6,6,6,6"/>
+                        <local:ImageButton ImageHeight="23"
+                                               x:Name="logFileLocationButton"
+                                               ImageWidth="30"
+                                               Image="/Images/1445439582_data_recovery.png" 
+                                               Margin="6"
+                                               Content =" Log File Location "
+                                               ToolTip="Click to choose your Transcoder's Font location."/>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Grid.Row="2" Orientation="Vertical" Width="160">
+                    <CheckBox x:Name="enableTranscoder"
+                                  ToolTipService.ToolTip="Click to enable the Transcoder." 
+                                  Margin="12,12,12,12" 
+                                  Content="Transcoder Enabled" />
+                    <local:ImageButton ImageHeight="23"
+                                           x:Name="saveTranscoder"
+                                           ImageWidth="30"
+                                           Image="/Images/1446585194_save as.png" 
+                                           Margin="6"
+                                           Content =" Save Transcoder "
+                                           ToolTip="Click to save your new Transcoder."/>
+                </StackPanel>
+                <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Vertical" Width="160">
+                    <CheckBox x:Name="autoRealm"
+                                  ToolTipService.ToolTip="Click to auto-assign the transcoder in a realm" 
+                                  Margin="6,12,6,12" 
+                                  Checked="autoRealm_Checked"
+                                  Unchecked="autoRealm_Unchecked"
+                                  Content="Auto-Assigned to Realm" />
+                    <local:ImageButton ImageHeight="23"
+                                           Click="realmChoiceButton_Click"
+                                           x:Name="realmChoiceButton"
+                                           ImageWidth="30"
+                                           Image="/Images/1444683994_Enter.png" 
+                                           Margin="12,6,12,6"
+                                           Content ="  Choose Realm  "
+                                           ToolTip="Click to choose a realm, to assign your transcoder to."/>
+                </StackPanel>
+                <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Vertical">
+                    <StackPanel Orientation="Vertical">
+                        <Label x:Name="libraryLocation"
+                                   Content=""
+                                   MinWidth="100"
+                                   FontSize="12"
+                                   Margin="6,6,6,6"/>
+                        <local:ImageButton ImageHeight="23"
+                                               x:Name="libraryLocationButton"
+                                               ImageWidth="30"
+                                               Image="/Images/1445439582_data_recovery.png" 
+                                               Margin="6"
+                                               Content =" Library Location "
+                                               ToolTip="Click to choose your Transcoder's Library location."/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+            <Popup x:Name="myRealChoice"
+               Width="Auto" 
+               Height="Auto" 
+               Placement="MousePoint"
+               IsOpen="False">
+                <StackPanel Orientation="Horizontal">
+                    <ListBox x:Name="realms" HorizontalContentAlignment="Stretch"  SelectionMode="Single"  SelectionChanged="lbTodoList_SelectionChanged">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="6">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="100" />
+                                    </Grid.ColumnDefinitions>
+                                    <Image Source="{Binding pictureSource}" Height="16" Width="16"/>
+                                    <TextBlock Text="{Binding rName}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <StackPanel Orientation="Vertical">
+                        <Button x:Name="OKbtn" 
+                        Margin="6" 
+                        Click="OKbtn_Click" 
+                        Content="OK" 
+                        Width="100"/>
+                        <Button x:Name="newRealm"
+                        Margin="6" 
+                        Width="100"
+                        Click="newRealm_Click" 
+                        Content="New Realm"/>
+                        <Button x:Name="cancelbtn"
+                        Click="cancelbtn_Click"
+                        Margin="6" 
+                        Content="Cancel"
+                        Width="100"/>
+                    </StackPanel>
+                </StackPanel>
+            </Popup>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

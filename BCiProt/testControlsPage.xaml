@@ -1,0 +1,58 @@
+﻿<Page x:Class="BCiProt.testControlsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BCiProt"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+      Title="testControlsPage">
+
+    <Grid Margin="6">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel>
+            <Button Width="150"
+                    Margin="12"
+                    Background="Beige"
+                    Content="Click me to see the popup"/>
+        </StackPanel>
+        
+        <StackPanel Grid.Row="1" x:Name="myPopupLooks" Orientation="Horizontal">
+            <ListBox x:Name="realms" HorizontalContentAlignment="Stretch"  SelectionMode="Single"  SelectionChanged="lbTodoList_SelectionChanged">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="6">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="100" />
+                            </Grid.ColumnDefinitions>
+                            <Image Source="{Binding pictureSource}" Height="16" Width="16"/>
+                            <TextBlock Text="{Binding Title}" />
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <StackPanel Orientation="Vertical">
+                <Button x:Name="OKbtn" 
+                        Margin="6" 
+                        Click="OKbtn_Click" 
+                        Content="OK" 
+                        Width="100"/>
+                <Button x:Name="newRealm"
+                        Margin="6" 
+                        Width="100"
+                        Click="newRealm_Click" 
+                        Content="New Realm"/>
+                <Button x:Name="cancelbtn"
+                        Click="cancelbtn_Click"
+                        Margin="6" 
+                        Content="Cancel"
+                        Width="100"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>
