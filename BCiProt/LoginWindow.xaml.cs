@@ -88,6 +88,11 @@ namespace BCiProt
             txtPassword.Clear();
         }
 
+        /// <summary>
+        /// Invokes the clearFields() method that clears all the textfields of the login form.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ClearButton_Click(object sender, RoutedEventArgs e)
         {
             clearFields();

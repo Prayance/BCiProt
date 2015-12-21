@@ -183,7 +183,8 @@
                 <TabControl Margin="12" 
                             x:Name="myTab"
                             BorderBrush="Gainsboro" 
-                            Resources="{ StaticResource TabContr }" SelectionChanged="myTab_SelectionChanged">
+                            Resources="{ StaticResource TabContr }" 
+                            SelectionChanged="myTab_SelectionChanged">
                     <!-- GENERAL PROFILE TAB -->
                     <TabItem Header="General Profile Settings" x:Name="general" Height="20" VerticalAlignment="Bottom" >
                         <StackPanel Orientation="Vertical" Margin="6,6,6,6">

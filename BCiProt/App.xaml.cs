@@ -36,6 +36,7 @@ namespace BCiProt
             // Step 3 - Load your LoginWindow but don't show it yet
             base.OnStartup(e);
             LoginWindow main = new LoginWindow();
+            // testControlsPage main = new testControlsPage();
 
             // Step 4 - Make sure that the splash screen lasts at least two seconds
             timer.Stop();

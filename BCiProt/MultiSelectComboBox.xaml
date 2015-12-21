@@ -38,30 +38,30 @@
                                         <ColumnDefinition Width="18"/>
                                     </Grid.ColumnDefinitions>
                                     <Border
-                  x:Name="Border" 
-                  Grid.ColumnSpan="2"
-                  CornerRadius="2"
-                  Background="{DynamicResource {x:Static SystemColors.ScrollBarBrushKey}}"
-                  BorderBrush="Black"
-                  BorderThickness="0" />
-                  <Border 
-                    x:Name="BorderComp" 
-                  Grid.Column="0"
-                  CornerRadius="2" 
-                  Margin="1" 
-                 Background="White"
-                  BorderBrush="Black"
-                  BorderThickness="0,0,0,0" >
-                                        <TextBlock Text="{Binding Path=Text,RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" 
+                                      x:Name="Border" 
+                                      Grid.ColumnSpan="2"
+                                      CornerRadius="2"
+                                      Background="{DynamicResource {x:Static SystemColors.ScrollBarBrushKey}}"
+                                      BorderBrush="Black"
+                                      BorderThickness="0" />
+                                    <Border 
+                                        x:Name="BorderComp" 
+                                      Grid.Column="0"
+                                      CornerRadius="2" 
+                                      Margin="1" 
+                                     Background="White"
+                                      BorderBrush="Black"
+                                      BorderThickness="0,0,0,0" >
+                                     <TextBlock Text="{Binding Path=Text,RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" 
                                                Background="White" Padding="3" />
                                     </Border>
                                     <Path 
-                  x:Name="Arrow"
-                  Grid.Column="1"     
-                  Fill="Black"
-                  HorizontalAlignment="Center"
-                  VerticalAlignment="Center"
-                  Data="M 0 0 L 4 4 L 8 0 Z"/>
+                                          x:Name="Arrow"
+                                          Grid.Column="1"     
+                                          Fill="Black"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          Data="M 0 0 L 4 4 L 8 0 Z"/>
                                 </Grid>
                             </ControlTemplate>
                         </ToggleButton.Template>
